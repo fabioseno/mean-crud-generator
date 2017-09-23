@@ -1,0 +1,14 @@
+{
+    "name": "mean-crud-gen",
+    "version": "0.1.0",
+    "description": "A command-line tool for creating CRUD operations using the MEAN stack.",
+    "bin": "./crud-gen.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Fábio Akira Yoshida",
+    "license": "ISC",
+    "dependencies": {
+        "commander": "^2.11.0"
+    }
+}
