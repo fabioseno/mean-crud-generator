@@ -2,9 +2,27 @@ var fs = require('fs');
 var path = require('path');
 
 function readTemplate(folder, filename) {
-    return fs.readFileSync(path.join(__dirname, '..', 'templates', folder, filename), 'utf8');
+    var content = '',
+        filePath = path.join(__dirname, '..', 'templates', folder, filename);
+    
+    if (fs.existsSync(filePath)) {
+        content = fs.readFileSync(filePath, 'utf8');
+    }
+    
+    return content;
+}
+
+function writeFile(filename, content) {
+    var filePath = path.join(__dirname, '..', 'output', filename);
+
+    if (!fs.existsSync('./output')) {
+        fs.mkdirSync('./output');
+    }
+
+    fs.writeFileSync(filePath, content, 'utf-8');
 }
 
 module.exports = {
-    readTemplate: readTemplate
+    readTemplate: readTemplate,
+    writeFile: writeFile
 };

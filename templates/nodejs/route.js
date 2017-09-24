@@ -4,19 +4,19 @@ module.exports = function (router) {
     
     var {controllerName} = require('../controllers/{entityName}');
     
-    // List All
+    // List
     router.get('/{pluralEntityName}', {controllerName}.list);
     
     // Get
-    router.get('/{entityName}/:id', {controllerName}.get);
+    router.get('/{pluralEntityName}/:id', {controllerName}.get);
     
     // Add
     router.put('/{pluralEntityName}', {controllerName}.add);
     
-    // Save
-    router.post('/{entityName}/:id', {controllerName}.update);
+    // Update
+    router.post('/{pluralEntityName}/:id', {controllerName}.update);
     
-    // Delete
-    router['delete']('/{entityName}/:id', {controllerName}.remove);
+    // Remove
+    router['delete']('/{pluralEntityName}/:id', {controllerName}.remove);
     
 };

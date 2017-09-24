@@ -1,0 +1,40 @@
+{
+	"entity": "user",
+	"pluralName": "users",
+	"modelName": "userModel",
+	"controllerName": "userController",
+	"routerName": "userRouter",
+	"listViewHtmlPage": "users.html",
+	"listViewJSPage": "users.js",
+	"detailsViewHtmlPage": "user.html",
+	"detailsViewJSPage": "user.js",
+	"fields": [
+		{
+			"name": "name",
+			"dataType": "string",
+			"controlType": "text",
+			"maxlength": "30",
+			"required": true,
+			"listView": true,
+			"detailsView": true
+		},
+		{
+			"name": "email",
+			"dataType": "string",
+			"controlType": "text",
+			"maxlength": "100",
+			"required": true,
+			"listView": true,
+			"detailsView": true
+		},
+		{
+			"name": "phone",
+			"dataType": "string",
+			"controlType": "text",
+			"maxlength": "20",
+			"required": true,
+			"listView": true,
+			"detailsView": true
+		}
+	]
+}

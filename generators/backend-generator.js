@@ -22,6 +22,12 @@ function generateRoute(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'route.js');
 
+    template = template.replace(/{entityName}/g, config.entity);
+    template = template.replace(/{pluralEntityName}/g, config.pluralName);
+    template = template.replace(/{controllerName}/g, config.controllerName);
+
+    tools.writeFile(config.entity + 'Route.js', template);
+
     cb(null, true);
 }
 
