@@ -1,25 +1,36 @@
-function generateListViewHtml(cb) {
+var tools = require('./tools');
+var frontendFolder = 'angularjs';
+
+function generateListViewHtml(config, cb) {
     console.log('Generating list view HTML...');
 
-    cb();
+    var template = tools.readTemplate(frontendFolder, 'list.html');
+
+    cb(null, true);
 }
 
-function generateListViewLogic(cb) {
+function generateListViewLogic(config, cb) {
     console.log('Generating list view logic...');
 
-    cb();
+    var template = tools.readTemplate(frontendFolder, 'list.js');
+
+    cb(null, true);
 }
 
-function generateDetailsViewHtml(cb) {
+function generateDetailsViewHtml(config, cb) {
     console.log('Generating details view HTML...');
 
-    cb();
+    var template = tools.readTemplate(frontendFolder, 'details.html');
+
+    cb(null, true);
 }
 
-function generateDetailsViewLogic(cb) {
+function generateDetailsViewLogic(config, cb) {
     console.log('Generating details view logic...');
 
-    cb();
+    var template = tools.readTemplate(frontendFolder, 'details.js');
+
+    cb(null, true);
 }
 
 module.exports = {

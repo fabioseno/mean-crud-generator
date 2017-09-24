@@ -1,19 +1,28 @@
-function generateModel(cb) {
-    console.log('Generating model...');
+var tools = require('./tools');
+var backendFolder = 'nodejs';
 
-    cb();
+function generateModel(config, cb) {
+    console.log('Generating model...');
+    
+    var template = tools.readTemplate(backendFolder, 'model.js');
+
+    cb(null, true);
 }
 
-function generateController(cb) {
+function generateController(config, cb) {
     console.log('Generating controller...');
 
-    cb();
+    var template = tools.readTemplate(backendFolder, 'controller.js');
+
+    cb(null, true);
 }
 
-function generateRoute(cb) {
+function generateRoute(config, cb) {
     console.log('Generating route...');
 
-    cb();
+    var template = tools.readTemplate(backendFolder, 'route.js');
+
+    cb(null, true);
 }
 
 module.exports = {

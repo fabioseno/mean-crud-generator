@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var program = require('commander');
 var fs = require('fs');
+var os = require('os');
 var async = require('async');
 var backend = require('./generators/backend-generator');
 var frontend = require('./generators/frontend-generator');
@@ -13,25 +14,34 @@ program
                 return console.log(err);
             }
 
+            var config = JSON.parse(data);
+
+            console.log(os.EOL);
+
             async.parallel([
                 function (cb) {
-                    backend.generateModel(cb);
+                    backend.generateModel(config, cb);
                 }, function (cb) {
-                    backend.generateController(cb);
+                    backend.generateController(config, cb);
                 }, function (cb) {
-                    backend.generateRoute(cb);
-                }, function (cb) {
-                    frontend.generateListViewHtml(cb);
-                }, function (cb) {
-                    frontend.generateListViewLogic(cb);
-                }, function (cb) {
-                    frontend.generateDetailsViewHtml(cb);
-                }, function (cb) {
-                    frontend.generateDetailsViewLogic(cb);
+                    backend.generateRoute(config, cb);
                 }
             ], function(err, results) {
-                // optional callback
-                console.log('Finished generating files');
+                console.log('Finished generating backend files' + os.EOL);
+            });
+
+            async.parallel([
+                function (cb) {
+                    frontend.generateListViewHtml(config, cb);
+                }, function (cb) {
+                    frontend.generateListViewLogic(config, cb);
+                }, function (cb) {
+                    frontend.generateDetailsViewHtml(config, cb);
+                }, function (cb) {
+                    frontend.generateDetailsViewLogic(config, cb);
+                }
+            ], function(err, results) {
+                console.log('Finished generating frontend files' + os.EOL);
             });
         });
     })
