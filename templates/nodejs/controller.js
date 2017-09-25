@@ -1,5 +1,5 @@
 /*global require, module*/
-var {modelName} = require('../models/{entityName}'),
+var {modelName} = require('../models/{modelFilename}'),
     pagination = require('../utils/pagination'),
     messageHandler = require('../utils/messageHandler')
 

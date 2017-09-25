@@ -1,0 +1,48 @@
+{
+	"model": {
+		"pluralName": "cars",
+		"name": "Car",
+		"schemaName": "carSchema",
+		"filename": "car.js"
+	},
+	"controller": {
+		"name": "carController",
+		"filename": "cars.js"
+	},
+	"router": {
+		"filename": "cars.js"
+	},
+	"pages": {
+		"listViewHtmlPageFilename": "car-list.html",
+		"listViewJSPageFilename": "car-list.js",
+		"detailsViewHtmlPageFilename": "car-details.html",
+		"detailsViewJSPageFilename": "car-details.js"
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "string",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "name",
+			"fieldLabel": "Nome",
+			"maxlength": "100",
+			"unique": true
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "string",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "model",
+			"fieldLabel": "Modelo"
+		}
+	],
+	"entityName": "car"
+}

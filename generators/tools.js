@@ -15,8 +15,8 @@ function readTemplate(folder, filename) {
 function writeFile(filename, content) {
     var filePath = path.join(__dirname, '..', 'output', filename);
 
-    if (!fs.existsSync('./output')) {
-        fs.mkdirSync('./output');
+    if (!fs.existsSync(path.dirname(filePath))) {
+        fs.mkdirSync(path.dirname(filePath));
     }
 
     fs.writeFileSync(filePath, content, 'utf-8');

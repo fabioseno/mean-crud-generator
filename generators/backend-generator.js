@@ -6,6 +6,8 @@ function generateModel(config, cb) {
     
     var template = tools.readTemplate(backendFolder, 'model.js');
 
+    tools.writeFile('/models/' + config.model.filename, template);
+
     cb(null, true);
 }
 
@@ -14,11 +16,12 @@ function generateController(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'controller.js');
 
-    template = template.replace(/{entityName}/g, config.entity);
-    template = template.replace(/{modelName}/g, config.modelName);
-    template = template.replace(/{pluralEntityName}/g, config.pluralName);
+    template = template.replace(/{entityName}/g, config.entityName);
+    template = template.replace(/{modelName}/g, config.model.name);
+    template = template.replace(/{modelFilename}/g, config.model.filename);
+    template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
 
-    tools.writeFile(config.entity + 'Controller.js', template);
+    tools.writeFile('/controllers/' + config.controller.filename, template);
 
     cb(null, true);
 }
@@ -28,11 +31,11 @@ function generateRoute(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'route.js');
 
-    template = template.replace(/{entityName}/g, config.entity);
-    template = template.replace(/{pluralEntityName}/g, config.pluralName);
-    template = template.replace(/{controllerName}/g, config.controllerName);
+    template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
+    template = template.replace(/{controllerName}/g, config.controller.name);
+    template = template.replace(/{controllerFilename}/g, config.controller.filename);
 
-    tools.writeFile(config.entity + 'Route.js', template);
+    tools.writeFile('/routes/' + config.router.filename, template);
 
     cb(null, true);
 }

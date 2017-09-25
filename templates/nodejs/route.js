@@ -2,7 +2,7 @@
 module.exports = function (router) {
     'use strict';
     
-    var {controllerName} = require('../controllers/{entityName}');
+    var {controllerName} = require('../controllers/{controllerFilename}');
     var auth = require('../middlewares/session');
     
     // List

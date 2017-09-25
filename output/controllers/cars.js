@@ -1,12 +1,12 @@
 /*global require, module*/
-var carModel = require('../models/car'),
+var Car = require('../models/car.js'),
     pagination = require('../utils/pagination'),
     messageHandler = require('../utils/messageHandler')
 
     list = function (req, res) {
         'use strict';
 
-        pagination.paginate(carModel.find(), null, null, function (err, cars) {
+        pagination.paginate(Car.find(), null, null, function (err, cars) {
             messageHandler.wrapResponse(res, err, cars);
         });
     },
@@ -16,10 +16,11 @@ var carModel = require('../models/car'),
 
         var pagingOptions = req.body.pagingOptions,
             sortOptions = req.body.sortOptions,
-            query = carModel.find(),
+            query = Car.find(),
             regex;
 
         if (req.body.searchCriteria) {
+            //TODO:  search criteria here
             if (req.body.searchCriteria.name) {
                 regex = new RegExp(req.body.searchCriteria.name, 'i');
 
@@ -51,7 +52,7 @@ var carModel = require('../models/car'),
     get = function (req, res) {
         'use strict';
 
-        carModel.findById(req.params.id, function (err, car) {
+        Car.findById(req.params.id, function (err, car) {
             messageHandler.wrapResponse(res, err, car);
         });
     },
@@ -64,7 +65,7 @@ var carModel = require('../models/car'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
-        var model = new carModel(req.body);
+        var model = new Car(req.body);
 
         model.creationDate = new Date();
 
@@ -81,6 +82,7 @@ var carModel = require('../models/car'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
+        // TODO: update fields
         var data = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -89,7 +91,7 @@ var carModel = require('../models/car'),
             status: req.body.status
         };
 
-        carModel.findByIdAndUpdate(req.params.id, data, function (err, car) {
+        Car.findByIdAndUpdate(req.params.id, data, function (err, car) {
             messageHandler.wrapResponse(res, err, car);
         });
     },
@@ -97,7 +99,7 @@ var carModel = require('../models/car'),
     remove = function (req, res) {
         'use strict';
 
-        carModel.findByIdAndRemove(req.params.id, function (err, car) {
+        Car.findByIdAndRemove(req.params.id, function (err, car) {
             messageHandler.wrapResponse(res, err, car);
         });
     };

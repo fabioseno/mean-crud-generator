@@ -2,7 +2,7 @@
 module.exports = function (router) {
     'use strict';
     
-    var carController = require('../controllers/car');
+    var carController = require('../controllers/cars.js');
     var auth = require('../middlewares/session');
     
     // List
