@@ -20,6 +20,7 @@ var {modelName} = require('../models/{entityName}'),
             regex;
 
         if (req.body.searchCriteria) {
+            //TODO:  search criteria here
             if (req.body.searchCriteria.name) {
                 regex = new RegExp(req.body.searchCriteria.name, 'i');
 
@@ -81,6 +82,7 @@ var {modelName} = require('../models/{entityName}'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
+        // TODO: update fields
         var data = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
