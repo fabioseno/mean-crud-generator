@@ -1,13 +1,13 @@
 {
-	"entity": "user",
-	"pluralName": "users",
-	"modelName": "userModel",
-	"controllerName": "userController",
-	"routerName": "userRouter",
-	"listViewHtmlPage": "users.html",
-	"listViewJSPage": "users.js",
-	"detailsViewHtmlPage": "user.html",
-	"detailsViewJSPage": "user.js",
+	"entity": "car",
+	"pluralName": "cars",
+	"modelName": "carModel",
+	"controllerName": "carController",
+	"routerName": "carRouter",
+	"listViewHtmlPage": "cars.html",
+	"listViewJSPage": "cars.js",
+	"detailsViewHtmlPage": "car.html",
+	"detailsViewJSPage": "car.js",
 	"fields": [
 		{
 			"name": "name",

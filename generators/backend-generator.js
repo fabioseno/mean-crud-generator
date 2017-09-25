@@ -14,6 +14,12 @@ function generateController(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'controller.js');
 
+    template = template.replace(/{entityName}/g, config.entity);
+    template = template.replace(/{modelName}/g, config.modelName);
+    template = template.replace(/{pluralEntityName}/g, config.pluralName);
+
+    tools.writeFile(config.entity + 'Controller.js', template);
+
     cb(null, true);
 }
 

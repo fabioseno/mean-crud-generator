@@ -3,20 +3,24 @@ module.exports = function (router) {
     'use strict';
     
     var userController = require('../controllers/user');
+    var auth = require('../middlewares/session');
     
     // List
-    router.get('/users', userController.list);
+    router.get('/users', auth.isLogged, userController.list);
     
+    // Search
+    router.post('/users/search', auth.isLogged, auth, userController.search);
+
     // Get
-    router.get('/users/:id', userController.get);
+    router.get('/users/:id', auth.isLogged, userController.get);
     
     // Add
-    router.put('/users', userController.add);
+    router.put('/users', auth.isLogged, userController.add);
     
     // Update
-    router.post('/users/:id', userController.update);
+    router.post('/users/:id', auth.isLogged, userController.update);
     
     // Remove
-    router['delete']('/users/:id', userController.remove);
+    router['delete']('/users/:id', auth.isLogged, userController.remove);
     
 };
