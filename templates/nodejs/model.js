@@ -1,11 +1,10 @@
 /*global require, module*/
 var mongoose = require('mongoose'),
-    userSchema = new mongoose.Schema({
-        //{fields}
-        //model.creationDate = new Date();
-    });
+    userSchema = new mongoose.Schema({fields});
+    //model.creationDate = new Date();
+);
 
-    {entityModelSchema}.virtual('id').get(function () {
+{entityModelSchema}.virtual('id').get(function () {
     'use strict';
 
     return this._id.toHexString();

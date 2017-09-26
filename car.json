@@ -9,7 +9,7 @@
 		"name": "carController",
 		"filename": "cars.js"
 	},
-	"router": {
+	"route": {
 		"filename": "cars.js"
 	},
 	"pages": {
@@ -21,7 +21,7 @@
 	"fields": [
 		{
 			"fieldOrder": 1,
-			"dataType": "string",
+			"dataType": "String",
 			"controlType": "text",
 			"listView": true,
 			"detailsView": true,
@@ -29,19 +29,20 @@
 			"required": true,
 			"fieldName": "name",
 			"fieldLabel": "Nome",
-			"maxlength": "100",
-			"unique": true
+			"unique": true,
+			"maxlength": "100"
 		},
 		{
 			"fieldOrder": 2,
-			"dataType": "string",
+			"dataType": "String",
 			"controlType": "text",
 			"listView": true,
 			"detailsView": true,
 			"updateField": true,
 			"required": true,
 			"fieldName": "model",
-			"fieldLabel": "Modelo"
+			"fieldLabel": "Modelo",
+			"maxlength": "30"
 		}
 	],
 	"entityName": "car"

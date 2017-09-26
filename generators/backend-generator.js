@@ -6,6 +6,24 @@ function generateModel(config, cb) {
     
     var template = tools.readTemplate(backendFolder, 'model.js');
 
+    var result = '';
+    var obj = {};
+
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+        
+        obj[field.fieldName] = {
+            type: field.dataType
+        }
+
+        if (field.unique) {
+            obj[field.fieldName].unique = true;
+        }
+    }
+
+    template = template.replace(/{entityModelSchema}/g, config.model.schemaName);
+    template = template.replace(/{fields}/g, JSON.stringify(obj, null, '\t'));
+
     tools.writeFile('/models/' + config.model.filename, template);
 
     cb(null, true);
@@ -35,7 +53,7 @@ function generateRoute(config, cb) {
     template = template.replace(/{controllerName}/g, config.controller.name);
     template = template.replace(/{controllerFilename}/g, config.controller.filename);
 
-    tools.writeFile('/routes/' + config.router.filename, template);
+    tools.writeFile('/routes/' + config.route.filename, template);
 
     cb(null, true);
 }

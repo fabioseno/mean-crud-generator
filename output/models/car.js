@@ -1,17 +1,24 @@
 /*global require, module*/
 var mongoose = require('mongoose'),
-    userSchema = new mongoose.Schema({
-        //{fields}
-        //model.creationDate = new Date();
-    });
+	userSchema = new mongoose.Schema({
+		"name": {
+			"type": "String",
+			"unique": true
+		},
+		"model": {
+			"type": "String"
+		}
+	});
+//model.creationDate = new Date();
+);
 
-    {entityModelSchema}.virtual('id').get(function () {
-    'use strict';
+carSchema.virtual('id').get(function () {
+	'use strict';
 
-    return this._id.toHexString();
+	return this._id.toHexString();
 });
 
-// {entityModelSchema}.methods.toJSON = function () {
+// carSchema.methods.toJSON = function () {
 //     var obj = this.toObject()
 //     delete obj.password
 //     delete obj.creationDate
@@ -20,4 +27,4 @@ var mongoose = require('mongoose'),
 //     return obj
 // }
 
-module.exports = mongoose.model('{entityName}', {entityModelSchema});
+module.exports = mongoose.model('{entityName}', carSchema);
