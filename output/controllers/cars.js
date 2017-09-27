@@ -69,14 +69,10 @@ var Car = require('../models/car.js'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
-        // TODO: update fields
         var data = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            birthday: req.body.birthday,
-            status: req.body.status
-        };
+			name: req.body.name,
+			model: req.body.model
+		};
 
         Car.findByIdAndUpdate(req.params.id, data, function (err, car) {
             messageHandler.wrapResponse(res, err, car);

@@ -51,7 +51,7 @@ function generateController(config, cb) {
             searchObject += '\t\t\t\tregex = new RegExp(req.body.searchCriteria.' + field.fieldName + ', i);' + os.EOL;
             searchObject += '\t\t\t\tquery = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
             searchObject += '\t\t\t}';
-            
+
             if (i !== config.fields.length - 1) {
                 searchObject += os.EOL + os.EOL;
             }
@@ -59,7 +59,28 @@ function generateController(config, cb) {
     }
 
     template = template.replace(/{search_fields}/, searchObject);
+
+    // update fields
+    var updateData = 'var data = {' + os.EOL;
     
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.updateField) {
+            updateData += '\t\t\t' + field.fieldName + ': req.body.' + field.fieldName;
+
+            if (i < config.fields.length - 1) {
+                updateData += ',' + os.EOL;
+            } else {
+                updateData += os.EOL;
+            }
+        }
+    }
+
+    updateData += '\t\t};'
+
+    template = template.replace(/{update_fields}/, updateData);
+
     tools.writeFile('/controllers/' + config.controller.filename, template);
 
     cb(null, true);

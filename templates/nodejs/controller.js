@@ -61,14 +61,7 @@ var {modelName} = require('../models/{modelFilename}'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
-        // TODO: update fields
-        var data = {
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email,
-            birthday: req.body.birthday,
-            status: req.body.status
-        };
+        {update_fields}
 
         {modelName}.findByIdAndUpdate(req.params.id, data, function (err, {entityName}) {
             messageHandler.wrapResponse(res, err, {entityName});
