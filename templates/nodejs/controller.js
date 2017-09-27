@@ -6,7 +6,7 @@ var {modelName} = require('../models/{modelFilename}'),
     list = function (req, res) {
         'use strict';
 
-        pagination.paginate({modelName}.find(), null, null, function (err, {pluralEntityName}) {
+        pagination.paginate({modelName}.find(), null, req.query.sort, function (err, {pluralEntityName}) {
             messageHandler.wrapResponse(res, err, {pluralEntityName});
         });
     },
@@ -15,7 +15,6 @@ var {modelName} = require('../models/{modelFilename}'),
         'use strict';
 
         var pagingOptions = req.body.pagingOptions,
-            sortOptions = req.body.sortOptions,
             query = {modelName}.find(),
             regex;
 
@@ -23,7 +22,7 @@ var {modelName} = require('../models/{modelFilename}'),
 {search_fields}
         }
 
-        pagination.paginate(query, pagingOptions, sortOptions, function (err, {pluralEntityName}) {
+        pagination.paginate(query, pagingOptions, req.query.sort, function (err, {pluralEntityName}) {
             messageHandler.wrapResponse(res, err, {pluralEntityName});
         });
     },
