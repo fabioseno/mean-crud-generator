@@ -19,6 +19,6 @@ $ mean-crud-generator entityConfigFile.json
 ```
 
 ### Config file
-The config file is a JSON representation of the entity in which the source code will rely on and can be manually generated or via a web interface on http://link-here
+The config file is a JSON representation of the entity in which the source code will rely on and can be manually generated or via a web interface on http://link-here (https://github.com/fabioseno/mean-crud-metadata-generator)
 
 #### File structure

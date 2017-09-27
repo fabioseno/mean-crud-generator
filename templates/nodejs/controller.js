@@ -46,8 +46,7 @@ var {modelName} = require('../models/{modelFilename}'),
 
         var model = new {modelName}(req.body);
 
-        model.creationDate = new Date();
-
+        //model.creationDate = new Date();
         model.save(function (err, result) {
             messageHandler.wrapResponse(res, err, result);
         });
