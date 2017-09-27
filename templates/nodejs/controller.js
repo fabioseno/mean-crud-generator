@@ -20,28 +20,7 @@ var {modelName} = require('../models/{modelFilename}'),
             regex;
 
         if (req.body.searchCriteria) {
-            //TODO:  search criteria here
-            if (req.body.searchCriteria.name) {
-                regex = new RegExp(req.body.searchCriteria.name, 'i');
-
-                query = query.or([{
-                    'firstName': {
-                        $regex: regex
-                    }
-                }, {
-                    'lastName': {
-                        $regex: regex
-                    }
-                }]);
-            }
-
-            if (req.body.searchCriteria.login) {
-                regex = new RegExp(req.body.searchCriteria.login, 'i');
-
-                query = query.where('login', {
-                    $regex: regex
-                });
-            }
+{search_fields}
         }
 
         pagination.paginate(query, pagingOptions, sortOptions, function (err, {pluralEntityName}) {

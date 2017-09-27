@@ -20,28 +20,15 @@ var Car = require('../models/car.js'),
             regex;
 
         if (req.body.searchCriteria) {
-            //TODO:  search criteria here
-            if (req.body.searchCriteria.name) {
-                regex = new RegExp(req.body.searchCriteria.name, 'i');
+			if (req.body.searchCriteria.name) {
+				regex = new RegExp(req.body.searchCriteria.name, i);
+				query = query.where('name', { $regex: regex });
+			}
 
-                query = query.or([{
-                    'firstName': {
-                        $regex: regex
-                    }
-                }, {
-                    'lastName': {
-                        $regex: regex
-                    }
-                }]);
-            }
-
-            if (req.body.searchCriteria.login) {
-                regex = new RegExp(req.body.searchCriteria.login, 'i');
-
-                query = query.where('login', {
-                    $regex: regex
-                });
-            }
+			if (req.body.searchCriteria.model) {
+				regex = new RegExp(req.body.searchCriteria.model, i);
+				query = query.where('model', { $regex: regex });
+			}
         }
 
         pagination.paginate(query, pagingOptions, sortOptions, function (err, cars) {

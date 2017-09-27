@@ -1,9 +1,10 @@
 var tools = require('./tools');
+var os = require('os');
 var backendFolder = 'nodejs';
 
 function generateModel(config, cb) {
     console.log('Generating model...');
-    
+
     var template = tools.readTemplate(backendFolder, 'model.js');
 
     var result = '';
@@ -11,7 +12,7 @@ function generateModel(config, cb) {
 
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
-        
+
         obj[field.fieldName] = {
             type: field.dataType
         }
@@ -40,6 +41,25 @@ function generateController(config, cb) {
     template = template.replace(/{modelFilename}/g, config.model.filename);
     template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
 
+    // search criteria
+    var searchObject = '';
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.searchField) {
+            searchObject += '\t\t\tif (req.body.searchCriteria.' + field.fieldName + ') {' + os.EOL;
+            searchObject += '\t\t\t\tregex = new RegExp(req.body.searchCriteria.' + field.fieldName + ', i);' + os.EOL;
+            searchObject += '\t\t\t\tquery = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
+            searchObject += '\t\t\t}';
+            
+            if (i !== config.fields.length - 1) {
+                searchObject += os.EOL + os.EOL;
+            }
+        }
+    }
+
+    template = template.replace(/{search_fields}/, searchObject);
+    
     tools.writeFile('/controllers/' + config.controller.filename, template);
 
     cb(null, true);

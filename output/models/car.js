@@ -1,21 +1,21 @@
 /*global require, module*/
 var mongoose = require('mongoose'),
-	userSchema = new mongoose.Schema({
-		"name": {
-			"type": "String",
-			"unique": true
-		},
-		"model": {
-			"type": "String"
-		}
-	});
-//model.creationDate = new Date();
+    userSchema = new mongoose.Schema({
+	"name": {
+		"type": "String",
+		"unique": true
+	},
+	"model": {
+		"type": "String"
+	}
+});
+    //model.creationDate = new Date();
 );
 
 carSchema.virtual('id').get(function () {
-	'use strict';
+    'use strict';
 
-	return this._id.toHexString();
+    return this._id.toHexString();
 });
 
 // carSchema.methods.toJSON = function () {
