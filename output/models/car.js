@@ -27,4 +27,4 @@ carSchema.virtual('id').get(function () {
 //     return obj
 // }
 
-module.exports = mongoose.model('{entityName}', carSchema);
+module.exports = mongoose.model('Car', carSchema);

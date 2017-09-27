@@ -23,6 +23,7 @@ function generateModel(config, cb) {
 
     template = template.replace(/{entityModelSchema}/g, config.model.schemaName);
     template = template.replace(/{fields}/g, JSON.stringify(obj, null, '\t'));
+    template = template.replace(/{modelName}/g, config.model.name);
 
     tools.writeFile('/models/' + config.model.filename, template);
 

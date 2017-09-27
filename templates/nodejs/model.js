@@ -19,4 +19,4 @@ var mongoose = require('mongoose'),
 //     return obj
 // }
 
-module.exports = mongoose.model('{entityName}', {entityModelSchema});
+module.exports = mongoose.model('{modelName}', {entityModelSchema});
