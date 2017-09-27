@@ -20,6 +20,10 @@ function generateModel(config, cb) {
         if (field.unique) {
             obj[field.fieldName].unique = true;
         }
+
+        if (field.required) {
+            obj[field.fieldName].required = true;
+        }
     }
 
     template = template.replace(/{entityModelSchema}/g, config.model.schemaName);
