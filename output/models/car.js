@@ -1,30 +1,21 @@
 /*global require, module*/
 var mongoose = require('mongoose'),
-    userSchema = new mongoose.Schema({
+    carSchema = new mongoose.Schema({
 	"name": {
 		"type": "String",
-		"unique": true
+		"unique": true,
+		"required": true
 	},
 	"model": {
-		"type": "String"
+		"type": "String",
+		"required": true
 	}
 });
-    //model.creationDate = new Date();
-);
 
 carSchema.virtual('id').get(function () {
     'use strict';
 
     return this._id.toHexString();
 });
-
-// carSchema.methods.toJSON = function () {
-//     var obj = this.toObject()
-//     delete obj.password
-//     delete obj.creationDate
-//     delete obj.lastLogin
-//     delete obj.__v
-//     return obj
-// }
 
 module.exports = mongoose.model('Car', carSchema);

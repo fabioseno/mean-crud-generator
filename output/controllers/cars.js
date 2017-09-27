@@ -21,12 +21,12 @@ var Car = require('../models/car.js'),
 
         if (req.body.searchCriteria) {
 			if (req.body.searchCriteria.name) {
-				regex = new RegExp(req.body.searchCriteria.name, i);
+				regex = new RegExp(req.body.searchCriteria.name, 'i');
 				query = query.where('name', { $regex: regex });
 			}
 
 			if (req.body.searchCriteria.model) {
-				regex = new RegExp(req.body.searchCriteria.model, i);
+				regex = new RegExp(req.body.searchCriteria.model, 'i');
 				query = query.where('model', { $regex: regex });
 			}
         }
@@ -54,8 +54,7 @@ var Car = require('../models/car.js'),
 
         var model = new Car(req.body);
 
-        model.creationDate = new Date();
-
+        //model.creationDate = new Date();
         model.save(function (err, result) {
             messageHandler.wrapResponse(res, err, result);
         });
