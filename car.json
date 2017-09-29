@@ -13,6 +13,8 @@
 		"filename": "cars.js"
 	},
 	"pages": {
+		"listingPageName": "Carros",
+		"detailsPageName": "Carro",
 		"listViewHtmlPageFilename": "car-list.html",
 		"listViewJSPageFilename": "car-list.js",
 		"detailsViewHtmlPageFilename": "car-details.html",

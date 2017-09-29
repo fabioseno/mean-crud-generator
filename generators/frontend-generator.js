@@ -6,6 +6,10 @@ function generateListViewHtml(config, cb) {
 
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
+    template = template.replace(/{listingPageName}/g, config.pages.listingPageName;);
+    
+    tools.writeFile('/pages/' + config.model.name + '-list.html', template);
+
     cb(null, true);
 }
 
