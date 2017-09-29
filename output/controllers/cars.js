@@ -6,7 +6,7 @@ var Car = require('../models/car.js'),
     list = function (req, res) {
         'use strict';
 
-        pagination.paginate(Car.find(), null, null, function (err, cars) {
+        pagination.paginate(Car.find(), null, req.query.sort, function (err, cars) {
             messageHandler.wrapResponse(res, err, cars);
         });
     },
@@ -15,7 +15,6 @@ var Car = require('../models/car.js'),
         'use strict';
 
         var pagingOptions = req.body.pagingOptions,
-            sortOptions = req.body.sortOptions,
             query = Car.find(),
             regex;
 
@@ -31,7 +30,7 @@ var Car = require('../models/car.js'),
 			}
         }
 
-        pagination.paginate(query, pagingOptions, sortOptions, function (err, cars) {
+        pagination.paginate(query, pagingOptions, req.query.sort, function (err, cars) {
             messageHandler.wrapResponse(res, err, cars);
         });
     },
@@ -54,7 +53,6 @@ var Car = require('../models/car.js'),
 
         var model = new Car(req.body);
 
-        //model.creationDate = new Date();
         model.save(function (err, result) {
             messageHandler.wrapResponse(res, err, result);
         });

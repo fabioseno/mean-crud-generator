@@ -1,14 +1,51 @@
 var tools = require('./tools');
+var os = require('os');
 var frontendFolder = 'angularjs';
+
+function capitalize (string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
 
 function generateListViewHtml(config, cb) {
     console.log('Generating list view HTML...');
 
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
-    template = template.replace(/{listingPageName}/g, config.pages.listingPageName;);
+    template = template.replace(/{listViewPageTitle}/g, config.pages.listViewPageTitle);
+
+    // Listing Header
+    var listingHeaderOutput = '';
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        listingHeaderOutput += '\t\t\t\t\t\t\t\t\t<th>' + field.fieldLabel + '</th>';
+
+        if (i !== config.fields.length - 1) {
+            listingHeaderOutput += os.EOL;
+        }
+    }
+
+    template = template.replace(/{listing_header}/g, listingHeaderOutput);
+    template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{model_name}/g, config.model.name);
+    template = template.replace(/{plural_name}/g, config.model.pluralName);
+    template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
+
+    // Listing Fields
+    var listingFieldsOutput = '';
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        listingFieldsOutput += '\t\t\t\t\t\t\t\t\t<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
+
+        if (i !== config.fields.length - 1) {
+            listingFieldsOutput += os.EOL;
+        }
+    }
+
+    template = template.replace(/{listing_fields}/g, listingFieldsOutput);
     
-    tools.writeFile('/pages/' + config.model.name + '-list.html', template);
+    tools.writeFile('/pages/' + config.entityName + '-list.html', template);
 
     cb(null, true);
 }

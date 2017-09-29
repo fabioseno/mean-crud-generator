@@ -3,7 +3,7 @@ var os = require('os');
 var backendFolder = 'nodejs';
 
 function getDataType(dataType) {
-    if (dataType === Integer || dataType === Decimal) {
+    if (dataType === 'Integer' || dataType === 'Decimal') {
         return number;
     } else {
         return dataType;
@@ -22,7 +22,7 @@ function generateModel(config, cb) {
         var field = config.fields[i];
 
         obj[field.fieldName] = {
-            type: getDataType(field.dataType);
+            type: getDataType(field.dataType)
         }
 
         if (field.unique) {

@@ -13,12 +13,14 @@
 		"filename": "cars.js"
 	},
 	"pages": {
-		"listingPageName": "Carros",
-		"detailsPageName": "Carro",
+		"listViewPageTitle": "Cars",
 		"listViewHtmlPageFilename": "car-list.html",
 		"listViewJSPageFilename": "car-list.js",
+		"listViewJSPageControllerName": "carList",
+		"detailsViewPageTitle": "Car",
 		"detailsViewHtmlPageFilename": "car-details.html",
-		"detailsViewJSPageFilename": "car-details.js"
+		"detailsViewJSPageFilename": "car-details.js",
+		"detailsViewJSPageControllerName": "carDetails"
 	},
 	"fields": [
 		{
@@ -28,12 +30,11 @@
 			"listView": true,
 			"detailsView": true,
 			"updateField": true,
-			"searchField": true,
 			"required": true,
 			"fieldName": "name",
 			"fieldLabel": "Nome",
-			"unique": true,
-			"maxlength": "100"
+			"maxlength": "100",
+			"searchField": true
 		},
 		{
 			"fieldOrder": 2,
@@ -42,11 +43,10 @@
 			"listView": true,
 			"detailsView": true,
 			"updateField": true,
-			"searchField": true,
 			"required": true,
 			"fieldName": "model",
 			"fieldLabel": "Modelo",
-			"maxlength": "30"
+			"searchField": true
 		}
 	],
 	"entityName": "car"
