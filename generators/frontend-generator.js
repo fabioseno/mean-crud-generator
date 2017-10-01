@@ -85,6 +85,11 @@ function generateDetailsViewLogic(config, cb) {
     
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{plural_name}/g, config.model.pluralName);
+    template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
+
+    var controls;
+
+    template = template.replace(/{controls}/g, controls);
     
     tools.writeFile('/pages/' + config.entityName + '-details.js', template);
     

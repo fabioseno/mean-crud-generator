@@ -8,7 +8,7 @@
         vm.operation = ((!$stateParams.id || $stateParams.id === 'add') ? 'add' : 'edit');
         vm.actionButtonLabel = (vm.operation === 'add' ? 'Adicionar' : 'Atualizar');
         vm.{entity_name} = {};
-        vm.mask = registrationManager.mask;
+        //vm.mask = registrationManager.mask;
         
         vm.getDetails = function () {
             var params;
@@ -29,7 +29,7 @@
         };
 
         vm.save{model_name} = function () {
-            var confirm, selected, params = {};
+            var confirm, params = {};
 
             if (vm.userForm.$valid) {
                 params.data = {
@@ -45,7 +45,7 @@
                     params.data.senha = vm.user.senha;
 
                     confirm = $mdDialog.confirm()
-                        .title('Usuário')
+                        .title('{details_view_page_title}')
                         .content('Confirma a criação do usuário?')
                         .ariaLabel('Criação de usuário')
                         .ok('Sim')
@@ -54,14 +54,14 @@
                     $mdDialog.show(confirm).then(function () {
                         profileManager.create{model_name}(params).then(function (result) {
                             if (result.sucesso) {
-                                toaster.show('Usuário criado com sucesso!');
+                                toaster.show('{details_view_page_title} criado com sucesso!');
                                 $location.url('/admin/usuarios');
                             }
                         });
                     });
                 } else {
                     confirm = $mdDialog.confirm()
-                        .title('Usuário')
+                        .title('{details_view_page_title}')
                         .content('Confirma a atualização do usuário?')
                         .ariaLabel('Alteração de usuário')
                         .ok('Sim')
@@ -74,7 +74,7 @@
                     $mdDialog.show(confirm).then(function () {
                         profileManager.update{model_name}(params).then(function (result) {
                             if (result.sucesso) {
-                                toaster.show('Usuário alterado com sucesso!');
+                                toaster.show('{details_view_page_title} alterado com sucesso!');
                                 $location.url('/admin/usuarios');
                             }
                         });
@@ -85,7 +85,7 @@
 
         vm.delete{model_name} = function () {
             var confirm = $mdDialog.confirm()
-                .title('Usuário')
+                .title('{details_view_page_title}')
                 .content('Confirma a exclusão do usuário?')
                 .ariaLabel('Exclusão de usuário')
                 .ok('Sim')
@@ -100,7 +100,7 @@
 
                 profileManager.delete{model_name}(params).then(function (result) {
                     if (result.sucesso) {
-                        toaster.show('Usuário excluído com sucesso!');
+                        toaster.show('{details_view_page_title} excluído com sucesso!');
                         $location.url('/admin/usuarios');
                     }
                 });
