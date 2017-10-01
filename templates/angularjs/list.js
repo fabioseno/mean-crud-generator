@@ -28,7 +28,7 @@
         vm.list{model_plural_name}();
     }
 
-    {model_plural_name}.$inject = ['$location', 'profileManager'];
+    {model_plural_name}.$inject = ['$location', '{entity_name}Manager'];
 
     angular.module('app').controller('{plural_name}', {model_plural_name});
 

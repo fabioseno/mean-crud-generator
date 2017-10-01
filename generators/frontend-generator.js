@@ -60,7 +60,7 @@ function generateListViewLogic(config, cb) {
     template = template.replace(/{plural_name}/g, config.model.pluralName);
     template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
     
-    tools.writeFile('/pages/' + config.entityName + '-list.html', template);
+    tools.writeFile('/pages/' + config.entityName + '-list.js', template);
 
     cb(null, true);
 }
