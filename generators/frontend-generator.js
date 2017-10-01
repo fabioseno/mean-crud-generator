@@ -73,7 +73,7 @@ function generateDetailsViewHtml(config, cb) {
     template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
     template = template.replace(/{model_name}/g, config.model.name);
 
-    tools.writeFile('/pages/' + config.entityName + '-details.js', template);
+    tools.writeFile('/pages/' + config.entityName + '-details.html', template);
 
     cb(null, true);
 }
@@ -82,7 +82,12 @@ function generateDetailsViewLogic(config, cb) {
     console.log('Generating details view logic...');
 
     var template = tools.readTemplate(frontendFolder, 'details.js');
-
+    
+    template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{plural_name}/g, config.model.pluralName);
+    
+    tools.writeFile('/pages/' + config.entityName + '-details.js', template);
+    
     cb(null, true);
 }
 
