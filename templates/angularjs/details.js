@@ -29,21 +29,12 @@
         };
 
         vm.save{model_name} = function () {
-            var confirm, params = {};
+            var confirm, params = {
+                data: vm.{entity_name}
+            };
 
             if (vm.userForm.$valid) {
-                params.data = {
-                    nomeCliente: vm.user.nomeCliente,
-                    tipoPessoa: 'F',
-                    rg: vm.user.rg,
-                    dataNascimento: vm.dataNascimento,
-                    email: vm.user.email
-                };
-
                 if (vm.operation === 'add') {
-                    params.data.cpfCnpj = vm.user.cpfCnpj;
-                    params.data.senha = vm.user.senha;
-
                     confirm = $mdDialog.confirm()
                         .title('{details_view_page_title}')
                         .content('Confirma a criação do usuário?')
