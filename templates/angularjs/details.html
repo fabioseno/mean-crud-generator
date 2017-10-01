@@ -1,7 +1,7 @@
 <div class="page page-form">
 	<div class="row ui-section">
 		<div class="col-lg-8 clearfix">
-			<h2 class="section-header">Usuário</h2>
+			<h2 class="section-header">{details_view_page_title}</h2>
 		</div>
 		<div class="col-md-12">
 			<section class="panel panel-default">
@@ -14,7 +14,7 @@
 							<div class="col-lg-12">
 								<section class="panel panel-default">
 									<div class="panel-body padding-vertical">
-										<div class="form-group col-lg-12">
+										<!-- <div class="form-group col-lg-12">
 											<label for="nome">Nome</label>
 											<input type="text" id="nome" name="nome" required class="form-control" data-ng-model="vm.user.nomeCliente">
 											<div ng-messages="vm.userForm.nome.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.nome.$dirty">
@@ -71,36 +71,17 @@
 												<div ng-message="required">Campo obrigatório</div>
 												<div ng-message="match">Senha e confirmaçao de senham devem ser iguais</div>
 											</div>
-										</div>
+										</div> -->
 									</div>
 								</section>
 							</div>
 						</div>
-						<div class="section-header">
-							<h4>Perfis</h4>
-						</div>
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="panel panel-default">
-									<div class="panel-body no-padding">
-										<md-content>
-											<md-list class="ui-material-list">
-												<md-list-item data-ng-repeat="userGroup in vm.userGroups | orderBy : 'nome'">
-													<md-checkbox class="md-primary" style="margin-top:0px" ng-model="vm.selectedUserGroups[userGroup.id]" aria-label="{{ userGroup.nome }}"></md-checkbox>
-													<p>{{ userGroup.nome }}</p>
-												</md-list-item>
-											</md-list>
-										</md-content>
-									</div>
-								</div>
-							</div>
-						</div>
 						<div class="row">
 							<div class="form-group col-lg-12">
-								<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.saveUser()">
+								<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.save{model_name}()">
 									<span class="fa fa-pencil"></span> {{ vm.actionButtonLabel }}
 								</md-button>
-								<md-button class="md-raised btn-w-md md-primary" data-ng-hide="vm.operation === 'add'" data-ng-click="vm.deleteUser()">
+								<md-button class="md-raised btn-w-md md-primary" data-ng-hide="vm.operation === 'add'" data-ng-click="vm.delete{model_name}()">
 									<span class="fa fa-trash"></span> Excluir
 								</md-button>
 								<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.cancel()">

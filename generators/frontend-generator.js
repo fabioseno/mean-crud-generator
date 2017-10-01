@@ -11,7 +11,7 @@ function generateListViewHtml(config, cb) {
 
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
-    template = template.replace(/{listViewPageTitle}/g, config.pages.listViewPageTitle);
+    template = template.replace(/{list_view_page_title}/g, config.pages.listViewPageTitle);
 
     // Listing Header
     var listingHeaderOutput = '';
@@ -69,6 +69,11 @@ function generateDetailsViewHtml(config, cb) {
     console.log('Generating details view HTML...');
 
     var template = tools.readTemplate(frontendFolder, 'details.html');
+
+    template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
+    template = template.replace(/{model_name}/g, config.model.name);
+
+    tools.writeFile('/pages/' + config.entityName + '-details.js', template);
 
     cb(null, true);
 }
