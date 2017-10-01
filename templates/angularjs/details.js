@@ -37,8 +37,8 @@
                 if (vm.operation === 'add') {
                     confirm = $mdDialog.confirm()
                         .title('{details_view_page_title}')
-                        .content('Confirma a criação do usuário?')
-                        .ariaLabel('Criação de usuário')
+                        .content('Confirma a criação do {entity_title}?')
+                        .ariaLabel('Criação de {entity_title}')
                         .ok('Sim')
                         .cancel('Não');
 
@@ -46,15 +46,15 @@
                         profileManager.create{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} criado com sucesso!');
-                                $location.url('/admin/usuarios');
+                                $location.url('/admin/{entity_plural_title}');
                             }
                         });
                     });
                 } else {
                     confirm = $mdDialog.confirm()
                         .title('{details_view_page_title}')
-                        .content('Confirma a atualização do usuário?')
-                        .ariaLabel('Alteração de usuário')
+                        .content('Confirma a atualização do {entity_title}?')
+                        .ariaLabel('Alteração de {entity_title}')
                         .ok('Sim')
                         .cancel('Não');
 
@@ -66,7 +66,7 @@
                         profileManager.update{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} alterado com sucesso!');
-                                $location.url('/admin/usuarios');
+                                $location.url('/admin/{entity_plural_title}');
                             }
                         });
                     });
@@ -77,8 +77,8 @@
         vm.delete{model_name} = function () {
             var confirm = $mdDialog.confirm()
                 .title('{details_view_page_title}')
-                .content('Confirma a exclusão do usuário?')
-                .ariaLabel('Exclusão de usuário')
+                .content('Confirma a exclusão do {entity_title}?')
+                .ariaLabel('Exclusão de {entity_title}')
                 .ok('Sim')
                 .cancel('Não');
 
@@ -92,7 +92,7 @@
                 profileManager.delete{model_name}(params).then(function (result) {
                     if (result.sucesso) {
                         toaster.show('{details_view_page_title} excluído com sucesso!');
-                        $location.url('/admin/usuarios');
+                        $location.url('/admin/{entity_plural_title}');
                     }
                 });
             });
