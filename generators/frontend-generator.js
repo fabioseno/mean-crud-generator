@@ -55,6 +55,13 @@ function generateListViewLogic(config, cb) {
 
     var template = tools.readTemplate(frontendFolder, 'list.js');
 
+    template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{model_name}/g, config.model.name);
+    template = template.replace(/{plural_name}/g, config.model.pluralName);
+    template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
+    
+    tools.writeFile('/pages/' + config.entityName + '-list.html', template);
+
     cb(null, true);
 }
 

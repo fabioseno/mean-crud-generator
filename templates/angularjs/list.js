@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    function Users($location, profileManager) {
+    function {model_plural_name}($location, {entity_name}Manager) {
         var vm = this;
 
         vm.filter = {
@@ -11,25 +11,25 @@
             s: 10  // pageSize
         };
         
-        vm.addUser = function () {
-            $location.url('/admin/usuarios/add');
+        vm.add{model_name} = function () {
+            $location.url('/admin/{plural_name}/add');
         };
 
-        vm.listUsers = function () {
-            profileManager.listUsers().then(function (result) {
+        vm.list{model_plural_name} = function () {
+            {entity_name}Manager.list{model_plural_name}().then(function (result) {
                 if (result.sucesso) {
-                    vm.users = result.data;
+                    vm.{plural_name} = result.data;
                     vm.filter.p = result.page.currentPage;
                     vm.filter.totalItems = result.page.totalItems;
                 }
             });
         };
 
-        vm.listUsers();
+        vm.list{model_plural_name}();
     }
 
-    Users.$inject = ['$location', 'profileManager'];
+    {model_plural_name}.$inject = ['$location', 'profileManager'];
 
-    angular.module('app').controller('usuarios', Users);
+    angular.module('app').controller('{plural_name}', {model_plural_name});
 
 }());
