@@ -102,6 +102,7 @@ function generateDetailsViewLogic(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'details.js');
 
     template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{plural_name}/g, config.model.pluralName);
     template = template.replace(/{entity_title}/g, config.entityTitle);
     template = template.replace(/{entity_plural_title}/g, config.entityPluralTitle);

@@ -13,11 +13,11 @@
 		"filename": "cars.js"
 	},
 	"pages": {
-		"listViewPageTitle": "Cars",
+		"listViewPageTitle": "Carro",
 		"listViewHtmlPageFilename": "car-list.html",
 		"listViewJSPageFilename": "car-list.js",
 		"listViewJSPageControllerName": "carList",
-		"detailsViewPageTitle": "Car",
+		"detailsViewPageTitle": "Carro",
 		"detailsViewHtmlPageFilename": "car-details.html",
 		"detailsViewJSPageFilename": "car-details.js",
 		"detailsViewJSPageControllerName": "carDetails"
@@ -49,5 +49,7 @@
 			"searchField": true
 		}
 	],
-	"entityName": "car"
+	"entityName": "car",
+	"entityTitle": "carro",
+	"entityPluralTitle": "carros"
 }

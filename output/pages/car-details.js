@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    function {model_name}($location, $mdDialog, $stateParams, registrationManager, carManager, toaster) {
+    function Car($location, $mdDialog, $stateParams, registrationManager, carManager, toaster) {
         var vm = this;
 
         vm.operation = ((!$stateParams.id || $stateParams.id === 'add') ? 'add' : 'edit');
@@ -20,7 +20,7 @@
                     }
                 };
 
-                carManager.get{model_name}(params).then(function (result) {
+                carManager.getCar(params).then(function (result) {
                     if (result.sucesso) {
                         vm.car = result.data;
                     }
@@ -28,7 +28,7 @@
             }
         };
 
-        vm.save{model_name} = function () {
+        vm.saveCar = function () {
             var confirm, params = {
                 data: vm.car
             };
@@ -36,25 +36,25 @@
             if (vm.userForm.$valid) {
                 if (vm.operation === 'add') {
                     confirm = $mdDialog.confirm()
-                        .title('Car')
-                        .content('Confirma a criação do undefined?')
-                        .ariaLabel('Criação de undefined')
+                        .title('Carro')
+                        .content('Confirma a criação do carro?')
+                        .ariaLabel('Criação de carro')
                         .ok('Sim')
                         .cancel('Não');
 
                     $mdDialog.show(confirm).then(function () {
-                        profileManager.create{model_name}(params).then(function (result) {
+                        profileManager.createCar(params).then(function (result) {
                             if (result.sucesso) {
-                                toaster.show('Car criado com sucesso!');
-                                $location.url('/admin/undefined');
+                                toaster.show('Carro criado com sucesso!');
+                                $location.url('/admin/carros');
                             }
                         });
                     });
                 } else {
                     confirm = $mdDialog.confirm()
-                        .title('Car')
-                        .content('Confirma a atualização do undefined?')
-                        .ariaLabel('Alteração de undefined')
+                        .title('Carro')
+                        .content('Confirma a atualização do carro?')
+                        .ariaLabel('Alteração de carro')
                         .ok('Sim')
                         .cancel('Não');
 
@@ -63,10 +63,10 @@
                     };
 
                     $mdDialog.show(confirm).then(function () {
-                        profileManager.update{model_name}(params).then(function (result) {
+                        profileManager.updateCar(params).then(function (result) {
                             if (result.sucesso) {
-                                toaster.show('Car alterado com sucesso!');
-                                $location.url('/admin/undefined');
+                                toaster.show('Carro alterado com sucesso!');
+                                $location.url('/admin/carros');
                             }
                         });
                     });
@@ -74,11 +74,11 @@
             }
         };
 
-        vm.delete{model_name} = function () {
+        vm.deleteCar = function () {
             var confirm = $mdDialog.confirm()
-                .title('Car')
-                .content('Confirma a exclusão do undefined?')
-                .ariaLabel('Exclusão de undefined')
+                .title('Carro')
+                .content('Confirma a exclusão do carro?')
+                .ariaLabel('Exclusão de carro')
                 .ok('Sim')
                 .cancel('Não');
 
@@ -89,10 +89,10 @@
                     }
                 };
 
-                profileManager.delete{model_name}(params).then(function (result) {
+                profileManager.deleteCar(params).then(function (result) {
                     if (result.sucesso) {
-                        toaster.show('Car excluído com sucesso!');
-                        $location.url('/admin/undefined');
+                        toaster.show('Carro excluído com sucesso!');
+                        $location.url('/admin/carros');
                     }
                 });
             });
@@ -105,8 +105,8 @@
         vm.getDetails();
     }
 
-    {model_name}.$inject = ['$location', '$mdDialog', '$stateParams', 'registrationManager', 'carManager', 'toaster'];
+    Car.$inject = ['$location', '$mdDialog', '$stateParams', 'registrationManager', 'carManager', 'toaster'];
 
-    angular.module('app').controller('usuario', {model_name});
+    angular.module('app').controller('usuario', Car);
 
 }());
