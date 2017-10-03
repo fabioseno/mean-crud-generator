@@ -28,7 +28,7 @@
         vm.listCars();
     }
 
-    Cars.$inject = ['$location', 'profileManager'];
+    Cars.$inject = ['$location', 'carManager'];
 
     angular.module('app').controller('cars', Cars);
 

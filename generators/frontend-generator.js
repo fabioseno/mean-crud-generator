@@ -83,7 +83,7 @@ function generateDetailsViewHtml(config, cb) {
         </div>` : '';
         
         controls += `<div class="form-group col-lg-12">
-        <label for="` + field.fieldName + `">` + field.model.name + `</label>
+        <label for="` + field.fieldName + `">` + config.model.name + `</label>
         <input type="text" id="` + field.fieldName + `" name="` + field.fieldName + `" ` + required + ` class="form-control" data-ng-model="vm.` + config.entityName + `.` + field.fieldName + `">
         ` + messages + `
     </div>`;
