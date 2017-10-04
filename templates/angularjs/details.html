@@ -6,7 +6,7 @@
 		<div class="col-md-12">
 			<section class="panel panel-default">
 				<div class="panel-body">
-					<form name="vm.userForm" class="form-validation" novalidate>
+					<form name="vm.form" class="form-validation" novalidate>
 						<div class="section-header">
 							<h4>Detalhe</h4>
 						</div>
@@ -15,64 +15,6 @@
 								<section class="panel panel-default">
 									<div class="panel-body padding-vertical">
 {controls}
-										<!-- <div class="form-group col-lg-12">
-											<label for="nome">Nome</label>
-											<input type="text" id="nome" name="nome" required class="form-control" data-ng-model="vm.user.nomeCliente">
-											<div ng-messages="vm.userForm.nome.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.nome.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6">
-											<label for="cpf">CPF</label>
-											<input type="tel" required class="form-control" id="cpf" name="cpf" data-ng-model="vm.user.cpfCnpj" data-ui-mask="{{ vm.mask.cpf }}"
-											model-view-value="false" maxlength="20" data-ng-readonly="vm.operation === 'edit'">
-											<div ng-messages="vm.userForm.cpf.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.cpf.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6">
-											<label for="rg">RG</label>
-											<input type="text" required class="form-control" maxlength="14" id="rg" name="rg" data-ng-model="vm.user.rg">
-											<div ng-messages="vm.userForm.rg.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.rg.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6">
-											<label for="dataNascimento">Data de nascimento</label>
-											<div class="input-group ui-datepicker">
-												<input type="text" required class="form-control" id="dataNascimento" name="dataNascimento" datepicker-options="vm.birthdayPopupOptions" uib-datepicker-popup="dd/MM/yyyy"
-												data-ng-model="vm.dataNascimento" is-open="vm.birthdayPopup.opened" max-date="vm.maxDate" ng-required="true" current-text="Hoje"
-												clear-text="Limpar" close-text="Fechar" alt-input-formats="vm.altInputFormats" />
-												<span class="input-group-addon" ng-click="vm.openBirthdayCalendar()"><i class="fa fa-calendar"></i></span>
-											</div>
-											<div ng-messages="vm.userForm.dataNascimento.$error" multiple ng-show="vm.userForm.$submitted || vm.userForm.dataNascimento.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-												<div ng-message="pattern">Campo deve possuir data válida</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6">
-											<label for="email">E-mail</label>
-											<input type="email" required class="form-control" id="email" name="email" data-ng-model="vm.user.email" maxlength="200">
-											<div ng-messages="vm.userForm.email.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.email.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-												<div ng-message="email">E-mail inválido</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6" data-ng-show="vm.operation === 'add'">
-											<label for="senha">Senha</label>
-											<input type="password" data-ng-required="vm.operation === 'add'" class="form-control" id="senha" name="senha" data-ng-model="vm.user.senha">
-											<div ng-messages="vm.userForm.senha.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.senha.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-											</div>
-										</div>
-										<div class="form-group col-lg-4 col-sm-6" data-ng-show="vm.operation === 'add'">
-											<label for="senhaConf">Confirmação de senha</label>
-											<input type="password" data-ng-required="vm.operation === 'add'" class="form-control" id="senhaConf" name="senhaConf" data-ng-model="vm.user.confirmacaoSenha" data-match="vm.user.senha" match-ignore-empty="true">
-											<div ng-messages="vm.userForm.senhaConf.$error" multiple ng-if="vm.userForm.$submitted || vm.userForm.senhaConf.$dirty">
-												<div ng-message="required">Campo obrigatório</div>
-												<div ng-message="match">Senha e confirmaçao de senham devem ser iguais</div>
-											</div>
-										</div> -->
 									</div>
 								</section>
 							</div>

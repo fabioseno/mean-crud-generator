@@ -78,15 +78,15 @@ function generateDetailsViewHtml(config, cb) {
         var field = config.fields[i];
 
         var required = field.required ? 'required' : '';
-        var messages = required ? `<div ng-messages="vm.form.` + field.fieldName + `.$error" multiple ng-if="vm.form.$submitted || vm.form.` + field.fieldName + `.$dirty">
-            <div ng-message="required">Campo obrigatório</div>
-        </div>` : '';
+        var messages = required ? `\t\t\t\t\t\t\t\t\t<div ng-messages="vm.form.` + field.fieldName + `.$error" multiple ng-if="vm.form.$submitted || vm.form.` + field.fieldName + `.$dirty">
+        \t\t\t\t\t\t\t\t\t\t<div ng-message="required">Campo obrigatório</div>
+        \t\t\t\t\t\t\t\t\t</div>` : '';
         
-        controls += `<div class="form-group col-lg-12">
-        <label for="` + field.fieldName + `">` + config.model.name + `</label>
-        <input type="text" id="` + field.fieldName + `" name="` + field.fieldName + `" ` + required + ` class="form-control" data-ng-model="vm.` + config.entityName + `.` + field.fieldName + `">
+        controls += `\t\t\t\t\t\t\t\t\t\t<div class="form-group col-lg-12">
+        \t\t\t\t\t\t\t\t\t<label for="` + field.fieldName + `">` + config.model.name + `</label>
+        \t\t\t\t\t\t\t\t\t<input type="text" id="` + field.fieldName + `" name="` + field.fieldName + `" ` + required + ` class="form-control" data-ng-model="vm.` + config.entityName + `.` + field.fieldName + `">
         ` + messages + `
-    </div>`;
+        \t\t\t\t\t\t\t\t</div>` + os.EOL;
     }
 
     template = template.replace(/{controls}/g, controls);
