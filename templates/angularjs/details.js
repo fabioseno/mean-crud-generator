@@ -33,7 +33,7 @@
                 data: vm.{entity_name}
             };
 
-            if (vm.userForm.$valid) {
+            if (vm.form.$valid) {
                 if (vm.operation === 'add') {
                     confirm = $mdDialog.confirm()
                         .title('{details_view_page_title}')
