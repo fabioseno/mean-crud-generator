@@ -46,7 +46,7 @@
                         profileManager.create{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} criado com sucesso!');
-                                $location.url('/admin/{entity_plural_title}');
+                                $location.url('/admin/{plural_name}');
                             }
                         });
                     });
@@ -66,7 +66,7 @@
                         profileManager.update{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} alterado com sucesso!');
-                                $location.url('/admin/{entity_plural_title}');
+                                $location.url('/admin/{plural_name}');
                             }
                         });
                     });
@@ -92,7 +92,7 @@
                 profileManager.delete{model_name}(params).then(function (result) {
                     if (result.sucesso) {
                         toaster.show('{details_view_page_title} excluído com sucesso!');
-                        $location.url('/admin/{entity_plural_title}');
+                        $location.url('/admin/{plural_name}');
                     }
                 });
             });

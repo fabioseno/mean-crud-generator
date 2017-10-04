@@ -33,7 +33,7 @@
                 data: vm.car
             };
 
-            if (vm.userForm.$valid) {
+            if (vm.form.$valid) {
                 if (vm.operation === 'add') {
                     confirm = $mdDialog.confirm()
                         .title('Carro')
@@ -46,7 +46,7 @@
                         profileManager.createCar(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('Carro criado com sucesso!');
-                                $location.url('/admin/carros');
+                                $location.url('/admin/cars');
                             }
                         });
                     });
@@ -66,7 +66,7 @@
                         profileManager.updateCar(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('Carro alterado com sucesso!');
-                                $location.url('/admin/carros');
+                                $location.url('/admin/cars');
                             }
                         });
                     });
@@ -92,7 +92,7 @@
                 profileManager.deleteCar(params).then(function (result) {
                     if (result.sucesso) {
                         toaster.show('Carro excluído com sucesso!');
-                        $location.url('/admin/carros');
+                        $location.url('/admin/cars');
                     }
                 });
             });
