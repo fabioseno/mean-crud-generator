@@ -34,7 +34,8 @@
 			"fieldName": "name",
 			"fieldLabel": "Nome",
 			"maxlength": "100",
-			"searchField": true
+			"searchField": true,
+			"unique": true
 		},
 		{
 			"fieldOrder": 2,

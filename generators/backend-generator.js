@@ -125,17 +125,19 @@ function generateMiddlewares(config, cb) {
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        required += `module.exports.` + field.fieldName + `Required = function (req, res, next) {;
+        if (field.required) {
+            required += `module.exports.` + field.fieldName + `Required = function (req, res, next) {;
     'use strict';
 
     req.validations = req.validations || [];
             
-    if (!req.body || !req.body.{' + field.fieldName + '}) {
+    if (!req.body || !req.body.` + field.fieldName + `) {
         req.validations.push('Campo ` + field.fieldLabel.toLowerCase() + ` é obrigatório!');
     }
             
     next();
 };` + os.EOL + os.EOL;
+        }
     }
 
     template = template.replace(/{field_required}/g, required);
@@ -146,7 +148,9 @@ function generateMiddlewares(config, cb) {
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        unique += `module.exports.` + field.fieldName + `Required = function (req, res, next) {;
+        if (field.unique) {
+
+            unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;
     'use strict';
 
     req.validations = req.validations || [];
@@ -155,12 +159,16 @@ function generateMiddlewares(config, cb) {
         req.validations.push('Campo ` + field.fieldLabel.toLowerCase() + ` é obrigatório!');
     }
                     
-                next();
-            };` + os.EOL + os.EOL;
+    next();
+};` + os.EOL + os.EOL;
+        }
     }
 
     template = template.replace(/{field_exists}/g, unique);
 
+    tools.writeFile('/middlewares/' + config.entityName + '.js', template);
+
+    cb(null, true);
 }
 
 module.exports = {
