@@ -2,13 +2,12 @@
 (function () {
     'use strict';
 
-    function Car($location, $mdDialog, $stateParams, registrationManager, carManager, toaster) {
+    function Car($location, $mdDialog, $stateParams, carManager, toaster) {
         var vm = this;
 
         vm.operation = ((!$stateParams.id || $stateParams.id === 'add') ? 'add' : 'edit');
         vm.actionButtonLabel = (vm.operation === 'add' ? 'Adicionar' : 'Atualizar');
         vm.car = {};
-        //vm.mask = registrationManager.mask;
         
         vm.getDetails = function () {
             var params;
@@ -105,7 +104,7 @@
         vm.getDetails();
     }
 
-    Car.$inject = ['$location', '$mdDialog', '$stateParams', 'registrationManager', 'carManager', 'toaster'];
+    Car.$inject = ['$location', '$mdDialog', '$stateParams', 'carManager', 'toaster'];
 
     angular.module('app').controller('usuario', Car);
 
