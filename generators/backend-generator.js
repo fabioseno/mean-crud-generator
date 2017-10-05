@@ -74,7 +74,7 @@ function generateController(config, cb) {
 
     // update fields
     var updateData = 'var data = {' + os.EOL;
-    
+
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
@@ -114,20 +114,58 @@ function generateRoute(config, cb) {
 
 function generateMiddlewares(config, cb) {
     console.log('Generating middleware...');
-    
-        var template = tools.readTemplate(backendFolder, 'middleware.js');
-    
-        template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
-        template = template.replace(/{controllerName}/g, config.controller.name);
-        template = template.replace(/{controllerFilename}/g, config.controller.filename);
-    
-        tools.writeFile('/routes/' + config.route.filename, template);
-    
-        cb(null, true);
+
+    var template = tools.readTemplate(backendFolder, 'middleware.js');
+
+    template = template.replace(/{entity_name}/g, config.entityName);
+
+    // required
+    var required = '';
+
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        required += `module.exports.` + field.fieldName + `Required = function (req, res, next) {;
+    'use strict';
+
+    req.validations = req.validations || [];
+            
+    if (!req.body || !req.body.{' + field.fieldName + '}) {
+        req.validations.push('Campo ` + field.fieldLabel.toLowerCase() + ` é obrigatório!');
+    }
+            
+    next();
+};` + os.EOL + os.EOL;
+    }
+
+    template = template.replace(/{field_required}/g, required);
+
+    // unique
+    var unique = '';
+
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        unique += `module.exports.` + field.fieldName + `Required = function (req, res, next) {;
+    'use strict';
+
+    req.validations = req.validations || [];
+                    
+    if (!req.body || !req.body.{}) {
+        req.validations.push('Campo ` + field.fieldLabel.toLowerCase() + ` é obrigatório!');
+    }
+                    
+                next();
+            };` + os.EOL + os.EOL;
+    }
+
+    template = template.replace(/{field_exists}/g, unique);
+
 }
 
 module.exports = {
     generateModel: generateModel,
     generateController: generateController,
-    generateRoute: generateRoute
+    generateRoute: generateRoute,
+    generateMiddlewares: generateMiddlewares
 };
