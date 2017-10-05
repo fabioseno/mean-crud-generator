@@ -112,6 +112,20 @@ function generateRoute(config, cb) {
     cb(null, true);
 }
 
+function generateMiddlewares(config, cb) {
+    console.log('Generating middleware...');
+    
+        var template = tools.readTemplate(backendFolder, 'middleware.js');
+    
+        template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
+        template = template.replace(/{controllerName}/g, config.controller.name);
+        template = template.replace(/{controllerFilename}/g, config.controller.filename);
+    
+        tools.writeFile('/routes/' + config.route.filename, template);
+    
+        cb(null, true);
+}
+
 module.exports = {
     generateModel: generateModel,
     generateController: generateController,
