@@ -27,13 +27,13 @@ var Car = require('../models/car.js'),
         }
 
         if (req.body.searchCriteria) {
-			if (req.body.searchCriteria.name) {
-				regex = new RegExp(req.body.searchCriteria.name, 'i');
+			if (req.query.name) {
+				regex = new RegExp(req.query.name, 'i');
 				query = query.where('name', { $regex: regex });
 			}
 
-			if (req.body.searchCriteria.model) {
-				regex = new RegExp(req.body.searchCriteria.model, 'i');
+			if (req.query.model) {
+				regex = new RegExp(req.query.model, 'i');
 				query = query.where('model', { $regex: regex });
 			}
         }

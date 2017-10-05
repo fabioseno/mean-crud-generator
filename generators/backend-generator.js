@@ -59,8 +59,8 @@ function generateController(config, cb) {
         var field = config.fields[i];
 
         if (field.searchField) {
-            searchObject += '\t\t\tif (req.body.searchCriteria.' + field.fieldName + ') {' + os.EOL;
-            searchObject += '\t\t\t\tregex = new RegExp(req.body.searchCriteria.' + field.fieldName + ', \'i\');' + os.EOL;
+            searchObject += '\t\t\tif (req.query.' + field.fieldName + ') {' + os.EOL;
+            searchObject += '\t\t\t\tregex = new RegExp(req.query.' + field.fieldName + ', \'i\');' + os.EOL;
             searchObject += '\t\t\t\tquery = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
             searchObject += '\t\t\t}';
 
