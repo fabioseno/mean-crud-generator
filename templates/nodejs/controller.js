@@ -14,9 +14,17 @@ var {modelName} = require('../models/{modelFilename}'),
     search = function (req, res) {
         'use strict';
 
-        var pagingOptions = req.body.pagingOptions,
-            query = {modelName}.find(),
+        var pagingOptions = {},
+            query = Car.find(),
             regex;
+
+        if (req.query.currentPage) {
+            pagingOptions.currentPage = req.query.currentPage;
+        }
+
+        if (req.query.pageSize) {
+            pagingOptions.pageSize = req.query.pageSize;
+        }
 
         if (req.body.searchCriteria) {
 {search_fields}
