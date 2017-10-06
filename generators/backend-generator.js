@@ -2,6 +2,10 @@ var tools = require('./tools');
 var os = require('os');
 var backendFolder = 'nodejs';
 
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 function getDataType(dataType) {
     if (dataType === 'Integer' || dataType === 'Decimal') {
         return number;
@@ -111,7 +115,23 @@ function generateRoute(config, cb) {
     var validationRequire = os.EOL;
     validationRequire += '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\'),';
     template = template.replace(/{validation_require}/g, validationRequire);
-    
+
+    // middleware list
+    var middlewareList = '';
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.unique) {
+            if (i > 0) {
+                middlewareList += ', ';
+            }
+
+            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists';
+        }
+    }
+
+    template = template.replace(/{middleware_list}/g, middlewareList);
+
     tools.writeFile('/routes/' + config.route.filename, template);
 
     cb(null, true);
@@ -159,14 +179,14 @@ function generateMiddlewares(config, cb) {
 
             unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.query.' + field.fieldName + '}, function (err, result) {' + os.EOL;
             unique += '\t\tif (result && req.query.' + field.fieldName + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
-    
+
             unique += '\t\t\treq.validations = req.validations || [];' + os.EOL;
             unique += '\t\t\treq.validations.push(\'' + config.entityTitle + ' com ' + field.fieldLabel + ' já cadastrado!\');' + os.EOL
-            unique +=  '\t\t}' + os.EOL + os.EOL;
+            unique += '\t\t}' + os.EOL + os.EOL;
 
-            unique +=  '\t\tnext();' + os.EOL;
-            unique +=  '\t});' + os.EOL;
-            unique +=  '};' + os.EOL;
+            unique += '\t\tnext();' + os.EOL;
+            unique += '\t});' + os.EOL;
+            unique += '};' + os.EOL;
         }
     }
 
