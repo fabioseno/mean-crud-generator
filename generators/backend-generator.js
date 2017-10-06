@@ -149,18 +149,18 @@ function generateMiddlewares(config, cb) {
         var field = config.fields[i];
 
         if (field.unique) {
+            unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;` + os.EOL
+            unique += '\t\'use strict\';' + os.EOL + os.EOL;
 
-            unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;
-    'use strict';
+            unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.query.' + field.fieldName + '}, function (err, result) {' + os.EOL;
+            unique += '\t\tif (result && req.query.' + field.name + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
+    
+            unique += '\t\t\treq.validations = req.validations || [];' + os.EOL;
+            unique += '\t\t\treq.validations.push(\'' + config.entityTitle + ' com ' + field.fieldLabel + ' já cadastrado!\');' + os.EOL
+            unique +=  '\t\t}' + os.EOL + os.EOL;
 
-    req.validations = req.validations || [];
-                    
-    if (!req.body || !req.body.{}) {
-        req.validations.push('Campo ` + field.fieldLabel.toLowerCase() + ` é obrigatório!');
-    }
-                    
-    next();
-};` + os.EOL + os.EOL;
+            unique +=  'next();';
+            unique +=  '};' + os.EOL + os.EOL;
         }
     }
 

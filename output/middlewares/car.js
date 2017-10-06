@@ -28,13 +28,13 @@ module.exports.modelRequired = function (req, res, next) {;
 
 
 module.exports.nameExists = function (req, res, next) {;
-    'use strict';
+	'use strict';
 
-    req.validations = req.validations || [];
-                    
-    if (!req.body || !req.body.{}) {
-        req.validations.push('Campo nome é obrigatório!');
-    }
-                    
-    next();
-};
+	Car.findOne({name: req.query.name}, function (err, result) {
+		if (result && req.query.undefined & result.name != req.query.name) {
+			req.validations = req.validations || [];
+			req.validations.push('carro com Nome já cadastrado!');
+		}
+
+next();};
+
