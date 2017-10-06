@@ -16,10 +16,10 @@ module.exports = function (router) {
     router.get('/cars/:id', auth.isLogged, carController.get);
     
     // Add
-    router.put('/cars', auth.isLogged, carController.add);
+    router.put('/cars', auth.isLogged, carValidation.nameExistscarController.add);
     
     // Update
-    router.post('/cars/:id', auth.isLogged, carController.update);
+    router.post('/cars/:id', auth.isLogged, carValidation.nameExistscarController.update);
     
     // Remove
     router['delete']('/cars/:id', auth.isLogged, carController.remove);

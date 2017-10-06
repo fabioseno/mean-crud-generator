@@ -113,7 +113,7 @@ function generateRoute(config, cb) {
 
     // validation require
     var validationRequire = os.EOL;
-    validationRequire += '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\'),';
+    validationRequire += '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
     template = template.replace(/{validation_require}/g, validationRequire);
 
     // middleware list
