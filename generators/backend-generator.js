@@ -122,11 +122,7 @@ function generateRoute(config, cb) {
         var field = config.fields[i];
 
         if (field.unique) {
-            if (i > 0) {
-                middlewareList += ', ';
-            }
-
-            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists';
+            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists, ';
         }
     }
 
