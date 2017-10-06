@@ -2,30 +2,21 @@
 var User = require('../models/car'),
     messageHandler = require('../utils/messageHandler');
 
-module.exports.nameRequired = function (req, res, next) {;
-    'use strict';
+module.exports.required = function (req, res, next) {;
+	'use strict';
 
-    req.validations = req.validations || [];
-            
-    if (!req.body || !req.body.name) {
-        req.validations.push('Campo nome é obrigatório!');
-    }
-            
-    next();
+	req.validations = req.validations || [];
+
+	if (!req.body || !req.body.name) {
+		req.validations.push('Campo nome é obrigatório!');
+	}
+
+	if (!req.body || !req.body.model) {
+		req.validations.push('Campo modelo é obrigatório!');
+	}
+
+	next();
 };
-
-module.exports.modelRequired = function (req, res, next) {;
-    'use strict';
-
-    req.validations = req.validations || [];
-            
-    if (!req.body || !req.body.model) {
-        req.validations.push('Campo modelo é obrigatório!');
-    }
-            
-    next();
-};
-
 
 module.exports.nameExists = function (req, res, next) {;
 	'use strict';
@@ -39,6 +30,7 @@ module.exports.nameExists = function (req, res, next) {;
 		next();
 	});
 };
+
 module.exports.modelExists = function (req, res, next) {;
 	'use strict';
 
@@ -51,3 +43,4 @@ module.exports.modelExists = function (req, res, next) {;
 		next();
 	});
 };
+
