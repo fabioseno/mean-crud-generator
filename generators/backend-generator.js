@@ -117,6 +117,17 @@ function generateRoute(config, cb) {
     template = template.replace(/{validation_require}/g, validationRequire);
 
     // middleware list
+    var required = '';
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.required) {
+            required = config.entityName + 'Validation.required';
+            break;
+        }
+    }
+    template = template.replace(/{required_middleware}/g, required);
+
     var middlewareList = '';
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
