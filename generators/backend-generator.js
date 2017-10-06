@@ -153,7 +153,7 @@ function generateMiddlewares(config, cb) {
             unique += '\t\'use strict\';' + os.EOL + os.EOL;
 
             unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.query.' + field.fieldName + '}, function (err, result) {' + os.EOL;
-            unique += '\t\tif (result && req.query.' + field.name + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
+            unique += '\t\tif (result && req.query.' + field.fieldName + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
     
             unique += '\t\t\treq.validations = req.validations || [];' + os.EOL;
             unique += '\t\t\treq.validations.push(\'' + config.entityTitle + ' com ' + field.fieldLabel + ' já cadastrado!\');' + os.EOL
@@ -161,7 +161,7 @@ function generateMiddlewares(config, cb) {
 
             unique +=  '\t\tnext();' + os.EOL;
             unique +=  '\t});' + os.EOL;
-            unique +=  '};' + os.EOL + os.EOL;
+            unique +=  '};' + os.EOL;
         }
     }
 
