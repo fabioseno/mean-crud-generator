@@ -31,7 +31,7 @@ module.exports.nameExists = function (req, res, next) {;
 	'use strict';
 
 	Car.findOne({name: req.query.name}, function (err, result) {
-		if (result && req.query.undefined & result.name != req.query.name) {
+		if (result && req.query.name & result.name != req.query.name) {
 			req.validations = req.validations || [];
 			req.validations.push('carro com Nome já cadastrado!');
 		}

@@ -3,6 +3,7 @@ module.exports = function (router) {
     'use strict';
     
     var carController = require('../controllers/cars.js');
+	var carValidation = require('../middlewares/car'),
     var auth = require('../middlewares/session');
     
     // List

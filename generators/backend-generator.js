@@ -103,10 +103,15 @@ function generateRoute(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'route.js');
 
-    template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
-    template = template.replace(/{controllerName}/g, config.controller.name);
-    template = template.replace(/{controllerFilename}/g, config.controller.filename);
+    template = template.replace(/{plural_entity_name}/g, config.model.pluralName);
+    template = template.replace(/{controller_name}/g, config.controller.name);
+    template = template.replace(/{controller_filename}/g, config.controller.filename);
 
+    // validation require
+    var validationRequire = os.EOL;
+    validationRequire += '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\'),';
+    template = template.replace(/{validation_require}/g, validationRequire);
+    
     tools.writeFile('/routes/' + config.route.filename, template);
 
     cb(null, true);
