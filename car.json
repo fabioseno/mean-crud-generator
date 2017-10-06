@@ -47,7 +47,8 @@
 			"required": true,
 			"fieldName": "model",
 			"fieldLabel": "Modelo",
-			"searchField": true
+			"searchField": true,
+			"unique": true
 		}
 	],
 	"entityName": "car",

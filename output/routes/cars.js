@@ -3,7 +3,7 @@ module.exports = function (router) {
     'use strict';
     
     var carController = require('../controllers/cars.js');
-	var carValidation = require('../middlewares/car'),
+	var carValidation = require('../middlewares/car');
     var auth = require('../middlewares/session');
     
     // List
@@ -16,10 +16,10 @@ module.exports = function (router) {
     router.get('/cars/:id', auth.isLogged, carController.get);
     
     // Add
-    router.put('/cars', auth.isLogged, carValidation.nameExistscarController.add);
+    router.put('/cars', auth.isLogged, carValidation.nameExists, carValidation.modelExistscarController.add);
     
     // Update
-    router.post('/cars/:id', auth.isLogged, carValidation.nameExistscarController.update);
+    router.post('/cars/:id', auth.isLogged, carValidation.nameExists, carValidation.modelExistscarController.update);
     
     // Remove
     router['delete']('/cars/:id', auth.isLogged, carController.remove);

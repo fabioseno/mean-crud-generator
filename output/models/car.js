@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	},
 	"model": {
 		"type": "String",
+		"unique": true,
 		"required": true
 	}
 });

@@ -39,3 +39,15 @@ module.exports.nameExists = function (req, res, next) {;
 		next();
 	});
 };
+module.exports.modelExists = function (req, res, next) {;
+	'use strict';
+
+	Car.findOne({model: req.query.model}, function (err, result) {
+		if (result && req.query.model & result.model != req.query.model) {
+			req.validations = req.validations || [];
+			req.validations.push('carro com Modelo já cadastrado!');
+		}
+
+		next();
+	});
+};
