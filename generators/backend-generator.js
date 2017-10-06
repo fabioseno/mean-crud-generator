@@ -122,7 +122,7 @@ function generateRoute(config, cb) {
         var field = config.fields[i];
 
         if (field.required) {
-            required = config.entityName + 'Validation.required';
+            required = config.entityName + 'Validation.required, ';
             break;
         }
     }
