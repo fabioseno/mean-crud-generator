@@ -36,5 +36,7 @@ module.exports.nameExists = function (req, res, next) {;
 			req.validations.push('carro com Nome já cadastrado!');
 		}
 
-next();};
+		next();
+	});
+};
 

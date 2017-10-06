@@ -159,7 +159,8 @@ function generateMiddlewares(config, cb) {
             unique += '\t\t\treq.validations.push(\'' + config.entityTitle + ' com ' + field.fieldLabel + ' já cadastrado!\');' + os.EOL
             unique +=  '\t\t}' + os.EOL + os.EOL;
 
-            unique +=  'next();';
+            unique +=  '\t\tnext();' + os.EOL;
+            unique +=  '\t});' + os.EOL;
             unique +=  '};' + os.EOL + os.EOL;
         }
     }
