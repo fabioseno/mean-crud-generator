@@ -1,45 +1,19 @@
 var tools = require('./tools');
 var os = require('os');
+var util = require('./util');
 var backendFolder = 'nodejs';
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-function getDataType(dataType) {
-    if (dataType === 'Integer' || dataType === 'Decimal') {
-        return number;
-    } else {
-        return dataType;
-    }
-}
-
 function generateModel(config, cb) {
     console.log('Generating model...');
 
     var template = tools.readTemplate(backendFolder, 'model.js');
 
-    var result = '';
-    var obj = {};
-
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        obj[field.fieldName] = {
-            type: getDataType(field.dataType)
-        }
-
-        if (field.unique) {
-            obj[field.fieldName].unique = true;
-        }
-
-        if (field.required) {
-            obj[field.fieldName].required = true;
-        }
-    }
-
     template = template.replace(/{entityModelSchema}/g, config.model.schemaName);
-    template = template.replace(/{fields}/g, JSON.stringify(obj, null, '\t'));
+    template = template.replace(/{fields}/g, util.getModelMetadata(config));
     template = template.replace(/{modelName}/g, config.model.name);
 
     tools.writeFile('/models/' + config.model.filename, template);
