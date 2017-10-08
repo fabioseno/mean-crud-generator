@@ -5,7 +5,7 @@
     function Car($location, $mdDialog, $stateParams, registrationManager, carManager, toaster) {
         var vm = this;
 
-        vm.operation = ((!$stateParams.id || $stateParams.id === 'add') ? 'add' : 'edit');
+        vm.operation = (!$stateParams.id ? 'add' : 'edit');
         vm.actionButtonLabel = (vm.operation === 'add' ? 'Adicionar' : 'Atualizar');
         vm.car = {};
         //vm.mask = registrationManager.mask;

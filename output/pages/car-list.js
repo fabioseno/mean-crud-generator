@@ -5,10 +5,12 @@
     function carss($location, carManager) {
         var vm = this;
 
-        vm.filter = {
-            sort: 'nome',
-            p: 1, // currentPage
-            s: 10  // pageSize
+        vm.params = {
+            query: {
+                sort: 'nome',
+                currentPage: 1,
+                pageSize: 10
+            }
         };
         
         vm.addCar = function () {
@@ -16,10 +18,10 @@
         };
 
         vm.listcarss = function () {
-            carManager.listcarss().then(function (result) {
+            carManager.listcarss(vm.params).then(function (result) {
                 if (result.sucesso) {
                     vm.cars = result.data;
-                    vm.filter.p = result.page.currentPage;
+                    vm.filter.currentPage = result.page.currentPage;
                     vm.filter.totalItems = result.page.totalItems;
                 }
             });
