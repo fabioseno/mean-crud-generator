@@ -1,5 +1,9 @@
 var os = require('os');
 
+function capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 function getDataType(dataType) {
     if (dataType === 'Integer' || dataType === 'Decimal') {
         return number;
@@ -31,7 +35,7 @@ function getModelMetadata(config) {
     return JSON.stringify(obj, null, '\t')
 }
 
-function getSearchCriteria(config) {
+function getControllerSearchCriteria(config) {
     var searchObject = '';
 
     for (var i = 0; i < config.fields.length; i++) {
@@ -52,7 +56,7 @@ function getSearchCriteria(config) {
     return searchObject;
 }
 
-function getUpdateFields(config) {
+function getControllerUpdateFields(config) {
     var updateData = 'var data = {' + os.EOL;
 
     for (i = 0; i < config.fields.length; i++) {
@@ -158,6 +162,8 @@ function getMiddlewareUniqueFunctions(config) {
 }
 
 module.exports = {
+    capitalize: capitalize,
+    
     getModelMetadata: getModelMetadata,
 
     getControllerSearchCriteria: getControllerSearchCriteria,

@@ -3,10 +3,6 @@ var os = require('os');
 var util = require('./util');
 var backendFolder = 'nodejs';
 
-function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 function generateModel(config, cb) {
     console.log('Generating model...');
 
