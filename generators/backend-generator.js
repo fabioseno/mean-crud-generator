@@ -30,46 +30,8 @@ function generateController(config, cb) {
     template = template.replace(/{modelName}/g, config.model.name);
     template = template.replace(/{modelFilename}/g, config.model.filename);
     template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
-
-    // search criteria
-    var searchObject = '';
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        if (field.searchField) {
-            searchObject += '\t\t\tif (req.query.' + field.fieldName + ') {' + os.EOL;
-            searchObject += '\t\t\t\tregex = new RegExp(req.query.' + field.fieldName + ', \'i\');' + os.EOL;
-            searchObject += '\t\t\t\tquery = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
-            searchObject += '\t\t\t}';
-
-            if (i !== config.fields.length - 1) {
-                searchObject += os.EOL + os.EOL;
-            }
-        }
-    }
-
-    template = template.replace(/{search_fields}/, searchObject);
-
-    // update fields
-    var updateData = 'var data = {' + os.EOL;
-
-    for (i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        if (field.updateField) {
-            updateData += '\t\t\t' + field.fieldName + ': req.body.' + field.fieldName;
-
-            if (i < config.fields.length - 1) {
-                updateData += ',' + os.EOL;
-            } else {
-                updateData += os.EOL;
-            }
-        }
-    }
-
-    updateData += '\t\t};'
-
-    template = template.replace(/{update_fields}/, updateData);
+    template = template.replace(/{search_fields}/, util.getSearchCriteria(config));
+    template = template.replace(/{update_fields}/, util.getUpdateFields(config));
 
     tools.writeFile('/controllers/' + config.controller.filename, template);
 
