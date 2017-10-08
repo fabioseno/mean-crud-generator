@@ -74,9 +74,46 @@ function getUpdateFields(config) {
     return updateData;
 }
 
+function getRouteValidationDeclaration(config) {
+    return os.EOL + '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
+}
+
+function getRouteRequiredMiddleware(config) {
+    var required = '';
+
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.required) {
+            required = config.entityName + 'Validation.required, ';
+            break;
+        }
+    }
+
+    return required;
+}
+
+function getRouteUniqueMiddleware(config) {
+    var middlewareList = '';
+
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        if (field.unique) {
+            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists, ';
+        }
+    }
+
+    return middlewareList;
+}
+
 module.exports = {
     getModelMetadata: getModelMetadata,
     getSearchCriteria: getSearchCriteria,
     getUpdateFields: getUpdateFields,
-    getUpdateFields: getUpdateFields
+    getUpdateFields: getUpdateFields,
+    
+    getRouteValidationDeclaration: getRouteValidationDeclaration,
+    getRouteRequiredMiddleware: getRouteRequiredMiddleware,
+    getRouteUniqueMiddleware: getRouteUniqueMiddleware
 };

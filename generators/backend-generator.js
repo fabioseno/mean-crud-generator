@@ -46,34 +46,9 @@ function generateRoute(config, cb) {
     template = template.replace(/{plural_entity_name}/g, config.model.pluralName);
     template = template.replace(/{controller_name}/g, config.controller.name);
     template = template.replace(/{controller_filename}/g, config.controller.filename);
-
-    // validation require
-    var validationRequire = os.EOL;
-    validationRequire += '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
-    template = template.replace(/{validation_require}/g, validationRequire);
-
-    // middleware list
-    var required = '';
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        if (field.required) {
-            required = config.entityName + 'Validation.required, ';
-            break;
-        }
-    }
-    template = template.replace(/{required_middleware}/g, required);
-
-    var middlewareList = '';
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        if (field.unique) {
-            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists, ';
-        }
-    }
-
-    template = template.replace(/{middleware_list}/g, middlewareList);
+    template = template.replace(/{validation_require}/g, util.getRouteValidationDeclaration(config));
+    template = template.replace(/{required_middleware}/g, util.getRouteRequiredMiddleware(config));
+    template = template.replace(/{unique_middleware}/g, util.getRouteUniqueMiddleware(config));
 
     tools.writeFile('/routes/' + config.route.filename, template);
 
