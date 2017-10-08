@@ -23,9 +23,9 @@ function generateController(config, cb) {
     var template = tools.readTemplate(backendFolder, 'controller.js');
 
     template = template.replace(/{entity_name}/g, config.entityName);
-    template = template.replace(/{modelName}/g, config.model.name);
-    template = template.replace(/{modelFilename}/g, config.model.filename);
-    template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
+    template = template.replace(/{model_name}/g, config.model.name);
+    template = template.replace(/{model_filename}/g, config.model.filename);
+    template = template.replace(/{plural_entity_name}/g, config.model.pluralName);
     template = template.replace(/{search_fields}/, util.getControllerSearchCriteria(config));
     template = template.replace(/{update_fields}/, util.getControllerUpdateFields(config));
 

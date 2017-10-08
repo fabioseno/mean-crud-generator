@@ -1,13 +1,13 @@
 /*global require, module*/
-var {modelName} = require('../models/{modelFilename}'),
+var {model_name} = require('../models/{model_filename}'),
     pagination = require('../utils/pagination'),
     messageHandler = require('../utils/messageHandler')
 
     list = function (req, res) {
         'use strict';
 
-        pagination.paginate({modelName}.find(), null, req.query.sort, function (err, {pluralEntityName}) {
-            messageHandler.wrapResponse(res, err, {pluralEntityName});
+        pagination.paginate({model_name}.find(), null, req.query.sort, function (err, {plural_entity_name}) {
+            messageHandler.wrapResponse(res, err, {plural_entity_name});
         });
     },
 
@@ -30,16 +30,16 @@ var {modelName} = require('../models/{modelFilename}'),
 {search_fields}
         }
 
-        pagination.paginate(query, pagingOptions, req.query.sort, function (err, {pluralEntityName}) {
-            messageHandler.wrapResponse(res, err, {pluralEntityName});
+        pagination.paginate(query, pagingOptions, req.query.sort, function (err, {plural_entity_name}) {
+            messageHandler.wrapResponse(res, err, {plural_entity_name});
         });
     },
 
     get = function (req, res) {
         'use strict';
 
-        {modelName}.findById(req.params.id, function (err, {entityName}) {
-            messageHandler.wrapResponse(res, err, {entityName});
+        {model_name}.findById(req.params.id, function (err, {entity_name}) {
+            messageHandler.wrapResponse(res, err, {entity_name});
         });
     },
 
@@ -51,7 +51,7 @@ var {modelName} = require('../models/{modelFilename}'),
             return messageHandler.wrapResponse(res, req.validations);
         }
 
-        var model = new {modelName}(req.body);
+        var model = new {model_name}(req.body);
 
         model.save(function (err, result) {
             messageHandler.wrapResponse(res, err, result);
@@ -68,16 +68,16 @@ var {modelName} = require('../models/{modelFilename}'),
 
         {update_fields}
 
-        {modelName}.findByIdAndUpdate(req.params.id, data, function (err, {entityName}) {
-            messageHandler.wrapResponse(res, err, {entityName});
+        {model_name}.findByIdAndUpdate(req.params.id, data, function (err, {entity_name}) {
+            messageHandler.wrapResponse(res, err, {entity_name});
         });
     },
 
     remove = function (req, res) {
         'use strict';
 
-        {modelName}.findByIdAndRemove(req.params.id, function (err, {entityName}) {
-            messageHandler.wrapResponse(res, err, {entityName});
+        {model_name}.findByIdAndRemove(req.params.id, function (err, {entity_name}) {
+            messageHandler.wrapResponse(res, err, {entity_name});
         });
     };
 
