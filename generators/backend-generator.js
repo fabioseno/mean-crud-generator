@@ -8,9 +8,9 @@ function generateModel(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'model.js');
 
-    template = template.replace(/{entityModelSchema}/g, config.model.schemaName);
+    template = template.replace(/{entity_model_schema}/g, config.model.schemaName);
     template = template.replace(/{fields}/g, util.getModelMetadata(config));
-    template = template.replace(/{modelName}/g, config.model.name);
+    template = template.replace(/{model_name}/g, config.model.name);
 
     tools.writeFile('/models/' + config.model.filename, template);
 
@@ -22,7 +22,7 @@ function generateController(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'controller.js');
 
-    template = template.replace(/{entityName}/g, config.entityName);
+    template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{modelName}/g, config.model.name);
     template = template.replace(/{modelFilename}/g, config.model.filename);
     template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
