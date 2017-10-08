@@ -5,10 +5,12 @@
     function {model_plural_name}($location, {entity_name}Manager) {
         var vm = this;
 
-        vm.filter = {
-            sort: 'nome',
-            p: 1, // currentPage
-            s: 10  // pageSize
+        vm.params = {
+            query: {
+                sort: 'nome',
+                currentPage: 1,
+                pageSize: 10
+            }
         };
         
         vm.add{model_name} = function () {
@@ -16,10 +18,10 @@
         };
 
         vm.list{model_plural_name} = function () {
-            {entity_name}Manager.list{model_plural_name}().then(function (result) {
+            {entity_name}Manager.list{model_plural_name}(vm.params).then(function (result) {
                 if (result.sucesso) {
                     vm.{plural_name} = result.data;
-                    vm.filter.p = result.page.currentPage;
+                    vm.filter.currentPage = result.page.currentPage;
                     vm.filter.totalItems = result.page.totalItems;
                 }
             });

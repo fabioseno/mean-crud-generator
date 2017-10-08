@@ -1,5 +1,5 @@
 var tools = require('./tools');
-var os = require('os');
+var util = require('./util');
 var frontendFolder = 'angularjs';
 
 function capitalize(string) {
