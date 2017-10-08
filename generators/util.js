@@ -109,9 +109,9 @@ function getRouteUniqueMiddleware(config) {
 
 module.exports = {
     getModelMetadata: getModelMetadata,
-    getSearchCriteria: getSearchCriteria,
-    getUpdateFields: getUpdateFields,
-    getUpdateFields: getUpdateFields,
+
+    getControllerSearchCriteria: getControllerSearchCriteria,
+    getControllerUpdateFields: getControllerUpdateFields,
     
     getRouteValidationDeclaration: getRouteValidationDeclaration,
     getRouteRequiredMiddleware: getRouteRequiredMiddleware,

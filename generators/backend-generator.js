@@ -30,8 +30,8 @@ function generateController(config, cb) {
     template = template.replace(/{modelName}/g, config.model.name);
     template = template.replace(/{modelFilename}/g, config.model.filename);
     template = template.replace(/{pluralEntityName}/g, config.model.pluralName);
-    template = template.replace(/{search_fields}/, util.getSearchCriteria(config));
-    template = template.replace(/{update_fields}/, util.getUpdateFields(config));
+    template = template.replace(/{search_fields}/, util.getControllerSearchCriteria(config));
+    template = template.replace(/{update_fields}/, util.getControllerUpdateFields(config));
 
     tools.writeFile('/controllers/' + config.controller.filename, template);
 
