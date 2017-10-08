@@ -46,24 +46,7 @@ function generateDetailsViewHtml(config, cb) {
 
     template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
     template = template.replace(/{model_name}/g, config.model.name);
-
-    var controls = '';
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        var required = field.required ? 'required' : '';
-        var messages = required ? `\t\t\t\t\t\t\t\t\t<div ng-messages="vm.form.` + field.fieldName + `.$error" multiple ng-if="vm.form.$submitted || vm.form.` + field.fieldName + `.$dirty">
-        \t\t\t\t\t\t\t\t\t\t<div ng-message="required">Campo obrigatório</div>
-        \t\t\t\t\t\t\t\t\t</div>` : '';
-        
-        controls += `\t\t\t\t\t\t\t\t\t\t<div class="form-group col-lg-12">
-        \t\t\t\t\t\t\t\t\t<label for="` + field.fieldName + `">` + config.model.name + `</label>
-        \t\t\t\t\t\t\t\t\t<input type="text" id="` + field.fieldName + `" name="` + field.fieldName + `" ` + required + ` class="form-control" data-ng-model="vm.` + config.entityName + `.` + field.fieldName + `">
-        ` + messages + `
-        \t\t\t\t\t\t\t\t</div>` + os.EOL;
-    }
-
-    template = template.replace(/{controls}/g, controls);
+    template = template.replace(/{controls}/g, util.getDetailsViewHTMLFields(config));
 
     tools.writeFile('/pages/' + config.entityName + '-details.html', template);
 
