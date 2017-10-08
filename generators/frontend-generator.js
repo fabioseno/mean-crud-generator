@@ -12,38 +12,12 @@ function generateListViewHtml(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
     template = template.replace(/{list_view_page_title}/g, config.pages.listViewPageTitle);
-
-    // Listing Header
-    var listingHeaderOutput = '';
-    for (var i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        listingHeaderOutput += '\t\t\t\t\t\t\t\t\t<th>' + field.fieldLabel + '</th>';
-
-        if (i !== config.fields.length - 1) {
-            listingHeaderOutput += os.EOL;
-        }
-    }
-
-    template = template.replace(/{listing_header}/g, listingHeaderOutput);
+    template = template.replace(/{listing_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{plural_name}/g, config.model.pluralName);
     template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
-
-    // Listing Fields
-    var listingFieldsOutput = '';
-    for (i = 0; i < config.fields.length; i++) {
-        var field = config.fields[i];
-
-        listingFieldsOutput += '\t\t\t\t\t\t\t\t\t<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
-
-        if (i !== config.fields.length - 1) {
-            listingFieldsOutput += os.EOL;
-        }
-    }
-
-    template = template.replace(/{listing_fields}/g, listingFieldsOutput);
+    template = template.replace(/{listing_fields}/g, util.getListViewHTMLGridRow(config));
 
     tools.writeFile('/pages/' + config.entityName + '-list.html', template);
 

@@ -161,6 +161,38 @@ function getMiddlewareUniqueFunctions(config) {
     return unique;
 }
 
+function getListViewHTMLGridHeader(config) {
+    var listingHeaderOutput = '';
+
+    for (var i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        listingHeaderOutput += '\t\t\t\t\t\t\t\t\t<th>' + field.fieldLabel + '</th>';
+
+        if (i !== config.fields.length - 1) {
+            listingHeaderOutput += os.EOL;
+        }
+    }
+
+    return listingHeaderOutput;
+}
+
+function getListViewHTMLGridRow(config) {
+    var listingFieldsOutput = '';
+
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        listingFieldsOutput += '\t\t\t\t\t\t\t\t\t<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
+
+        if (i !== config.fields.length - 1) {
+            listingFieldsOutput += os.EOL;
+        }
+    }
+
+    return listingFieldsOutput;
+}
+
 module.exports = {
     capitalize: capitalize,
     
@@ -174,5 +206,8 @@ module.exports = {
     getRouteUniqueMiddleware: getRouteUniqueMiddleware,
 
     getMiddlewareRequiredFunctions: getMiddlewareRequiredFunctions,
-    getMiddlewareUniqueFunctions: getMiddlewareUniqueFunctions
+    getMiddlewareUniqueFunctions: getMiddlewareUniqueFunctions,
+
+    getListViewHTMLGridHeader: getListViewHTMLGridHeader,
+    getListViewHTMLGridRow: getListViewHTMLGridRow
 };
