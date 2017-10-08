@@ -5,7 +5,7 @@
     function {model_name}($location, $mdDialog, $stateParams, registrationManager, {entity_name}Manager, toaster) {
         var vm = this;
 
-        vm.operation = ((!$stateParams.id || $stateParams.id === 'add') ? 'add' : 'edit');
+        vm.operation = (!$stateParams.id ? 'add' : 'edit');
         vm.actionButtonLabel = (vm.operation === 'add' ? 'Adicionar' : 'Atualizar');
         vm.{entity_name} = {};
         //vm.mask = registrationManager.mask;
