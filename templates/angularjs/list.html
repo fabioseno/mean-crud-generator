@@ -15,12 +15,12 @@
 						<table class="table table-striped cf no-margin table-hover">
 							<thead class="cf">
 								<tr>
-{listing_header}
+{grid_header}
 								</tr>
 							</thead>
 							<tbody>
 								<tr data-ng-repeat="{entity_name} in vm.{plural_name}" data-ng-click="root.goTo('/admin/{plural_name}/' + {entity_name}.id);">
-{listing_fields}
+{grid_rows}
 								</tr>
 							</tbody>
 						</table>

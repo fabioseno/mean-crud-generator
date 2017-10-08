@@ -12,12 +12,12 @@ function generateListViewHtml(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
     template = template.replace(/{list_view_page_title}/g, config.pages.listViewPageTitle);
-    template = template.replace(/{listing_header}/g, util.getListViewHTMLGridHeader(config));
+    template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{plural_name}/g, config.model.pluralName);
     template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
-    template = template.replace(/{listing_fields}/g, util.getListViewHTMLGridRow(config));
+    template = template.replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
     tools.writeFile('/pages/' + config.entityName + '-list.html', template);
 
@@ -32,7 +32,7 @@ function generateListViewLogic(config, cb) {
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{plural_name}/g, config.model.pluralName);
-    template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
+    template = template.replace(/{model_plural_name}/g, config.model.pluralName + 's');
 
     tools.writeFile('/pages/' + config.entityName + '-list.js', template);
 
