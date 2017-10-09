@@ -148,7 +148,7 @@ function getMiddlewareUniqueFunctions(config) {
             unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.query.' + field.fieldName + '}, function (err, result) {' + os.EOL;
             unique += '\t\tif (result && req.query.' + field.fieldName + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
 
-            unique += '\t\t\treq.validations = req.validations || [];' + os.EOL;
+            unique += '\t\t\treq.validations = req.validations || [];' + os.EOL + os.EOL;
             unique += '\t\t\treq.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
             unique += '\t\t}' + os.EOL + os.EOL;
 
