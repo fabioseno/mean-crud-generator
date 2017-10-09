@@ -21,9 +21,10 @@ module.exports.required = function (req, res, next) {;
 module.exports.nameExists = function (req, res, next) {;
 	'use strict';
 
-	Car.findOne({name: req.query.name}, function (err, result) {
-		if (result && req.query.name & result.name != req.query.name) {
+	Car.findOne({name: req.body.name}, function (err, result) {
+		if (result && req.body.name & result.name != req.body.name) {
 			req.validations = req.validations || [];
+
 			req.validations.push('Carro com nome já cadastrado!');
 		}
 
@@ -34,9 +35,10 @@ module.exports.nameExists = function (req, res, next) {;
 module.exports.modelExists = function (req, res, next) {;
 	'use strict';
 
-	Car.findOne({model: req.query.model}, function (err, result) {
-		if (result && req.query.model & result.model != req.query.model) {
+	Car.findOne({model: req.body.model}, function (err, result) {
+		if (result && req.body.model & result.model != req.body.model) {
 			req.validations = req.validations || [];
+
 			req.validations.push('Carro com modelo já cadastrado!');
 		}
 

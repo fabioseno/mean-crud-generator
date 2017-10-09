@@ -145,8 +145,8 @@ function getMiddlewareUniqueFunctions(config) {
             unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;` + os.EOL
             unique += '\t\'use strict\';' + os.EOL + os.EOL;
 
-            unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.query.' + field.fieldName + '}, function (err, result) {' + os.EOL;
-            unique += '\t\tif (result && req.query.' + field.fieldName + ' & result.' + field.fieldName + ' != req.query.' + field.fieldName + ') {' + os.EOL;
+            unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.body.' + field.fieldName + '}, function (err, result) {' + os.EOL;
+            unique += '\t\tif (result && req.body.' + field.fieldName + ' & result.' + field.fieldName + ' != req.body.' + field.fieldName + ') {' + os.EOL;
 
             unique += '\t\t\treq.validations = req.validations || [];' + os.EOL + os.EOL;
             unique += '\t\t\treq.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
