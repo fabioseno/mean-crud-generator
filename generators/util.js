@@ -179,7 +179,7 @@ function getListViewHTMLGridHeader(config) {
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingHeaderOutput += '\t\t\t\t\t\t\t\t\t<th>' + field.fieldLabel + '</th>';
+        listingHeaderOutput += util.setTabs(9) + '<th>' + field.fieldLabel + '</th>';
 
         if (i !== config.fields.length - 1) {
             listingHeaderOutput += os.EOL;
@@ -195,7 +195,7 @@ function getListViewHTMLGridRow(config) {
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingFieldsOutput += '\t\t\t\t\t\t\t\t\t<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
+        listingFieldsOutput += util.setTabs(9) + '<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
 
         if (i !== config.fields.length - 1) {
             listingFieldsOutput += os.EOL;
