@@ -91,7 +91,7 @@ function getControllerUpdateFields(config) {
 }
 
 function getRouteValidationDeclaration(config) {
-    return os.EOL + '\tvar ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
+    return os.EOL + util.setTabs(1) + 'var ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
 }
 
 function getRouteRequiredMiddleware(config) {
