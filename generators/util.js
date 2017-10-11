@@ -127,21 +127,21 @@ function getMiddlewareRequiredFunctions(config) {
     var required = '';
 
     required += 'module.exports.required = function (req, res, next) {;' + os.EOL;
-    required += '\t\'use strict\';' + os.EOL + os.EOL;
+    required += util.setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
-    required += '\treq.validations = req.validations || [];' + os.EOL + os.EOL;
+    required += util.setTabs(1) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
 
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
         if (field.required) {
-            required += '\tif (!req.body || !req.body.' + field.fieldName + ') {' + os.EOL;
-            required += '\t\treq.validations.push(\'Campo ' + field.fieldLabel.toLowerCase() + ' é obrigatório!\');' + os.EOL;
-            required += '\t}' + os.EOL + os.EOL;
+            required += util.setTabs(1) + 'if (!req.body || !req.body.' + field.fieldName + ') {' + os.EOL;
+            required += util.setTabs(2) + 'req.validations.push(\'Campo ' + field.fieldLabel.toLowerCase() + ' é obrigatório!\');' + os.EOL;
+            required += util.setTabs(1) + '}' + os.EOL + os.EOL;
         }
     }
 
-    required += '\tnext();' + os.EOL;
+    required += util.setTabs(1) + 'next();' + os.EOL;
     required += '};' + os.EOL + os.EOL;
 
     return required;
@@ -155,17 +155,17 @@ function getMiddlewareUniqueFunctions(config) {
 
         if (field.unique) {
             unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;` + os.EOL
-            unique += '\t\'use strict\';' + os.EOL + os.EOL;
+            unique += util.setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
-            unique += '\t' + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.body.' + field.fieldName + '}, function (err, result) {' + os.EOL;
-            unique += '\t\tif (result && result.id != req.body.id) {' + os.EOL;
+            unique += util.setTabs(1) + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.body.' + field.fieldName + '}, function (err, result) {' + os.EOL;
+            unique += util.setTabs(2) + 'if (result && result.id != req.body.id) {' + os.EOL;
 
-            unique += '\t\t\treq.validations = req.validations || [];' + os.EOL + os.EOL;
-            unique += '\t\t\treq.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
-            unique += '\t\t}' + os.EOL + os.EOL;
+            unique += util.setTabs(3) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+            unique += util.setTabs(3) + 'req.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
+            unique += util.setTabs(2) + '}' + os.EOL + os.EOL;
 
-            unique += '\t\tnext();' + os.EOL;
-            unique += '\t});' + os.EOL;
+            unique += util.setTabs(2) + 'next();' + os.EOL;
+            unique += util.setTabs(1) + '});' + os.EOL;
             unique += '};' + os.EOL + os.EOL;
         }
     }
