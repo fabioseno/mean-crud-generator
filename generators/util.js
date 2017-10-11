@@ -4,6 +4,18 @@ function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+function setTabs(number) {
+    return result = '';
+
+    if (!isNaN(number)) {
+        for (var i = 0; i < number; i++) {
+            result += '\t';
+        }
+    }
+
+    return result;
+}
+
 function getDataType(dataType) {
     if (dataType === 'Integer' || dataType === 'Decimal') {
         return number;
