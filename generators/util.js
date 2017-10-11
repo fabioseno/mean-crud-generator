@@ -54,10 +54,10 @@ function getControllerSearchCriteria(config) {
         var field = config.fields[i];
 
         if (field.searchField) {
-            searchObject += '\t\t\tif (req.query.' + field.fieldName + ') {' + os.EOL;
-            searchObject += '\t\t\t\tregex = new RegExp(req.query.' + field.fieldName + ', \'i\');' + os.EOL;
-            searchObject += '\t\t\t\tquery = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
-            searchObject += '\t\t\t}';
+            searchObject += util.setTabs(3) + 'if (req.query.' + field.fieldName + ') {' + os.EOL;
+            searchObject += util.setTabs(4) + 'regex = new RegExp(req.query.' + field.fieldName + ', \'i\');' + os.EOL;
+            searchObject += util.setTabs(4) + 'query = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
+            searchObject += util.setTabs(3) + '}';
 
             if (i !== config.fields.length - 1) {
                 searchObject += os.EOL + os.EOL;
@@ -75,7 +75,7 @@ function getControllerUpdateFields(config) {
         var field = config.fields[i];
 
         if (field.updateField) {
-            updateData += '\t\t\t' + field.fieldName + ': req.body.' + field.fieldName;
+            updateData += util.setTabs(3) + field.fieldName + ': req.body.' + field.fieldName;
 
             if (i < config.fields.length - 1) {
                 updateData += ',' + os.EOL;
