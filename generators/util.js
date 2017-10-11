@@ -212,15 +212,15 @@ function getDetailsViewHTMLFields(config) {
         var field = config.fields[i];
 
         var required = field.required ? 'required' : '';
-        var messages = required ? `\t\t\t\t\t\t\t\t\t<div ng-messages="vm.form.` + field.fieldName + `.$error" multiple ng-if="vm.form.$submitted || vm.form.` + field.fieldName + `.$dirty">
-        \t\t\t\t\t\t\t\t\t\t<div ng-message="required">Campo obrigatório</div>
-        \t\t\t\t\t\t\t\t\t</div>` : '';
+        var messages = required ? util.setTabs(9) + '<div ng-messages="vm.form.' + field.fieldName + '.$error" multiple ng-if="vm.form.$submitted || vm.form.' + field.fieldName + '.$dirty">';
+        messages += util.setTabs(10) + '<div ng-message="required">Campo obrigatório</div>';
+        messages += util.setTabs(9) + '</div>' : '';
         
-        controls += `\t\t\t\t\t\t\t\t\t\t<div class="form-group col-lg-12">
-        \t\t\t\t\t\t\t\t\t<label for="` + field.fieldName + `">` + config.model.name + `</label>
-        \t\t\t\t\t\t\t\t\t<input type="text" id="` + field.fieldName + `" name="` + field.fieldName + `" ` + required + ` class="form-control" data-ng-model="vm.` + config.entityName + `.` + field.fieldName + `">
-        ` + messages + `
-        \t\t\t\t\t\t\t\t</div>` + os.EOL;
+        controls += util.setTabs(10) + '<div class="form-group col-lg-12">';
+        controls += util.setTabs(9) + '<label for="' + field.fieldName + '">' + config.model.name + '</label>';
+        controls += util.setTabs(9) + '<input type="text" id="' + field.fieldName + '" name="' + field.fieldName + '" ' + required + ' class="form-control" data-ng-model="vm.' + config.entityName + '.' + field.fieldName + '">';
+        controls += messages;
+        controls += util.setTabs(8) + '</div>' + os.EOL;
     }
 
     return controls;
