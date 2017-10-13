@@ -223,16 +223,17 @@ function getDetailsViewHTMLFields(config) {
         var messages = '';
 
         if (required) {
-            messages += setTabs(9) + formatText('<div ng-messages="vm.form.{0}.$error" multiple ng-if="vm.form.$submitted || vm.form.{1}.$dirty">', field.fieldName, field.fieldName);
-            messages += setTabs(10) + '<div ng-message="required">Campo obrigatório</div>';
-            messages += setTabs(9) + '</div>';
+            messages += setTabs(11) + formatText('<div ng-messages="vm.form.{0}.$error" multiple ng-if="vm.form.$submitted || vm.form.{1}.$dirty">', field.fieldName, field.fieldName) + os.EOL;
+            messages += setTabs(12) + '<div ng-message="required">Campo obrigatório</div>' + os.EOL;
+            messages += setTabs(11) + '</div>' + os.EOL;
         }
         
-        controls += setTabs(10) + '<div class="form-group col-lg-12">';
-        controls += setTabs(9) + formatText('<label for="{0}">{1}</label>', field.fieldName, config.model.name);
-        controls += setTabs(9) + formatText('<input type="text" id="{0}" name="{1}" {2} class="form-control" data-ng-model="vm.{3}.{4}">', field.fieldName, field.fieldName, required, config.entityName, field.fieldName);
+        controls += os.EOL;
+        controls += setTabs(10) + '<div class="form-group col-lg-12">' + os.EOL;
+        controls += setTabs(11) + formatText('<label for="{0}">{1}</label>', field.fieldName, config.model.name) + os.EOL;
+        controls += setTabs(11) + formatText('<input type="text" id="{0}" name="{1}" {2} class="form-control" data-ng-model="vm.{3}.{4}">', field.fieldName, field.fieldName, required, config.entityName, field.fieldName) + os.EOL;
         controls += messages;
-        controls += setTabs(8) + '</div>' + os.EOL;
+        controls += setTabs(10) + '</div>';
     }
 
     return controls;

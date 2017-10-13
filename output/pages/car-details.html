@@ -14,9 +14,20 @@
 							<div class="col-lg-12">
 								<section class="panel panel-default">
 									<div class="panel-body padding-vertical">
-										<div class="form-group col-lg-12">									<label for="name">Car</label>									<input type="text" id="name" name="name" required class="form-control" data-ng-model="vm.car.name">									<div ng-messages="vm.form.name.$error" multiple ng-if="vm.form.$submitted || vm.form.name.$dirty">										<div ng-message="required">Campo obrigatório</div>									</div>								</div>
-										<div class="form-group col-lg-12">									<label for="model">Car</label>									<input type="text" id="model" name="model" required class="form-control" data-ng-model="vm.car.model">									<div ng-messages="vm.form.model.$error" multiple ng-if="vm.form.$submitted || vm.form.model.$dirty">										<div ng-message="required">Campo obrigatório</div>									</div>								</div>
-
+										<div class="form-group col-lg-12">
+											<label for="name">Car</label>
+											<input type="text" id="name" name="name" required class="form-control" data-ng-model="vm.car.name">
+											<div ng-messages="vm.form.name.$error" multiple ng-if="vm.form.$submitted || vm.form.name.$dirty">
+												<div ng-message="required">Campo obrigatório</div>
+											</div>
+										</div>
+										<div class="form-group col-lg-12">
+											<label for="model">Car</label>
+											<input type="text" id="model" name="model" required class="form-control" data-ng-model="vm.car.model">
+											<div ng-messages="vm.form.model.$error" multiple ng-if="vm.form.$submitted || vm.form.model.$dirty">
+												<div ng-message="required">Campo obrigatório</div>
+											</div>
+										</div>
 									</div>
 								</section>
 							</div>
