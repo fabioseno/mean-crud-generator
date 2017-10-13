@@ -106,6 +106,6 @@
 
     {model_name}.$inject = ['$location', '$mdDialog', '$stateParams', '{entity_name}Manager', 'toaster'];
 
-    angular.module('app').controller('{model_name}', {model_name});
+    angular.module('app').controller('{entity_name}', {model_name});
 
 }());
