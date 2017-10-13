@@ -2,13 +2,12 @@
 (function () {
     'use strict';
 
-    function {model_name}($location, $mdDialog, $stateParams, registrationManager, {entity_name}Manager, toaster) {
+    function {model_name}($location, $mdDialog, $stateParams, {entity_name}Manager, toaster) {
         var vm = this;
 
         vm.operation = (!$stateParams.id ? 'add' : 'edit');
         vm.actionButtonLabel = (vm.operation === 'add' ? 'Adicionar' : 'Atualizar');
         vm.{entity_name} = {};
-        //vm.mask = registrationManager.mask;
         
         vm.getDetails = function () {
             var params;
@@ -105,8 +104,8 @@
         vm.getDetails();
     }
 
-    {model_name}.$inject = ['$location', '$mdDialog', '$stateParams', 'registrationManager', '{entity_name}Manager', 'toaster'];
+    {model_name}.$inject = ['$location', '$mdDialog', '$stateParams', '{entity_name}Manager', 'toaster'];
 
-    angular.module('app').controller('usuario', {model_name});
+    angular.module('app').controller('{model_name}', {model_name});
 
 }());
