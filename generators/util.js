@@ -99,7 +99,7 @@ function getControllerUpdateFields(config) {
 }
 
 function getRouteValidationDeclaration(config) {
-    return os.EOL + setTabs(1) + 'var ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
+    return os.EOL + setTabs(1) + formatText('var {0}Validation = require(\'../middlewares/{1}\');', config.entityName);
 }
 
 function getRouteRequiredMiddleware(config) {
@@ -124,7 +124,7 @@ function getRouteUniqueMiddleware(config) {
         var field = config.fields[i];
 
         if (field.unique) {
-            middlewareList += config.entityName + 'Validation.' + field.fieldName + 'Exists, ';
+            middlewareList += formatText('{0}Validation.{1}Exists, ', config.entityName, field.fieldName);
         }
     }
 
