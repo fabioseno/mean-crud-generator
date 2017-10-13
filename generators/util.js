@@ -203,7 +203,7 @@ function getListViewHTMLGridRow(config) {
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingFieldsOutput += setTabs(9) + '<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
+        listingFieldsOutput += setTabs(9) + formatText('<td data-ng-bind="{0}.{1}"></td>', config.entityName, field.fieldName);
 
         if (i !== config.fields.length - 1) {
             listingFieldsOutput += os.EOL;
