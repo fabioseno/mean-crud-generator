@@ -4,9 +4,17 @@ function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-function setTabs(number) {
-    return result = '';
+function formatText(string, args) {
+    for (var i = 1; i < arguments.length; i++) {
+        string = string.replace('{' + (i - 1) + '}', arguments[i]);
+    }
 
+    return string;
+}
+
+function setTabs(number) {
+    var result = '';
+    
     if (!isNaN(number)) {
         for (var i = 0; i < number; i++) {
             result += '\t';
@@ -54,10 +62,10 @@ function getControllerSearchCriteria(config) {
         var field = config.fields[i];
 
         if (field.searchField) {
-            searchObject += util.setTabs(3) + 'if (req.query.' + field.fieldName + ') {' + os.EOL;
-            searchObject += util.setTabs(4) + 'regex = new RegExp(req.query.' + field.fieldName + ', \'i\');' + os.EOL;
-            searchObject += util.setTabs(4) + 'query = query.where(\'' + field.fieldName + '\', { $regex: regex });' + os.EOL;
-            searchObject += util.setTabs(3) + '}';
+            searchObject += setTabs(3) + formatText('if (req.query.{0}) {', field.fieldName) + os.EOL;
+            searchObject += setTabs(4) + formatText('regex = new RegExp(req.query.{0}, \'i\');', field.fieldName) + os.EOL;
+            searchObject += setTabs(4) + formatText('query = query.where(\'{0}\', { $regex: regex });', field.fieldName) + os.EOL;
+            searchObject += setTabs(3) + '}';
 
             if (i !== config.fields.length - 1) {
                 searchObject += os.EOL + os.EOL;
@@ -75,7 +83,7 @@ function getControllerUpdateFields(config) {
         var field = config.fields[i];
 
         if (field.updateField) {
-            updateData += util.setTabs(3) + field.fieldName + ': req.body.' + field.fieldName;
+            updateData += setTabs(3) + formatText('{0}: req.body.{1}', field.fieldName, field.fieldName);
 
             if (i < config.fields.length - 1) {
                 updateData += ',' + os.EOL;
@@ -85,13 +93,13 @@ function getControllerUpdateFields(config) {
         }
     }
 
-    updateData += '\t\t};'
+    updateData += setTabs(2) + '};'
 
     return updateData;
 }
 
 function getRouteValidationDeclaration(config) {
-    return os.EOL + util.setTabs(1) + 'var ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
+    return os.EOL + setTabs(1) + 'var ' + config.entityName + 'Validation = require(\'../middlewares/' + config.entityName + '\');';
 }
 
 function getRouteRequiredMiddleware(config) {
@@ -127,21 +135,21 @@ function getMiddlewareRequiredFunctions(config) {
     var required = '';
 
     required += 'module.exports.required = function (req, res, next) {;' + os.EOL;
-    required += util.setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
+    required += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
-    required += util.setTabs(1) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+    required += setTabs(1) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
 
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
         if (field.required) {
-            required += util.setTabs(1) + 'if (!req.body || !req.body.' + field.fieldName + ') {' + os.EOL;
-            required += util.setTabs(2) + 'req.validations.push(\'Campo ' + field.fieldLabel.toLowerCase() + ' é obrigatório!\');' + os.EOL;
-            required += util.setTabs(1) + '}' + os.EOL + os.EOL;
+            required += setTabs(1) + 'if (!req.body || !req.body.' + field.fieldName + ') {' + os.EOL;
+            required += setTabs(2) + 'req.validations.push(\'Campo ' + field.fieldLabel.toLowerCase() + ' é obrigatório!\');' + os.EOL;
+            required += setTabs(1) + '}' + os.EOL + os.EOL;
         }
     }
 
-    required += util.setTabs(1) + 'next();' + os.EOL;
+    required += setTabs(1) + 'next();' + os.EOL;
     required += '};' + os.EOL + os.EOL;
 
     return required;
@@ -155,17 +163,17 @@ function getMiddlewareUniqueFunctions(config) {
 
         if (field.unique) {
             unique += `module.exports.` + field.fieldName + `Exists = function (req, res, next) {;` + os.EOL
-            unique += util.setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
+            unique += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
-            unique += util.setTabs(1) + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.body.' + field.fieldName + '}, function (err, result) {' + os.EOL;
-            unique += util.setTabs(2) + 'if (result && result.id != req.body.id) {' + os.EOL;
+            unique += setTabs(1) + config.model.name + '.findOne({' + field.fieldName + ': ' + 'req.body.' + field.fieldName + '}, function (err, result) {' + os.EOL;
+            unique += setTabs(2) + 'if (result && result.id != req.body.id) {' + os.EOL;
 
-            unique += util.setTabs(3) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
-            unique += util.setTabs(3) + 'req.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
-            unique += util.setTabs(2) + '}' + os.EOL + os.EOL;
+            unique += setTabs(3) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+            unique += setTabs(3) + 'req.validations.push(\'' + capitalize(config.entityTitle) + ' com ' + field.fieldLabel.toLowerCase() + ' já cadastrado!\');' + os.EOL
+            unique += setTabs(2) + '}' + os.EOL + os.EOL;
 
-            unique += util.setTabs(2) + 'next();' + os.EOL;
-            unique += util.setTabs(1) + '});' + os.EOL;
+            unique += setTabs(2) + 'next();' + os.EOL;
+            unique += setTabs(1) + '});' + os.EOL;
             unique += '};' + os.EOL + os.EOL;
         }
     }
@@ -179,7 +187,7 @@ function getListViewHTMLGridHeader(config) {
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingHeaderOutput += util.setTabs(9) + '<th>' + field.fieldLabel + '</th>';
+        listingHeaderOutput += setTabs(9) + '<th>' + field.fieldLabel + '</th>';
 
         if (i !== config.fields.length - 1) {
             listingHeaderOutput += os.EOL;
@@ -195,7 +203,7 @@ function getListViewHTMLGridRow(config) {
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingFieldsOutput += util.setTabs(9) + '<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
+        listingFieldsOutput += setTabs(9) + '<td data-ng-bind="' + config.entityName + '.' + field.fieldName + '"></td>';
 
         if (i !== config.fields.length - 1) {
             listingFieldsOutput += os.EOL;
@@ -212,15 +220,19 @@ function getDetailsViewHTMLFields(config) {
         var field = config.fields[i];
 
         var required = field.required ? 'required' : '';
-        var messages = required ? util.setTabs(9) + '<div ng-messages="vm.form.' + field.fieldName + '.$error" multiple ng-if="vm.form.$submitted || vm.form.' + field.fieldName + '.$dirty">';
-        messages += util.setTabs(10) + '<div ng-message="required">Campo obrigatório</div>';
-        messages += util.setTabs(9) + '</div>' : '';
+        var messages = '';
+
+        if (required) {
+            messages += setTabs(9) + '<div ng-messages="vm.form.' + field.fieldName + '.$error" multiple ng-if="vm.form.$submitted || vm.form.' + field.fieldName + '.$dirty">';
+            messages += setTabs(10) + '<div ng-message="required">Campo obrigatório</div>';
+            messages += setTabs(9) + '</div>';
+        }
         
-        controls += util.setTabs(10) + '<div class="form-group col-lg-12">';
-        controls += util.setTabs(9) + '<label for="' + field.fieldName + '">' + config.model.name + '</label>';
-        controls += util.setTabs(9) + '<input type="text" id="' + field.fieldName + '" name="' + field.fieldName + '" ' + required + ' class="form-control" data-ng-model="vm.' + config.entityName + '.' + field.fieldName + '">';
+        controls += setTabs(10) + '<div class="form-group col-lg-12">';
+        controls += setTabs(9) + '<label for="' + field.fieldName + '">' + config.model.name + '</label>';
+        controls += setTabs(9) + '<input type="text" id="' + field.fieldName + '" name="' + field.fieldName + '" ' + required + ' class="form-control" data-ng-model="vm.' + config.entityName + '.' + field.fieldName + '">';
         controls += messages;
-        controls += util.setTabs(8) + '</div>' + os.EOL;
+        controls += setTabs(8) + '</div>' + os.EOL;
     }
 
     return controls;
