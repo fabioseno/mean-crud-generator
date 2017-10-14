@@ -57,6 +57,7 @@ function generateMiddlewares(config, cb) {
     var template = tools.readTemplate(backendFolder, 'middleware.js');
 
     template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{field_required}/g, util.getMiddlewareRequiredFunctions(config));
     template = template.replace(/{field_exists}/g, util.getMiddlewareUniqueFunctions(config));
 

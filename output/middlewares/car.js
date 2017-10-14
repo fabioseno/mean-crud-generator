@@ -1,5 +1,5 @@
 /*global require, module*/
-var User = require('../models/car'),
+var Car = require('../models/car'),
     messageHandler = require('../utils/messageHandler');
 
 module.exports.required = function (req, res, next) {;
