@@ -19,7 +19,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr data-ng-repeat="{entity_name} in vm.{entity_name_plural}" data-ng-click="root.goTo('/admin/{entity_name_plural}/' + {entity_name}.id);">
+								<tr data-ng-repeat="{entity_name} in vm.{entity_plural_name}" data-ng-click="root.goTo('/admin/{entity_plural_name}/' + {entity_name}.id);">
 {grid_rows}
 								</tr>
 							</tbody>
@@ -31,7 +31,7 @@
 								<span class="total-entries pagination">Foram encontrados <b>{{ vm.filter.totalItems }}</b> registros</span>
 							</div>
 							<div class="col-md-6 text-right pagination-container">
-								<uib-pagination class="pagination-sm" ng-model="vm.filter.p" total-items="vm.filter.totalItems" max-size="4" ng-change="vm.list{model_name_plural}()"
+								<uib-pagination class="pagination-sm" ng-model="vm.filter.p" total-items="vm.filter.totalItems" max-size="4" ng-change="vm.list{model_plural_name}()"
 								 items-per-page="vm.filter.s" rotate="false" boundary-link-numbers="false" previous-text="Anterior" next-text="Próximo"></uib-pagination>
 							</div>
 						</div>

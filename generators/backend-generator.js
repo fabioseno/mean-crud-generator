@@ -25,7 +25,7 @@ function generateController(config, cb) {
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{model_filename}/g, config.model.filename);
-    template = template.replace(/{plural_entity_name}/g, config.entityPluralName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{search_fields}/, util.getControllerSearchCriteria(config));
     template = template.replace(/{update_fields}/, util.getControllerUpdateFields(config));
 
@@ -39,7 +39,7 @@ function generateRoute(config, cb) {
 
     var template = tools.readTemplate(backendFolder, 'route.js');
 
-    template = template.replace(/{plural_entity_name}/g, config.entityPluralName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{controller_name}/g, config.controller.name);
     template = template.replace(/{controller_filename}/g, config.controller.filename);
     template = template.replace(/{validation_require}/g, util.getRouteValidationDeclaration(config));

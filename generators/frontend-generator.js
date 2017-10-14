@@ -15,8 +15,8 @@ function generateListViewHtml(config, cb) {
     template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
-    template = template.replace(/{entity_name_plural}/g, config.entityPluralName);
-    template = template.replace(/{model_name_plural}/g, capitalize(config.entityName) + 's');
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
+    template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
     template = template.replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
     tools.writeFile('/pages/' + config.pages.listViewHtmlPageFilename, template);
@@ -31,8 +31,8 @@ function generateListViewLogic(config, cb) {
 
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
-    template = template.replace(/{entity_name_plural}/g, config.entityPluralName);
-    template = template.replace(/{model_name_plural}/g, config.model.pluralName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
+    template = template.replace(/{model_plural_name}/g, config.model.pluralName);
 
     tools.writeFile('/pages/' + config.pages.listViewJSPageFilename, template);
 
@@ -77,7 +77,7 @@ function generateUIRoutes(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'router.js');
 
     template = template.replace(/{entity_name}/g, config.entityName);
-    template = template.replace(/{entity_name_plural}/g, config.entityPluralName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{list_view_html_filename}/g, config.pages.listViewHtmlPageFilename);
     template = template.replace(/{list_view_js_controller_name}/g, config.pages.listViewJSPageControllerName);
     template = template.replace(/{details_view_html_filename}/g, config.pages.detailsViewHtmlPageFilename);

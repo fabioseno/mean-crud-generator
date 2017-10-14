@@ -6,8 +6,8 @@ var {model_name} = require('../models/{model_filename}'),
     list = function (req, res) {
         'use strict';
 
-        pagination.paginate({model_name}.find(), null, req.query.sort, function (err, {plural_entity_name}) {
-            messageHandler.wrapResponse(res, err, {plural_entity_name});
+        pagination.paginate({model_name}.find(), null, req.query.sort, function (err, {entity_plural_name}) {
+            messageHandler.wrapResponse(res, err, {entity_plural_name});
         });
     },
 
@@ -30,8 +30,8 @@ var {model_name} = require('../models/{model_filename}'),
 {search_fields}
         }
 
-        pagination.paginate(query, pagingOptions, req.query.sort, function (err, {plural_entity_name}) {
-            messageHandler.wrapResponse(res, err, {plural_entity_name});
+        pagination.paginate(query, pagingOptions, req.query.sort, function (err, {entity_plural_name}) {
+            messageHandler.wrapResponse(res, err, {entity_plural_name});
         });
     },
 

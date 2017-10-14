@@ -6,21 +6,21 @@ module.exports = function (router) {
     var auth = require('../middlewares/session');
     
     // List
-    router.get('/{plural_entity_name}', auth.isLogged, {controller_name}.list);
+    router.get('/{entity_plural_name}', auth.isLogged, {controller_name}.list);
     
     // Search
-    router.post('/{plural_entity_name}/search', auth.isLogged, {controller_name}.search);
+    router.post('/{entity_plural_name}/search', auth.isLogged, {controller_name}.search);
 
     // Get
-    router.get('/{plural_entity_name}/:id', auth.isLogged, {controller_name}.get);
+    router.get('/{entity_plural_name}/:id', auth.isLogged, {controller_name}.get);
     
     // Add
-    router.put('/{plural_entity_name}', auth.isLogged, {required_middleware}{unique_middleware}{controller_name}.add);
+    router.put('/{entity_plural_name}', auth.isLogged, {required_middleware}{unique_middleware}{controller_name}.add);
     
     // Update
-    router.post('/{plural_entity_name}/:id', auth.isLogged, {required_middleware}{unique_middleware}{controller_name}.update);
+    router.post('/{entity_plural_name}/:id', auth.isLogged, {required_middleware}{unique_middleware}{controller_name}.update);
     
     // Remove
-    router['delete']('/{plural_entity_name}/:id', auth.isLogged, {controller_name}.remove);
+    router['delete']('/{entity_plural_name}/:id', auth.isLogged, {controller_name}.remove);
     
 };
