@@ -32,6 +32,6 @@
 
     Cars.$inject = ['$location', 'carManager'];
 
-    angular.module('app').controller('{plural_name}', Cars);
+    angular.module('app').controller('cars', Cars);
 
 }());

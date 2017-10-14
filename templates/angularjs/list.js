@@ -14,13 +14,13 @@
         };
         
         vm.add{model_name} = function () {
-            $location.url('/admin/{entity_plural_name}/add');
+            $location.url('/admin/{entity_name_plural}/add');
         };
 
         vm.list{model_name_plural} = function () {
             {entity_name}Manager.list{model_name_plural}(vm.params).then(function (result) {
                 if (result.sucesso) {
-                    vm.{entity_plural_name} = result.data;
+                    vm.{entity_name_plural} = result.data;
                     vm.filter.currentPage = result.page.currentPage;
                     vm.filter.totalItems = result.page.totalItems;
                 }
@@ -32,6 +32,6 @@
 
     {model_name_plural}.$inject = ['$location', '{entity_name}Manager'];
 
-    angular.module('app').controller('{plural_name}', {model_name_plural});
+    angular.module('app').controller('{entity_name_plural}', {model_name_plural});
 
 }());

@@ -1,9 +1,9 @@
-$stateProvider.state('cars', {
-    url: '/cars',
+$stateProvider.state('{entity_plural_name}', {
+    url: '/{entity_plural_name}',
     templateUrl: 'app/sites/cars.html',
     controller: 'cars as vm'
-}).state('cars', {
-    url: '/cars/:id',
+}).state('{entity_plural_name}', {
+    url: '/{entity_plural_name}/:id',
     templateUrl: 'app/sites/car.html',
     controller: 'car as vm'
 })
