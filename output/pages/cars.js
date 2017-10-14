@@ -2,7 +2,7 @@
 (function () {
     'use strict';
 
-    function cars($location, carManager) {
+    function Cars($location, carManager) {
         var vm = this;
 
         vm.params = {
@@ -17,8 +17,8 @@
             $location.url('/admin/cars/add');
         };
 
-        vm.listcars = function () {
-            carManager.listcars(vm.params).then(function (result) {
+        vm.listCars = function () {
+            carManager.listCars(vm.params).then(function (result) {
                 if (result.sucesso) {
                     vm.cars = result.data;
                     vm.filter.currentPage = result.page.currentPage;
@@ -27,11 +27,11 @@
             });
         };
 
-        vm.listcars();
+        vm.listCars();
     }
 
-    cars.$inject = ['$location', 'carManager'];
+    Cars.$inject = ['$location', 'carManager'];
 
-    angular.module('app').controller('{plural_name}', cars);
+    angular.module('app').controller('{plural_name}', Cars);
 
 }());

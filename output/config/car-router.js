@@ -1,5 +1,5 @@
-$stateProvider.state('car', {
-    url: '/car',
+$stateProvider.state('cars', {
+    url: '/cars',
     templateUrl: 'app/sites/cars.html',
     controller: 'cars as vm'
 }).state('cars', {

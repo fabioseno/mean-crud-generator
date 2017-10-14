@@ -1,5 +1,5 @@
-$stateProvider.state('{entity_name}', {
-    url: '/{entity_name}',
+$stateProvider.state('{entity_plural_name}', {
+    url: '/{entity_plural_name}',
     templateUrl: 'app/sites/{list_view_html_filename}',
     controller: '{list_view_js_controller_name} as vm'
 }).state('{entity_plural_name}', {
