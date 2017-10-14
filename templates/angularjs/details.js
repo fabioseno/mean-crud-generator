@@ -45,7 +45,7 @@
                         profileManager.create{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} criado com sucesso!');
-                                $location.url('/admin/{plural_name}');
+                                $location.url('/admin/{list_view_js_page_controller_name}');
                             }
                         });
                     });
@@ -65,7 +65,7 @@
                         profileManager.update{model_name}(params).then(function (result) {
                             if (result.sucesso) {
                                 toaster.show('{details_view_page_title} alterado com sucesso!');
-                                $location.url('/admin/{plural_name}');
+                                $location.url('/admin/{list_view_js_page_controller_name}');
                             }
                         });
                     });
@@ -91,14 +91,14 @@
                 profileManager.delete{model_name}(params).then(function (result) {
                     if (result.sucesso) {
                         toaster.show('{details_view_page_title} excluído com sucesso!');
-                        $location.url('/admin/{plural_name}');
+                        $location.url('/admin/{list_view_js_page_controller_name}');
                     }
                 });
             });
         };
 
         vm.cancel = function () {
-            $location.url('/admin/{plural_name}');
+            $location.url('/admin/{list_view_js_page_controller_name}');
         };
 
         vm.getDetails();

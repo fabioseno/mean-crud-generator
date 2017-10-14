@@ -41,6 +41,8 @@ program
                     frontend.generateDetailsViewHtml(config, cb);
                 }, function (cb) {
                     frontend.generateDetailsViewLogic(config, cb);
+                }, function (cb) {
+                    frontend.generateUIRoutes(config, cb);
                 }
             ], function(err, results) {
                 console.log('Finished generating frontend files' + os.EOL);

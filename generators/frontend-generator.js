@@ -15,11 +15,11 @@ function generateListViewHtml(config, cb) {
     template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
-    template = template.replace(/{plural_name}/g, config.model.pluralName);
-    template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
+    template = template.replace(/{entity_name_plural}/g, config.model.pluralName);
+    template = template.replace(/{model_name_plural}/g, capitalize(config.entityName) + 's');
     template = template.replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
-    tools.writeFile('/pages/' + config.entityName + '-list.html', template);
+    tools.writeFile('/pages/' + config.pages.listViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -31,10 +31,10 @@ function generateListViewLogic(config, cb) {
 
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
-    template = template.replace(/{entity_plural_name}/g, config.model.pluralName);
-    template = template.replace(/{model_plural_name}/g, config.model.pluralName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
+    template = template.replace(/{model_name_plural}/g, config.model.pluralName);
 
-    tools.writeFile('/pages/' + config.entityName + '-list.js', template);
+    tools.writeFile('/pages/' + config.pages.listViewJSPageFilename, template);
 
     cb(null, true);
 }
@@ -48,7 +48,7 @@ function generateDetailsViewHtml(config, cb) {
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{controls}/g, util.getDetailsViewHTMLFields(config));
 
-    tools.writeFile('/pages/' + config.entityName + '-details.html', template);
+    tools.writeFile('/pages/' + config.pages.detailsViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -64,8 +64,9 @@ function generateDetailsViewLogic(config, cb) {
     template = template.replace(/{entity_title}/g, config.entityTitle);
     template = template.replace(/{entity_plural_title}/g, config.entityPluralTitle);
     template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
+    template = template.replace(/{list_view_js_page_controller_name}/g, config.pages.listViewJSPageControllerName);
 
-    tools.writeFile('/pages/' + config.entityName + '-details.js', template);
+    tools.writeFile('/pages/' + config.pages.detailsViewJSPageFilename, template);
 
     cb(null, true);
 }
@@ -91,5 +92,6 @@ module.exports = {
     generateListViewHtml: generateListViewHtml,
     generateListViewLogic: generateListViewLogic,
     generateDetailsViewHtml: generateDetailsViewHtml,
-    generateDetailsViewLogic: generateDetailsViewLogic
+    generateDetailsViewLogic: generateDetailsViewLogic,
+    generateUIRoutes: generateUIRoutes
 };

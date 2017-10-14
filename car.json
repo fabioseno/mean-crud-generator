@@ -1,6 +1,6 @@
 {
 	"model": {
-		"pluralName": "cars",
+		"pluralName": "Cars",
 		"name": "Car",
 		"schemaName": "carSchema",
 		"filename": "car.js"
@@ -14,13 +14,13 @@
 	},
 	"pages": {
 		"listViewPageTitle": "Carro",
-		"listViewHtmlPageFilename": "car-list.html",
-		"listViewJSPageFilename": "car-list.js",
-		"listViewJSPageControllerName": "carList",
+		"listViewHtmlPageFilename": "cars.html",
+		"listViewJSPageFilename": "cars.js",
+		"listViewJSPageControllerName": "cars",
 		"detailsViewPageTitle": "Carro",
-		"detailsViewHtmlPageFilename": "car-details.html",
-		"detailsViewJSPageFilename": "car-details.js",
-		"detailsViewJSPageControllerName": "carDetails"
+		"detailsViewHtmlPageFilename": "car.html",
+		"detailsViewJSPageFilename": "car.js",
+		"detailsViewJSPageControllerName": "car"
 	},
 	"fields": [
 		{
