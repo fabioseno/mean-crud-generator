@@ -31,7 +31,7 @@ function generateListViewLogic(config, cb) {
 
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.model.name);
-    template = template.replace(/{plural_name}/g, config.model.pluralName);
+    template = template.replace(/{entity_plural_name}/g, config.model.pluralName);
     template = template.replace(/{model_plural_name}/g, config.model.pluralName);
 
     tools.writeFile('/pages/' + config.entityName + '-list.js', template);
@@ -66,6 +66,23 @@ function generateDetailsViewLogic(config, cb) {
     template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
 
     tools.writeFile('/pages/' + config.entityName + '-details.js', template);
+
+    cb(null, true);
+}
+
+function generateUIRoutes(config, cb) {
+    console.log('Generating ui routes...');
+
+    var template = tools.readTemplate(frontendFolder, 'router.js');
+
+    template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
+    template = template.replace(/{list_view_html_filename}/g, config.pages.listViewHtmlPageFilename);
+    template = template.replace(/{list_view_js_controller_name}/g, config.pages.listViewJSPageControllerName);
+    template = template.replace(/{details_view_html_filename}/g, config.pages.detailsViewHtmlPageFilename);
+    template = template.replace(/{details_view_js_controller_name}/g, config.pages.detailsViewJSPageControllerName);
+
+    tools.writeFile('/config/' + config.entityName + '-router.js', template);
 
     cb(null, true);
 }

@@ -52,6 +52,7 @@
 		}
 	],
 	"entityName": "car",
+	"entityPluralName": "cars",
 	"entityTitle": "carro",
 	"entityPluralTitle": "carros"
 }

@@ -14,13 +14,13 @@
         };
         
         vm.add{model_name} = function () {
-            $location.url('/admin/{plural_name}/add');
+            $location.url('/admin/{entity_plural_name}/add');
         };
 
         vm.list{model_plural_name} = function () {
             {entity_name}Manager.list{model_plural_name}(vm.params).then(function (result) {
                 if (result.sucesso) {
-                    vm.{plural_name} = result.data;
+                    vm.{entity_plural_name} = result.data;
                     vm.filter.currentPage = result.page.currentPage;
                     vm.filter.totalItems = result.page.totalItems;
                 }
