@@ -2,7 +2,7 @@
 var Car = require('../models/car'),
     messageHandler = require('../utils/messageHandler');
 
-module.exports.required = function (req, res, next) {;
+module.exports.required = function (req, res, next) {
 	'use strict';
 
 	req.validations = req.validations || [];
@@ -18,7 +18,7 @@ module.exports.required = function (req, res, next) {;
 	next();
 };
 
-module.exports.nameExists = function (req, res, next) {;
+module.exports.nameExists = function (req, res, next) {
 	'use strict';
 
 	Car.findOne({name: req.body.name}, function (err, result) {
@@ -32,7 +32,7 @@ module.exports.nameExists = function (req, res, next) {;
 	});
 };
 
-module.exports.modelExists = function (req, res, next) {;
+module.exports.modelExists = function (req, res, next) {
 	'use strict';
 
 	Car.findOne({model: req.body.model}, function (err, result) {

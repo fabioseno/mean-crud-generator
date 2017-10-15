@@ -26,9 +26,7 @@ var {model_name} = require('../models/{model_filename}'),
             pagingOptions.pageSize = req.query.pageSize;
         }
 
-        if (req.body.searchCriteria) {
 {search_fields}
-        }
 
         pagination.paginate(query, pagingOptions, req.query.sort, function (err, {entity_plural_name}) {
             messageHandler.wrapResponse(res, err, {entity_plural_name});
@@ -50,7 +48,7 @@ var {model_name} = require('../models/{model_filename}'),
         if (req.validations && req.validations.length > 0) {
             return messageHandler.wrapResponse(res, req.validations);
         }
-
+        
         var model = new {model_name}(req.body);
 
         model.save(function (err, result) {

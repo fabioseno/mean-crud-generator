@@ -134,7 +134,7 @@ function getRouteUniqueMiddleware(config) {
 function getMiddlewareRequiredFunctions(config) {
     var required = '';
 
-    required += 'module.exports.required = function (req, res, next) {;' + os.EOL;
+    required += 'module.exports.required = function (req, res, next) {' + os.EOL;
     required += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
     required += setTabs(1) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
@@ -162,7 +162,7 @@ function getMiddlewareUniqueFunctions(config) {
         var field = config.fields[i];
 
         if (field.unique) {
-            unique += formatText('module.exports.{0}Exists = function (req, res, next) {;', field.fieldName) + os.EOL;
+            unique += formatText('module.exports.{0}Exists = function (req, res, next) {', field.fieldName) + os.EOL;
             unique += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
 
             unique += setTabs(1) + formatText('{0}.findOne({{1}: req.body.{2}}, function (err, result) {', config.model.name, field.fieldName, field.fieldName) + os.EOL;

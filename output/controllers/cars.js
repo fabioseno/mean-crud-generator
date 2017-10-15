@@ -26,7 +26,7 @@ var Car = require('../models/car.js'),
             pagingOptions.pageSize = req.query.pageSize;
         }
 
-        if (req.body.searchCriteria) {
+        //if (req.body.searchCriteria) {
 			if (req.query.name) {
 				regex = new RegExp(req.query.name, 'i');
 				query = query.where('name', { $regex: regex });
@@ -36,7 +36,7 @@ var Car = require('../models/car.js'),
 				regex = new RegExp(req.query.model, 'i');
 				query = query.where('model', { $regex: regex });
 			}
-        }
+        //}
 
         pagination.paginate(query, pagingOptions, req.query.sort, function (err, cars) {
             messageHandler.wrapResponse(res, err, cars);
