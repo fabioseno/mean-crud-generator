@@ -1,6 +1,6 @@
 var tools = require('./tools');
 var util = require('./util');
-var frontendFolder = 'angularjs';
+var frontendFolder = 'frontend/angularjs';
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -19,7 +19,7 @@ function generateListViewHtml(config, cb) {
     template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
     template = template.replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
-    tools.writeFile('/pages/' + config.pages.listViewHtmlPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.pages.listViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -34,7 +34,7 @@ function generateListViewLogic(config, cb) {
     template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{model_plural_name}/g, config.model.pluralName);
 
-    tools.writeFile('/pages/' + config.pages.listViewJSPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.pages.listViewJSPageFilename, template);
 
     cb(null, true);
 }
@@ -48,7 +48,7 @@ function generateDetailsViewHtml(config, cb) {
     template = template.replace(/{model_name}/g, config.model.name);
     template = template.replace(/{controls}/g, util.getDetailsViewHTMLFields(config));
 
-    tools.writeFile('/pages/' + config.pages.detailsViewHtmlPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.pages.detailsViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -66,7 +66,7 @@ function generateDetailsViewLogic(config, cb) {
     template = template.replace(/{details_view_page_title}/g, config.pages.detailsViewPageTitle);
     template = template.replace(/{list_view_js_page_controller_name}/g, config.pages.listViewJSPageControllerName);
 
-    tools.writeFile('/pages/' + config.pages.detailsViewJSPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.pages.detailsViewJSPageFilename, template);
 
     cb(null, true);
 }
@@ -83,7 +83,7 @@ function generateUIRoutes(config, cb) {
     template = template.replace(/{details_view_html_filename}/g, config.pages.detailsViewHtmlPageFilename);
     template = template.replace(/{details_view_js_controller_name}/g, config.pages.detailsViewJSPageControllerName);
 
-    tools.writeFile('/config/' + config.entityName + '-router.js', template);
+    tools.writeFile('/frontend/config/', config.entityName + '-router.js', template);
 
     cb(null, true);
 }

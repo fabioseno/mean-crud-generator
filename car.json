@@ -3,14 +3,17 @@
 		"pluralName": "Cars",
 		"name": "Car",
 		"schemaName": "carSchema",
-		"filename": "car.js"
+		"filename": "car.model.js"
 	},
 	"controller": {
 		"name": "carController",
-		"filename": "cars.js"
+		"filename": "car.controller.js"
+	},
+	"middleware": {
+		"filename": "car.middleware.js"
 	},
 	"route": {
-		"filename": "cars.js"
+		"filename": "car.route.js"
 	},
 	"pages": {
 		"listViewPageTitle": "Carro",

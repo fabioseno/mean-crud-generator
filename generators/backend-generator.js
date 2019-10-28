@@ -1,7 +1,6 @@
 var tools = require('./tools');
-var os = require('os');
 var util = require('./util');
-var backendFolder = 'nodejs';
+var backendFolder = 'backend/nodejs';
 
 function generateModel(config, cb) {
     console.log('Generating model...');
@@ -12,7 +11,7 @@ function generateModel(config, cb) {
     template = template.replace(/{fields}/g, util.getModelMetadata(config));
     template = template.replace(/{model_name}/g, config.model.name);
 
-    tools.writeFile('/models/' + config.model.filename, template);
+    tools.writeFile('/backend/models/', config.model.filename, template);
 
     cb(null, true);
 }
@@ -29,7 +28,7 @@ function generateController(config, cb) {
     template = template.replace(/{search_fields}/, util.getControllerSearchCriteria(config));
     template = template.replace(/{update_fields}/, util.getControllerUpdateFields(config));
 
-    tools.writeFile('/controllers/' + config.controller.filename, template);
+    tools.writeFile('/backend/controllers/', config.controller.filename, template);
 
     cb(null, true);
 }
@@ -46,7 +45,7 @@ function generateRoute(config, cb) {
     template = template.replace(/{required_middleware}/g, util.getRouteRequiredMiddleware(config));
     template = template.replace(/{unique_middleware}/g, util.getRouteUniqueMiddleware(config));
 
-    tools.writeFile('/routes/' + config.route.filename, template);
+    tools.writeFile('/backend/routes/', config.route.filename, template);
 
     cb(null, true);
 }
@@ -61,7 +60,7 @@ function generateMiddlewares(config, cb) {
     template = template.replace(/{field_required}/g, util.getMiddlewareRequiredFunctions(config));
     template = template.replace(/{field_exists}/g, util.getMiddlewareUniqueFunctions(config));
 
-    tools.writeFile('/middlewares/' + config.entityName + '.js', template);
+    tools.writeFile('/backend/middlewares/', config.middleware.filename, template);
 
     cb(null, true);
 }

@@ -12,14 +12,14 @@ function readTemplate(folder, filename) {
     return content;
 }
 
-function writeFile(filename, content) {
-    var filePath = path.join(__dirname, '..', 'output', filename);
+function writeFile(filePath, fileName, content) {
+    var outputPath = path.join(__dirname, '..', 'output', filePath);
 
-    if (!fs.existsSync(path.dirname(filePath))) {
-        fs.mkdirSync(path.dirname(filePath));
+    if (!fs.existsSync(outputPath)) {
+        fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    fs.writeFileSync(filePath, content, 'utf-8');
+    fs.writeFileSync(outputPath +  fileName, content, 'utf-8');
 }
 
 module.exports = {
