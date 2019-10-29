@@ -2,9 +2,7 @@
 var program = require('commander');
 var fs = require('fs');
 var os = require('os');
-var async = require('async');
-var backend = require('./generators/backend-generator');
-var frontend = require('./generators/frontend-generator');
+var generator = require('./generators/mean');
 
 program
     .arguments('<file>')
@@ -18,35 +16,7 @@ program
 
             console.log(os.EOL);
 
-            async.parallel([
-                function (cb) {
-                    backend.generateModel(config, cb);
-                }, function (cb) {
-                    backend.generateController(config, cb);
-                }, function (cb) {
-                    backend.generateRoute(config, cb);
-                }, function (cb) {
-                    backend.generateMiddlewares(config, cb);
-                }
-            ], function(err, results) {
-                console.log('Finished generating backend files' + os.EOL);
-            });
-
-            async.parallel([
-                function (cb) {
-                    frontend.generateListViewHtml(config, cb);
-                }, function (cb) {
-                    frontend.generateListViewLogic(config, cb);
-                }, function (cb) {
-                    frontend.generateDetailsViewHtml(config, cb);
-                }, function (cb) {
-                    frontend.generateDetailsViewLogic(config, cb);
-                }, function (cb) {
-                    frontend.generateUIRoutes(config, cb);
-                }
-            ], function(err, results) {
-                console.log('Finished generating frontend files' + os.EOL);
-            });
+            generator.generate(config);
         });
     })
     .parse(process.argv);

@@ -33,7 +33,6 @@ function getDataType(dataType) {
 }
 
 function getModelMetadata(config) {
-    var result = '';
     var obj = {};
 
     for (var i = 0; i < config.fields.length; i++) {
