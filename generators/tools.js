@@ -3,7 +3,7 @@ var path = require('path');
 
 function readTemplate(folder, filename) {
     var content = '',
-        filePath = path.join(__dirname, '..', 'templates', folder, filename);
+        filePath = path.join(folder, filename);
     
     if (fs.existsSync(filePath)) {
         content = fs.readFileSync(filePath, 'utf8');

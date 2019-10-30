@@ -1,6 +1,6 @@
 var tools = require('../tools');
 var util = require('./util');
-var backendFolder = 'mean/backend/nodejs/';
+var backendFolder = __dirname + '/templates/backend/nodejs/';
 
 function generateModel(config, cb) {
     console.log('Generating model...');

@@ -1,6 +1,6 @@
 var tools = require('../tools');
 var util = require('./util');
-var frontendFolder = 'mean/frontend/angularjs/';
+var frontendFolder = __dirname + '/templates/frontend/angularjs/';
 
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);

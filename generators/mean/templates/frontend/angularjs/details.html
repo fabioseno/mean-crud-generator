@@ -1,0 +1,39 @@
+<div class="page page-form">
+	<div class="row ui-section">
+		<div class="col-lg-8 clearfix">
+			<h2 class="section-header">{details_view_page_title}</h2>
+		</div>
+		<div class="col-md-12">
+			<section class="panel panel-default">
+				<div class="panel-body">
+					<form name="vm.form" class="form-validation" novalidate>
+						<div class="section-header">
+							<h4>Detalhe</h4>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<section class="panel panel-default">
+									<div class="panel-body padding-vertical">{controls}
+									</div>
+								</section>
+							</div>
+						</div>
+						<div class="row">
+							<div class="form-group col-lg-12">
+								<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.save{model_name}()">
+									<span class="fa fa-pencil"></span> {{ vm.actionButtonLabel }}
+								</md-button>
+								<md-button class="md-raised btn-w-md md-primary" data-ng-hide="vm.operation === 'add'" data-ng-click="vm.delete{model_name}()">
+									<span class="fa fa-trash"></span> Excluir
+								</md-button>
+								<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.cancel()">
+									<span class="fa fa-close"></span> Cancelar
+								</md-button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>

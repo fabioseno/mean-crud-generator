@@ -1,29 +1,37 @@
 {
-	"model": {
-		"pluralName": "Cars",
-		"name": "Car",
-		"schemaName": "carSchema",
-		"filename": "car.model.js"
+	"server": {
+		"model": {
+			"pluralName": "Cars",
+			"name": "Car",
+			"schemaName": "carSchema",
+			"filename": "car.model.js"
+		},
+		"controller": {
+			"name": "carController",
+			"filename": "car.controller.js"
+		},
+		"domain": {
+			"name": "carDomain",
+			"filename": "car.domain.js"
+		},
+		"middleware": {
+			"filename": "car.middleware.js"
+		},
+		"route": {
+			"filename": "car.route.js"
+		}
 	},
-	"controller": {
-		"name": "carController",
-		"filename": "car.controller.js"
-	},
-	"middleware": {
-		"filename": "car.middleware.js"
-	},
-	"route": {
-		"filename": "car.route.js"
-	},
-	"pages": {
-		"listViewPageTitle": "Carro",
-		"listViewHtmlPageFilename": "cars.html",
-		"listViewJSPageFilename": "cars.js",
-		"listViewJSPageControllerName": "cars",
-		"detailsViewPageTitle": "Carro",
-		"detailsViewHtmlPageFilename": "car.html",
-		"detailsViewJSPageFilename": "car.js",
-		"detailsViewJSPageControllerName": "car"
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Carro",
+			"listViewHtmlPageFilename": "cars.html",
+			"listViewJSPageFilename": "cars.js",
+			"listViewJSPageControllerName": "cars",
+			"detailsViewPageTitle": "Carro",
+			"detailsViewHtmlPageFilename": "car.html",
+			"detailsViewJSPageFilename": "car.js",
+			"detailsViewJSPageControllerName": "car"
+		}
 	},
 	"fields": [
 		{
@@ -57,5 +65,7 @@
 	"entityName": "car",
 	"entityPluralName": "cars",
 	"entityTitle": "carro",
-	"entityPluralTitle": "carros"
+	"entityPluralTitle": "carros",
+	"entityLabel": "Carro",
+	"entityPluralLabel": "Carros"
 }

@@ -2,7 +2,7 @@
 var program = require('commander');
 var fs = require('fs');
 var os = require('os');
-var generator = require('./generators/mean');
+var scaffold = require('./generators/mean-2.0');
 
 program
     .arguments('<file>')
@@ -16,7 +16,7 @@ program
 
             console.log(os.EOL);
 
-            generator.generate(config);
+            scaffold.generate(config);
         });
     })
     .parse(process.argv);
