@@ -1,6 +1,6 @@
 /*global module, require*/
 module.exports = function (router) {
-    var {controller_name} = require('../controllers/{controller_filename}');{validation_require}
+    var {controller_name} = require('./{controller_filename}');{validation_require}
     var auth = require('../middlewares/session');
     
     // List

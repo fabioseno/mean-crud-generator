@@ -1,5 +1,5 @@
 /*global require, module*/
-var {domain_name} = require('../domains/{domain_filename}'),
+var {domain_name} = require('./{domain_filename}'),
     messageHandler = require('../utils/messageHandler')
 
     list = async function (req, res) {
