@@ -1,37 +1,49 @@
-/*global angular*/
-(function () {
-    'use strict';
+import { Component, OnInit } from '@angular/core';
 
-    function {model_plural_name}($location, {entity_name}Manager) {
-        var vm = this;
+import { ListPageBaseComponent, BackofficeService, StatesData } from '../../../../';
 
-        vm.params = {
-            query: {
-                sort: 'nome',
-                currentPage: 1,
-                pageSize: 10
-            }
-        };
-        
-        vm.add{model_name} = function () {
-            $location.url('/admin/{entity_plural_name}/add');
-        };
+@Component({
+    selector: 'page-{entity_plural_name}',
+    styleUrls: ['./{entity_plural_name}.component.scss'],
+    templateUrl: './{entity_plural_name}.component.html'
+})
 
-        vm.list{model_plural_name} = function () {
-            {entity_name}Manager.list{model_plural_name}(vm.params).then(function (result) {
-                if (result.sucesso) {
-                    vm.{entity_plural_name} = result.data;
-                    vm.filter.currentPage = result.page.currentPage;
-                    vm.filter.totalItems = result.page.totalItems;
-                }
-            });
-        };
+export class FederationsComponent extends ListPageBaseComponent implements OnInit {
 
-        vm.list{model_plural_name}();
+    public gridColumns = ['name', 'state'];
+    public states = StatesData.get();
+    public filter: any = {
+        state: ''
+    };
+
+    constructor(private backofficeService: BackofficeService) {
+        super();
+
+        this.setPageConfig({
+            addRoute: '/backoffice/operacao/federacoes/novo',
+            editRoute: '/backoffice/operacao/federacoes'
+        });
     }
 
-    {model_plural_name}.$inject = ['$location', '{entity_name}Manager'];
+    listFederations(resetPage = false) {
+        if (resetPage) {
+            this.resetPage();
+        }
 
-    angular.module('app').controller('{entity_plural_name}', {model_plural_name});
+        var params = this.getGridParams();
 
-}());
+        this.addFilterParam(params, 'state', this.filter.state);
+
+        this.backofficeService.federations.list(params)
+            .subscribe(result => {
+                if (result.success) {
+                    this.setDataSource(result);
+                }
+            });
+    }
+
+    ngOnInit(): void {
+        this.listFederations();
+    }
+
+}

@@ -1,43 +1,45 @@
-<div class="page page-table">
-	<div class="row ui-section">
-		<div class="col-lg-8 clearfix">
-			<h2 class="section-header">
-				{list_view_page_title}
-				<md-button class="md-raised btn-w-md md-primary" data-ng-click="vm.add{model_name}();">
-					<span class="fa fa-plus"></span> adicionar
-				</md-button>
-			</h2>
-		</div>
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<section class="table-flip-scroll">
-						<table class="table table-striped cf no-margin table-hover">
-							<thead class="cf">
-								<tr>
-{grid_header}
-								</tr>
-							</thead>
-							<tbody>
-								<tr data-ng-repeat="{entity_name} in vm.{entity_plural_name}" data-ng-click="root.goTo('/admin/{entity_plural_name}/' + {entity_name}.id);">
-{grid_rows}
-								</tr>
-							</tbody>
-						</table>
-					</section>
-					<footer class="table-footer">
-						<div class="row">
-							<div class="col-md-6">
-								<span class="total-entries pagination">Foram encontrados <b>{{ vm.filter.totalItems }}</b> registros</span>
-							</div>
-							<div class="col-md-6 text-right pagination-container">
-								<uib-pagination class="pagination-sm" ng-model="vm.filter.p" total-items="vm.filter.totalItems" max-size="4" ng-change="vm.list{model_plural_name}()"
-								 items-per-page="vm.filter.s" rotate="false" boundary-link-numbers="false" previous-text="Anterior" next-text="Próximo"></uib-pagination>
-							</div>
-						</div>
-					</footer>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+<section class="container-fluid with-maxwidth chapter">
+    <article class="article">
+        <h2 class="article-title">{list_view_page_title}
+            <span class="space"></span>
+            <button mat-mini-fab color="primary" (click)="addEntity()">
+                <mat-icon class="material-icons">add</mat-icon>
+            </button>
+        </h2>
+        <div class="box box-default table-box table-responsive">
+            <div class="box-body">
+                <form (ngSubmit)="listFederations(true)">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <mat-form-field floatLabel="auto" appearance="standard" class="w-100">
+                                <mat-label>Estado</mat-label>
+                                <mat-select name="state" [(ngModel)]="filter.state">
+                                    <mat-option value="">Todos</mat-option>
+                                    <mat-option *ngFor="let state of states" [value]="state.id">
+                                        {{state.name}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-2 row-center">
+                            <button mat-raised-button type="submit" color="primary" class="btn-w-md">Filtrar</button>
+                        </div>
+                    </div>
+                </form>
+                <span class="space space-md"></span>
+                <div class="mat-elevation-z3">
+                    <table mat-table [dataSource]="entityList" class="w-100 table-link">
+                        <mat-text-column name="name" headerText="Nome"></mat-text-column>
+                        <mat-text-column name="state" headerText="Estado"></mat-text-column>
+
+                        <tr mat-header-row *matHeaderRowDef="gridColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: gridColumns;" (click)="viewEntity(row.id)"></tr>
+                    </table>
+
+                    <mat-paginator [hidePageSize]="true" [length]="pagingOptions.items" [pageSize]="appConfig.pageSize"
+                        (page)="listFederations()"></mat-paginator>
+                </div>
+            </div>
+        </div>
+    </article>
+</section>

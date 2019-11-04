@@ -12,6 +12,7 @@ function generateListViewHtml(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
     template = template.replace(/{list_view_page_title}/g, config.web.pages.listViewPageTitle);
+    
     template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.server.model.name);
@@ -29,9 +30,10 @@ function generateListViewLogic(config, cb) {
 
     var template = tools.readTemplate(frontendFolder, 'list.js');
 
+    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
+
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.server.model.name);
-    template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{model_plural_name}/g, config.server.model.pluralName);
 
     tools.writeFile('/frontend/pages/', config.web.pages.listViewJSPageFilename, template);
