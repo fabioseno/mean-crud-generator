@@ -46,6 +46,7 @@
 			"fieldLabel": "Nome",
 			"maxlength": "100",
 			"searchField": true,
+			"searchFieldType": "input",
 			"unique": true
 		},
 		{
@@ -59,6 +60,7 @@
 			"fieldName": "model",
 			"fieldLabel": "Modelo",
 			"searchField": true,
+			"searchFieldType": "combo",
 			"unique": true
 		}
 	],

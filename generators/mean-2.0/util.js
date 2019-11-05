@@ -8,7 +8,7 @@ function formatText(string, args) {
     for (var i = 1; i < arguments.length; i++) {
         var param = '\\{' + (i - 1) + '\\}';
         string = string.replace(new RegExp(param, 'g'), arguments[i]);
-    }   
+    }
 
     return string;
 }
@@ -215,10 +215,24 @@ function getListViewHTMLSearchFields(config) {
 
         if (field.searchField) {
             listingFieldsOutput += setTabs(6) + '<div class="col-md-3">' + os.EOL;
-            listingFieldsOutput += setTabs(7) + '<mat-form-field floatLabel="auto" appearance="standard" class="w-100">' + os.EOL;
-            listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
-            listingFieldsOutput += setTabs(8) + formatText('<input matInput name="{0}" [(ngModel)]="filter.{0}">', field.fieldName) + os.EOL;
-            listingFieldsOutput += setTabs(7) + '</mat-form-field>' + os.EOL;
+
+            if (field.searchFieldType === 'input') {
+                listingFieldsOutput += setTabs(7) + '<mat-form-field floatLabel="auto" appearance="standard" class="w-100">' + os.EOL;
+                listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
+                listingFieldsOutput += setTabs(8) + formatText('<input matInput name="{0}" [(ngModel)]="filter.{0}">', field.fieldName) + os.EOL;
+                listingFieldsOutput += setTabs(7) + '</mat-form-field>' + os.EOL;
+            } else if (field.searchFieldType === 'combo') {
+                listingFieldsOutput += setTabs(7) + '<mat-form-field floatLabel="auto" appearance="standard" class="w-100">' + os.EOL;
+                listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
+                listingFieldsOutput += setTabs(8) + formatText('<mat-select name="{0}" [(ngModel)]="filter.{0}">', field.fieldName) + os.EOL;
+                listingFieldsOutput += setTabs(9) + '<mat-option value="">Todos</mat-option>' + os.EOL;
+                listingFieldsOutput += setTabs(9) + formatText('<mat-option *ngFor="let {0} of {0}s" [value]="{0}.id">', field.fieldName) + os.EOL;
+                listingFieldsOutput += setTabs(10) + formatText('{{{0}.name}}', field.fieldName) + os.EOL;
+                listingFieldsOutput += setTabs(9) + '</mat-option>' + os.EOL;
+                listingFieldsOutput += setTabs(8) + '</mat-select>' + os.EOL;
+                listingFieldsOutput += setTabs(7) + '</mat-form-field>' + os.EOL;
+            }
+
             listingFieldsOutput += setTabs(6) + '</div>' + os.EOL;
         }
     }
