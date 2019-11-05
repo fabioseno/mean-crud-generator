@@ -12,12 +12,14 @@ function generateListViewHtml(config, cb) {
     var template = tools.readTemplate(frontendFolder, 'list.html');
 
     template = template.replace(/{list_view_page_title}/g, config.web.pages.listViewPageTitle);
-    
-    template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
+
+    //template = template.replace(/{grid_header}/g, util.getListViewHTMLGridHeader(config));
     template = template.replace(/{entity_name}/g, config.entityName);
     template = template.replace(/{model_name}/g, config.server.model.name);
     template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
     template = template.replace(/{model_plural_name}/g, capitalize(config.entityName) + 's');
+    template = template.replace(/{filter_form}/g, util.getListViewHTMLSearchFields(config));
+    
     template = template.replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
     tools.writeFile('/frontend/pages/', config.web.pages.listViewHtmlPageFilename, template);
@@ -33,9 +35,12 @@ function generateListViewLogic(config, cb) {
     template = template.replace(/{entity_plural_name}/g, config.entityPluralName);
 
     template = template.replace(/{entity_name}/g, config.entityName);
+    template = template.replace(/{entity_plural_title}/g, config.entityPluralTitle);
     template = template.replace(/{model_name}/g, config.server.model.name);
     template = template.replace(/{model_plural_name}/g, config.server.model.pluralName);
-
+    template = template.replace(/{grid_columns}/g, util.getListViewHTMLGridColumns(config));
+    template = template.replace(/{filter_params}/g, util.getListViewFilterParams(config));
+    
     tools.writeFile('/frontend/pages/', config.web.pages.listViewJSPageFilename, template);
 
     cb(null, true);

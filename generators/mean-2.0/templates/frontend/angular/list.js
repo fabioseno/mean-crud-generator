@@ -8,9 +8,9 @@ import { ListPageBaseComponent, BackofficeService, StatesData } from '../../../.
     templateUrl: './{entity_plural_name}.component.html'
 })
 
-export class FederationsComponent extends ListPageBaseComponent implements OnInit {
+export class {model_plural_name}Component extends ListPageBaseComponent implements OnInit {
 
-    public gridColumns = ['name', 'state'];
+    public gridColumns = {grid_columns};
     public states = StatesData.get();
     public filter: any = {
         state: ''
@@ -20,21 +20,20 @@ export class FederationsComponent extends ListPageBaseComponent implements OnIni
         super();
 
         this.setPageConfig({
-            addRoute: '/backoffice/operacao/federacoes/novo',
-            editRoute: '/backoffice/operacao/federacoes'
+            addRoute: '/backoffice/operacao/{entity_plural_title}/novo',
+            editRoute: '/backoffice/operacao/{entity_plural_title}'
         });
     }
 
-    listFederations(resetPage = false) {
+    list{model_plural_name}(resetPage = false) {
         if (resetPage) {
             this.resetPage();
         }
 
         var params = this.getGridParams();
-
-        this.addFilterParam(params, 'state', this.filter.state);
-
-        this.backofficeService.federations.list(params)
+        
+{filter_params}
+        this.backofficeService.{entity_plural_name}.list(params)
             .subscribe(result => {
                 if (result.success) {
                     this.setDataSource(result);
@@ -43,7 +42,7 @@ export class FederationsComponent extends ListPageBaseComponent implements OnIni
     }
 
     ngOnInit(): void {
-        this.listFederations();
+        this.list{model_plural_name}();
     }
 
 }

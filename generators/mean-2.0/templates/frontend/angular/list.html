@@ -8,36 +8,17 @@
         </h2>
         <div class="box box-default table-box table-responsive">
             <div class="box-body">
-                <form (ngSubmit)="listFederations(true)">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <mat-form-field floatLabel="auto" appearance="standard" class="w-100">
-                                <mat-label>Estado</mat-label>
-                                <mat-select name="state" [(ngModel)]="filter.state">
-                                    <mat-option value="">Todos</mat-option>
-                                    <mat-option *ngFor="let state of states" [value]="state.id">
-                                        {{state.name}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-2 row-center">
-                            <button mat-raised-button type="submit" color="primary" class="btn-w-md">Filtrar</button>
-                        </div>
-                    </div>
-                </form>
-                <span class="space space-md"></span>
+{filter_form}
                 <div class="mat-elevation-z3">
                     <table mat-table [dataSource]="entityList" class="w-100 table-link">
-                        <mat-text-column name="name" headerText="Nome"></mat-text-column>
-                        <mat-text-column name="state" headerText="Estado"></mat-text-column>
+{grid_rows}
 
                         <tr mat-header-row *matHeaderRowDef="gridColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: gridColumns;" (click)="viewEntity(row.id)"></tr>
                     </table>
 
                     <mat-paginator [hidePageSize]="true" [length]="pagingOptions.items" [pageSize]="appConfig.pageSize"
-                        (page)="listFederations()"></mat-paginator>
+                        (page)="list{model_plural_name}()"></mat-paginator>
                 </div>
             </div>
         </div>

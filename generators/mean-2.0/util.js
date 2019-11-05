@@ -6,8 +6,9 @@ function capitalize(string) {
 
 function formatText(string, args) {
     for (var i = 1; i < arguments.length; i++) {
-        string = string.replace('{' + (i - 1) + '}', arguments[i]);
-    }
+        var param = '\\{' + (i - 1) + '\\}';
+        string = string.replace(new RegExp(param, 'g'), arguments[i]);
+    }   
 
     return string;
 }
@@ -198,20 +199,55 @@ function getMiddlewareUniqueFunctions(config) {
     return unique;
 }
 
-function getListViewHTMLGridHeader(config) {
-    var listingHeaderOutput = '';
+function getListViewHTMLSearchFields(config) {
+    var listingFieldsOutput = '';
+    var searchFieldFound = config.fields.find(function (item) {
+        return item.searchField;
+    });
 
-    for (var i = 0; i < config.fields.length; i++) {
+    if (searchFieldFound) {
+        listingFieldsOutput += setTabs(4) + formatText('<form (ngSubmit)="list{0}(true)">', config.server.model.pluralName) + os.EOL;
+        listingFieldsOutput += setTabs(5) + '<div class="row">' + os.EOL;
+    }
+
+    for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        listingHeaderOutput += setTabs(9) + '<th>' + field.fieldLabel + '</th>';
-
-        if (i !== config.fields.length - 1) {
-            listingHeaderOutput += os.EOL;
+        if (field.searchField) {
+            listingFieldsOutput += setTabs(6) + '<div class="col-md-3">' + os.EOL;
+            listingFieldsOutput += setTabs(7) + '<mat-form-field floatLabel="auto" appearance="standard" class="w-100">' + os.EOL;
+            listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldName) + os.EOL;
+            listingFieldsOutput += setTabs(8) + formatText('<input matInput name="{0}" [(ngModel)]="filter.{0}">', field.fieldName) + os.EOL;
+            listingFieldsOutput += setTabs(7) + '</mat-form-field>' + os.EOL;
+            listingFieldsOutput += setTabs(6) + '</div>' + os.EOL;
         }
     }
 
-    return listingHeaderOutput;
+    if (searchFieldFound) {
+        listingFieldsOutput += setTabs(6) + '<div class="col-md-2 row-center">' + os.EOL;
+        listingFieldsOutput += setTabs(7) + '<button mat-raised-button type="submit" color="primary" class="btn-w-md">Filtrar</button>' + os.EOL;
+        listingFieldsOutput += setTabs(6) + '</div>' + os.EOL;
+        listingFieldsOutput += setTabs(5) + '</div>' + os.EOL;
+        listingFieldsOutput += setTabs(4) + '</form>' + os.EOL;
+        listingFieldsOutput += setTabs(4) + '<span class="space space-md"></span>';
+    }
+
+    return listingFieldsOutput;
+}
+
+function getListViewHTMLGridColumns(config) {
+    var listingFieldsOutput = '';
+    var columns = [];
+
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        columns.push(formatText('\'{0}\'', field.fieldName));
+    }
+
+    listingFieldsOutput = formatText('[{0}];', columns.join(', ')) + os.EOL;
+
+    return listingFieldsOutput;
 }
 
 function getListViewHTMLGridRow(config) {
@@ -219,12 +255,27 @@ function getListViewHTMLGridRow(config) {
 
     for (i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
-
-        listingFieldsOutput += setTabs(9) + formatText('<td data-ng-bind="{0}.{1}"></td>', config.entityName, field.fieldName);
+        listingFieldsOutput += setTabs(6) + formatText('<mat-text-column name="{0}" headerText="{1}"></mat-text-column>', field.fieldName, field.fieldLabel);
 
         if (i !== config.fields.length - 1) {
             listingFieldsOutput += os.EOL;
         }
+    }
+
+    return listingFieldsOutput;
+}
+
+function getListViewFilterParams(config) {
+    var listingFieldsOutput = '';
+
+    for (i = 0; i < config.fields.length; i++) {
+        var field = config.fields[i];
+
+        listingFieldsOutput += setTabs(2) + formatText('this.addFilterParam(params, \'{0}\', this.filter.{0});', field.fieldName) + os.EOL;
+
+        // if (i !== config.fields.length - 1) {
+        //     listingFieldsOutput += os.EOL;
+        // }
     }
 
     return listingFieldsOutput;
@@ -271,8 +322,11 @@ module.exports = {
     getMiddlewareRequiredFunctions: getMiddlewareRequiredFunctions,
     getMiddlewareUniqueFunctions: getMiddlewareUniqueFunctions,
 
-    getListViewHTMLGridHeader: getListViewHTMLGridHeader,
+    //getListViewHTMLGridHeader: getListViewHTMLGridHeader,
+    getListViewHTMLSearchFields: getListViewHTMLSearchFields,
+    getListViewHTMLGridColumns: getListViewHTMLGridColumns,
     getListViewHTMLGridRow: getListViewHTMLGridRow,
+    getListViewFilterParams: getListViewFilterParams,
 
     getDetailsViewHTMLFields: getDetailsViewHTMLFields
 };
