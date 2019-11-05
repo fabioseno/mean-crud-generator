@@ -24,9 +24,13 @@ function generate(config) {
         function (cb) {
             frontend.generateListViewHtml(config, cb);
         }, function (cb) {
+            frontend.generateListViewStyle(config, cb);
+        }, function (cb) {
             frontend.generateListViewLogic(config, cb);
         }, function (cb) {
             frontend.generateDetailsViewHtml(config, cb);
+        }, function (cb) {
+            frontend.generateDetailsViewStyle(config, cb);
         }, function (cb) {
             frontend.generateDetailsViewLogic(config, cb);
         }, function (cb) {

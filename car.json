@@ -23,14 +23,14 @@
 	},
 	"web": {
 		"pages": {
-			"listViewPageTitle": "Carro",
-			"listViewHtmlPageFilename": "cars.html",
-			"listViewJSPageFilename": "cars.js",
-			"listViewJSPageControllerName": "cars",
+			"listViewPageTitle": "Carros",
+			"listViewHtmlPageFilename": "cars.component.html",
+			"listViewCodePageFilename": "cars.component.ts",
+			"listViewStylePageFilename": "cars.component.scss",
 			"detailsViewPageTitle": "Carro",
-			"detailsViewHtmlPageFilename": "car.html",
-			"detailsViewJSPageFilename": "car.js",
-			"detailsViewJSPageControllerName": "car"
+			"detailsViewHtmlPageFilename": "car.component.html",
+			"detailsViewStylePageFilename": "car.component.scss",
+			"detailsViewCodePageFilename": "car.component.ts"
 		}
 	},
 	"fields": [

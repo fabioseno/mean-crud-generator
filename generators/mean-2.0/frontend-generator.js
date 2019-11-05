@@ -27,6 +27,14 @@ function generateListViewHtml(config, cb) {
     cb(null, true);
 }
 
+function generateListViewStyle(config, cb) {
+    console.log('Generating list view style...');
+
+    tools.writeFile('/frontend/pages/', config.web.pages.listViewStylePageFilename, '');
+
+    cb(null, true);
+}
+
 function generateListViewLogic(config, cb) {
     console.log('Generating list view logic...');
 
@@ -41,7 +49,7 @@ function generateListViewLogic(config, cb) {
     template = template.replace(/{grid_columns}/g, util.getListViewHTMLGridColumns(config));
     template = template.replace(/{filter_params}/g, util.getListViewFilterParams(config));
     
-    tools.writeFile('/frontend/pages/', config.web.pages.listViewJSPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.web.pages.listViewCodePageFilename, template);
 
     cb(null, true);
 }
@@ -60,6 +68,14 @@ function generateDetailsViewHtml(config, cb) {
     cb(null, true);
 }
 
+function generateDetailsViewStyle(config, cb) {
+    console.log('Generating details view style...');
+
+    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewStylePageFilename, '');
+
+    cb(null, true);
+}
+
 function generateDetailsViewLogic(config, cb) {
     console.log('Generating details view logic...');
 
@@ -73,7 +89,7 @@ function generateDetailsViewLogic(config, cb) {
     template = template.replace(/{details_view_page_title}/g, config.web.pages.detailsViewPageTitle);
     template = template.replace(/{list_view_js_page_controller_name}/g, config.web.pages.listViewJSPageControllerName);
 
-    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewJSPageFilename, template);
+    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewCodePageFilename, template);
 
     cb(null, true);
 }
@@ -97,8 +113,10 @@ function generateUIRoutes(config, cb) {
 
 module.exports = {
     generateListViewHtml: generateListViewHtml,
+    generateListViewStyle: generateListViewStyle,
     generateListViewLogic: generateListViewLogic,
     generateDetailsViewHtml: generateDetailsViewHtml,
+    generateDetailsViewStyle: generateDetailsViewStyle,
     generateDetailsViewLogic: generateDetailsViewLogic,
     generateUIRoutes: generateUIRoutes
 };

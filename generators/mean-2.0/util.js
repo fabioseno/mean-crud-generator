@@ -216,7 +216,7 @@ function getListViewHTMLSearchFields(config) {
         if (field.searchField) {
             listingFieldsOutput += setTabs(6) + '<div class="col-md-3">' + os.EOL;
             listingFieldsOutput += setTabs(7) + '<mat-form-field floatLabel="auto" appearance="standard" class="w-100">' + os.EOL;
-            listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldName) + os.EOL;
+            listingFieldsOutput += setTabs(8) + formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
             listingFieldsOutput += setTabs(8) + formatText('<input matInput name="{0}" [(ngModel)]="filter.{0}">', field.fieldName) + os.EOL;
             listingFieldsOutput += setTabs(7) + '</mat-form-field>' + os.EOL;
             listingFieldsOutput += setTabs(6) + '</div>' + os.EOL;
