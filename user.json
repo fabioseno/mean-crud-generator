@@ -1,0 +1,101 @@
+{
+	"server": {
+		"model": {
+			"pluralName": "Users",
+			"name": "User",
+			"schemaName": "userSchema",
+			"filename": "user.model.js"
+		},
+		"controller": {
+			"name": "userController",
+			"filename": "user.controller.js"
+		},
+		"domain": {
+			"name": "userDomain",
+			"filename": "user.domain.js"
+		},
+		"middleware": {
+			"filename": "user.middleware.js"
+		},
+		"route": {
+			"filename": "user.route.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Usuários",
+			"listViewHtmlPageFilename": "users.component.html",
+			"listViewCodePageFilename": "users.component.ts",
+			"listViewStylePageFilename": "users.component.scss",
+			"detailsViewPageTitle": "Usuário",
+			"detailsViewHtmlPageFilename": "user.component.html",
+			"detailsViewStylePageFilename": "user.component.scss",
+			"detailsViewCodePageFilename": "user.component.ts"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "name",
+			"fieldLabel": "Nome",
+			"maxlength": "100",
+			"searchField": true,
+			"searchFieldType": "input",
+			"unique": false
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "email",
+			"fieldLabel": "E-mail",
+			"searchField": true,
+			"searchFieldType": "input",
+			"unique": true
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "cpf",
+			"fieldLabel": "CPF",
+			"searchField": true,
+			"searchFieldType": "input",
+			"unique": true
+		},
+		{
+			"fieldOrder": 4,
+			"dataType": "Date",
+			"controlType": "date",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "birthday",
+			"fieldLabel": "Data de nascimento",
+			"searchField": false,
+			"searchFieldType": "input",
+			"unique": false
+		}
+	],
+	"entityName": "user",
+	"entityPluralName": "users",
+	"entityTitle": "usuário",
+	"entityPluralTitle": "usuários",
+	"entityLabel": "Usuário",
+	"entityPluralLabel": "Usuários"
+}

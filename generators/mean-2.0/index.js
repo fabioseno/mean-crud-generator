@@ -12,9 +12,9 @@ function generate(config) {
         }, function (cb) {
             backend.generateDomain(config, cb);
         }, function (cb) {
-            backend.generateRoute(config, cb);
+            backend.generateMiddleware(config, cb);
         }, function (cb) {
-            backend.generateMiddlewares(config, cb);
+            backend.generateRoute(config, cb);
         }
     ], function (err, results) {
         console.log('Finished generating backend files' + os.EOL);

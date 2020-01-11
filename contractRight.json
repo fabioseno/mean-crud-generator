@@ -1,0 +1,90 @@
+{
+	"server": {
+		"model": {
+			"pluralName": "ContractRights",
+			"name": "ContractRight",
+			"schemaName": "contractRightSchema",
+			"filename": "contract-right.model.js"
+		},
+		"domain": {
+			"name": "contractRightDomain",
+			"filename": "contract-right.domain.js"
+		},
+		"controller": {
+			"name": "contractRightController",
+			"filename": "contract-right.controller.js"
+		},
+		"middleware": {
+			"name": "contractRightMiddleware",
+			"filename": "contract-right.middleware.js"
+		},
+		"route": {
+			"filename": "contract-right.route.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Direitos de contrato",
+			"listViewHtmlPageFilename": "contract-rights.html",
+			"listViewJSPageFilename": "contract-rights.js",
+			"listViewJSPageControllerName": "contractRights",
+			"detailsViewPageTitle": "Direito de contrato",
+			"detailsViewHtmlPageFilename": "contract-right.html",
+			"detailsViewJSPageFilename": "contract-right.js",
+			"detailsViewJSPageControllerName": "contractRight"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "templateCode",
+			"fieldLabel": "Código no template",
+			"maxlength": "100",
+			"formRow": 1,
+			"formColSize": 2,
+			"unique": true,
+			"listOrder": 1
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "title",
+			"fieldLabel": "Título",
+			"maxlength": "100",
+			"listOrder": 2,
+			"formRow": 1,
+			"formColSize": 2
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "description",
+			"fieldLabel": "Descrição",
+			"maxlength": "300",
+			"formRow": 2,
+			"formColSize": 12
+		}
+	],
+	"entityTitle": "direito",
+	"entityPluralName": "contractRights",
+	"entityPluralTitle": "direitos",
+	"entityName": "contractRight",
+	"entityLabel": "Direito",
+	"entityPluralLabel": "Direitos"
+}

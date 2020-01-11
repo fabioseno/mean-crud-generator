@@ -55,7 +55,7 @@ function getModelMetadata(config) {
     return JSON.stringify(obj, null, '\t')
 }
 
-function getDomainSearchCriteria(config) {
+function getDomainSearchCriteriaMongo(config) {
     var searchObject = '';
 
     searchObject += setTabs(3) + 'var regex;' + os.EOL;
@@ -70,7 +70,7 @@ function getDomainSearchCriteria(config) {
             searchObject += setTabs(3) + '}';
 
             if (i !== config.fields.length - 1) {
-                searchObject += os.EOL + os.EOL;
+                searchObject += os.EOL;
             }
         }
     }
@@ -78,24 +78,58 @@ function getDomainSearchCriteria(config) {
     return searchObject;
 }
 
-function getDomainUpdateFields(config) {
-    var updateData = '';
-    var entityName = config.entityName;
+function getDomainSearchCriteriaMySql(config) {
+    var searchObject = '';
 
-    updateData += setTabs(3) + formatText('if ({0}) {', entityName) + os.EOL;
-
-    for (i = 0; i < config.fields.length; i++) {
+    for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
-        if (field.updateField) {
-            updateData += setTabs(4) + formatText('{0}.{1} = data.{2}', config.entityName, field.fieldName, field.fieldName);
+        if (field.searchField) {
+            searchObject += setTabs(3) + formatText('if (filter.{0}) {', field.fieldName) + os.EOL;
+            searchObject += setTabs(4) + formatText('query += \'AND {0} = ? \';', field.fieldName) + os.EOL;
+            searchObject += setTabs(4) + formatText('params.push(filter.{0});', field.fieldName) + os.EOL;
+            searchObject += setTabs(3) + '}';
 
-            if (i < config.fields.length - 1) {
-                updateData += ',' + os.EOL;
-            } else {
-                updateData += os.EOL;
+            if (i !== config.fields.length - 1) {
+                searchObject += os.EOL;
             }
         }
+    }
+
+    return searchObject;
+}
+
+function getDomainInsertFieldsMySql(config) {
+    return config.fields.map(field => {
+        return field.fieldName;
+    }).join(', ');
+}
+
+function getDomainInsertFieldParamsMySql(config) {
+    return config.fields.map(field => {
+        return 'data.' + field.fieldName;
+    }).join(', ');
+}
+
+function getDomainUpdateFieldsMongo(config) {
+    var updateData = '';
+    
+    updateData += '{' + os.EOL;
+
+    var updateFields = config.fields.filter(field => {
+        return field.updateField;
+    });
+
+    for (i = 0; i < updateFields.length; i++) {
+        var field = updateFields[i];
+
+        updateData += setTabs(4) + formatText('{0}: data.{1}', field.fieldName, field.fieldName);
+
+        if (i !== updateFields.length - 1) {
+            updateData += ',';
+        }
+
+        updateData += os.EOL;
     }
 
     updateData += setTabs(3) + '}'
@@ -103,8 +137,28 @@ function getDomainUpdateFields(config) {
     return updateData;
 }
 
+function getDomainUpdateFieldsMySql(config) {
+    var updateFields = config.fields.filter(field => {
+        return field.updateField;
+    });
+
+    return updateFields.map(field => {
+        return field.fieldName + ' = ?';
+    }).join(', ');
+}
+
+function getDomainUpdateFieldParamsMySql(config) {
+    var updateFields = config.fields.filter(field => {
+        return field.updateField;
+    });
+
+    return updateFields.map(field => {
+        return 'data.' + field.fieldName;
+    }).join(', ');
+}
+
 function getRouteValidationDeclaration(config) {
-    return os.EOL + setTabs(1) + formatText('var {0}Validation = require(\'../middlewares/{1}\');', config.entityName, config.entityName);
+    return os.EOL + setTabs(1) + formatText('var {0}Validation = require(\'./{1}\')(context);', config.entityName, config.server.middleware.filename);
 }
 
 function getRouteRequiredMiddleware(config) {
@@ -139,30 +193,30 @@ function getRouteUniqueMiddleware(config) {
 function getMiddlewareRequiredFunctions(config) {
     var required = '';
 
-    required += 'module.exports.required = function (req, res, next) {' + os.EOL;
-    required += setTabs(1) + 'try {' + os.EOL;
-    required += setTabs(2) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+    required += setTabs(2) + 'required = function (req, res, next) {' + os.EOL;
+    required += setTabs(3) + 'try {' + os.EOL;
+    required += setTabs(4) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
 
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
         if (field.required) {
-            required += setTabs(2) + formatText('if (!req.body || !req.body.{0}) {', field.fieldName) + os.EOL;
-            required += setTabs(3) + formatText('req.validations.push(\'Campo {0} é obrigatório!\');', field.fieldLabel.toLowerCase()) + os.EOL;
-            required += setTabs(2) + '}' + os.EOL + os.EOL;
+            required += setTabs(4) + formatText('if (!req.body || !req.body.{0}) {', field.fieldName) + os.EOL;
+            required += setTabs(5) + formatText('req.validations.push(\'Campo {0} é obrigatório!\');', field.fieldLabel.toLowerCase()) + os.EOL;
+            required += setTabs(4) + '}' + os.EOL + os.EOL;
         }
     }
 
-    required += setTabs(2) + 'if (req.validations.length > 0) {' + os.EOL;
-    required += setTabs(3) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
-    required += setTabs(2) + '}' + os.EOL + os.EOL;
+    required += setTabs(4) + 'if (req.validations.length > 0) {' + os.EOL;
+    required += setTabs(5) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
+    required += setTabs(4) + '}' + os.EOL + os.EOL;
 
-    required += setTabs(2) + 'next();' + os.EOL;
-    required += setTabs(1) + '}' + os.EOL;
-    required += setTabs(1) + 'catch (error) {' + os.EOL;
-    required += setTabs(2) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
-    required += setTabs(1) + '}' + os.EOL;
-    required += '};' + os.EOL + os.EOL;
+    required += setTabs(4) + 'next();' + os.EOL;
+    required += setTabs(3) + '}' + os.EOL;
+    required += setTabs(3) + 'catch (error) {' + os.EOL;
+    required += setTabs(4) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+    required += setTabs(3) + '}' + os.EOL;
+    required += setTabs(2) + '},' + os.EOL + os.EOL;
 
     return required;
 }
@@ -174,29 +228,56 @@ function getMiddlewareUniqueFunctions(config) {
         var field = config.fields[i];
 
         if (field.unique) {
-            unique += formatText('module.exports.{0}Exists = function (req, res, next) {', field.fieldName) + os.EOL;
-            unique += setTabs(1) + 'try {' + os.EOL;
-            unique += setTabs(2) + formatText('{0}.findOne({{1}: req.body.{2}}, function (err, result) {', config.server.model.name, field.fieldName, field.fieldName) + os.EOL;
-            unique += setTabs(3) + 'if (result && result.id != req.body.id) {' + os.EOL;
-            unique += setTabs(4) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
-            unique += setTabs(4) + formatText('req.validations.push(\'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
-            unique += setTabs(3) + '}' + os.EOL + os.EOL;
+            unique += setTabs(2) + formatText('{0}Exists = async function (req, res, next) {', field.fieldName) + os.EOL;
+            unique += setTabs(3) + 'try {' + os.EOL;
+            unique += setTabs(4) + formatText('var {0} = await {1}.findOne({ {2}: req.body.{2} }).exec();', config.entityName, config.server.model.name, field.fieldName) + os.EOL + os.EOL;
+            unique += setTabs(4) + formatText('if ({0} && {0}.id != req.body.id) {', config.entityName) + os.EOL;
 
-            unique += setTabs(3) + 'if (req.validations.length > 0) {' + os.EOL;
-            unique += setTabs(4) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
-            unique += setTabs(3) + '}' + os.EOL + os.EOL;
+            unique += setTabs(5) + formatText('return messageHandler.wrapResponse(res, \'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
+            unique += setTabs(4) + '}' + os.EOL + os.EOL;
 
-            unique += setTabs(3) + 'next();' + os.EOL;
-            unique += setTabs(2) + '});' + os.EOL;
-            unique += setTabs(1) + '}' + os.EOL;
-            unique += setTabs(1) + 'catch (error) {' + os.EOL;
-            unique += setTabs(2) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
-            unique += setTabs(1) + '}' + os.EOL;
-            unique += '};' + os.EOL + os.EOL;
+            unique += setTabs(4) + 'next();' + os.EOL;
+            unique += setTabs(3) + '}' + os.EOL;
+            unique += setTabs(3) + 'catch (error) {' + os.EOL;
+            unique += setTabs(4) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+            unique += setTabs(3) + '}' + os.EOL;
+            unique += setTabs(2) + '},' + os.EOL + os.EOL;
         }
     }
 
     return unique;
+}
+
+function getMiddlewareExposedFunctions(config) {
+    var output = '';
+
+    var requiredField = config.fields.find(field => {
+        return field.required;
+    });
+
+    var uniqueFields = config.fields.filter(field => {
+        return field.unique;
+    });
+
+    if (requiredField) {
+        output += setTabs(2) + 'required: required';
+
+        if (uniqueFields.length > 0) {
+            output += ',' + os.EOL;
+        }
+    }
+
+    for (var i = 0; i < uniqueFields.length; i++) {
+        var field = uniqueFields[i];
+
+        output += setTabs(2) + formatText('{0}Exists: {0}Exists', field.fieldName);
+
+        if (i !== uniqueFields.length - 1) {
+            output += ',' + os.EOL;
+        }
+    }
+
+    return output;
 }
 
 function getListViewHTMLSearchFields(config) {
@@ -326,8 +407,13 @@ module.exports = {
 
     getModelMetadata: getModelMetadata,
 
-    getDomainSearchCriteria: getDomainSearchCriteria,
-    getDomainUpdateFields: getDomainUpdateFields,
+    getDomainSearchCriteriaMongo: getDomainSearchCriteriaMongo,
+    getDomainSearchCriteriaMySql: getDomainSearchCriteriaMySql,
+    getDomainInsertFieldsMySql: getDomainInsertFieldsMySql,
+    getDomainInsertFieldParamsMySql: getDomainInsertFieldParamsMySql,
+    getDomainUpdateFieldsMongo: getDomainUpdateFieldsMongo,
+    getDomainUpdateFieldsMySql: getDomainUpdateFieldsMySql,
+    getDomainUpdateFieldParamsMySql: getDomainUpdateFieldParamsMySql,
 
     getRouteValidationDeclaration: getRouteValidationDeclaration,
     getRouteRequiredMiddleware: getRouteRequiredMiddleware,
@@ -335,6 +421,7 @@ module.exports = {
 
     getMiddlewareRequiredFunctions: getMiddlewareRequiredFunctions,
     getMiddlewareUniqueFunctions: getMiddlewareUniqueFunctions,
+    getMiddlewareExposedFunctions: getMiddlewareExposedFunctions,
 
     //getListViewHTMLGridHeader: getListViewHTMLGridHeader,
     getListViewHTMLSearchFields: getListViewHTMLSearchFields,

@@ -22,12 +22,8 @@ module.exports = function (context) {
             return {entity_name}.save();
         },
 
-        update = async function (id, data) {
-            let {entity_name} = await {model_name}.findById(id).exec();
-
-{update_fields}
-
-            return {entity_name}.save();
+        update = function (id, data) {
+            return {model_name}.findByIdAndUpdate(id, {update_fields}).exec();
         },
 
         remove = function (id) {

@@ -1,14 +1,12 @@
 /*global module, require*/
-module.exports = function (router) {
-    var {controller_name} = require('./{controller_filename}');{validation_require}
-    var auth = require('../middlewares/session');
+module.exports = function (context) {
+    var {controller_name} = require('./{controller_filename}')(context);{validation_require}
+    var auth = context.session;
+    var router = context.router;
     
     // List
     router.get('/{entity_plural_name}', auth.isLogged, {controller_name}.list);
     
-    // Search
-    router.post('/{entity_plural_name}/search', auth.isLogged, {controller_name}.search);
-
     // Get
     router.get('/{entity_plural_name}/:id', auth.isLogged, {controller_name}.get);
     

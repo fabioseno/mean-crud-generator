@@ -17,7 +17,7 @@ function generateListViewHtml(config, cb) {
         .replace(/{filter_form}/g, util.getListViewHTMLSearchFields(config))
         .replace(/{grid_rows}/g, util.getListViewHTMLGridRow(config));
 
-    tools.writeFile('/frontend/pages/', config.web.pages.listViewHtmlPageFilename, template);
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.listViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -25,7 +25,7 @@ function generateListViewHtml(config, cb) {
 function generateListViewStyle(config, cb) {
     console.log('Generating list view style...');
 
-    tools.writeFile('/frontend/pages/', config.web.pages.listViewStylePageFilename, '');
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.listViewStylePageFilename, '');
 
     cb(null, true);
 }
@@ -45,7 +45,7 @@ function generateListViewLogic(config, cb) {
         .replace(/{grid_columns}/g, util.getListViewHTMLGridColumns(config))
         .replace(/{filter_params}/g, util.getListViewFilterParams(config));
 
-    tools.writeFile('/frontend/pages/', config.web.pages.listViewCodePageFilename, template);
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.listViewCodePageFilename, template);
 
     cb(null, true);
 }
@@ -59,7 +59,7 @@ function generateDetailsViewHtml(config, cb) {
         .replace(/{details_view_page_title}/g, config.web.pages.detailsViewPageTitle)
         .replace(/{controls}/g, util.getDetailsViewHTMLFields(config));
 
-    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewHtmlPageFilename, template);
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.detailsViewHtmlPageFilename, template);
 
     cb(null, true);
 }
@@ -67,7 +67,7 @@ function generateDetailsViewHtml(config, cb) {
 function generateDetailsViewStyle(config, cb) {
     console.log('Generating details view style...');
 
-    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewStylePageFilename, '');
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.detailsViewStylePageFilename, '');
 
     cb(null, true);
 }
@@ -86,7 +86,7 @@ function generateDetailsViewLogic(config, cb) {
         .replace(/{details_view_page_title}/g, config.web.pages.detailsViewPageTitle)
         .replace(/{list_view_js_page_controller_name}/g, config.web.pages.listViewJSPageControllerName);
 
-    tools.writeFile('/frontend/pages/', config.web.pages.detailsViewCodePageFilename, template);
+    tools.writeFile('/frontend/' + config.entityName + '/pages/', config.web.pages.detailsViewCodePageFilename, template);
 
     cb(null, true);
 }
@@ -104,7 +104,7 @@ function generateUIRoutes(config, cb) {
         .replace(/{details_view_html_filename}/g, config.web.pages.detailsViewHtmlPageFilename)
         .replace(/{details_view_js_controller_name}/g, config.web.pages.detailsViewJSPageControllerName);
 
-    tools.writeFile('/frontend/config/', config.entityName + '-router.js', template);
+    tools.writeFile('/frontend/' + config.entityName + '/config/', config.entityName + '-router.js', template);
 
     cb(null, true);
 }

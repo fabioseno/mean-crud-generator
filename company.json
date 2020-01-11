@@ -1,0 +1,147 @@
+{
+	"server": {
+		"datasource": "mysql",
+		"namingConvention": "underscore",
+		"model": {
+			"pluralName": "Companies",
+			"name": "Company",
+			"schemaName": "companySchema",
+			"filename": "company.model.js"
+		},
+		"domain": {
+			"name": "companyDomain",
+			"filename": "company.domain.js"
+		},
+		"controller": {
+			"name": "companyController",
+			"filename": "company.controller.js"
+		},
+		"middleware": {
+			"name": "companyMiddleware",
+			"filename": "company.middleware.js"
+		},
+		"route": {
+			"filename": "company.router.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Companies",
+			"detailsViewPageTitle": "Company",
+			"listViewHtmlPageFilename": "companies.html",
+			"listViewJSPageFilename": "companies.js",
+			"listViewJSPageControllerName": "companies",
+			"detailsViewHtmlPageFilename": "company.html",
+			"detailsViewJSPageFilename": "company.js",
+			"detailsViewJSPageControllerName": "company"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "corporateName",
+			"fieldLabel": "Razão social",
+			"maxlength": "200",
+			"listOrder": 1,
+			"searchField": true,
+			"formColSize": 3,
+			"formRow": 1
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "cnpj",
+			"fieldLabel": "CNPJ",
+			"maxlength": "18",
+			"listOrder": 2,
+			"formRow": 1,
+			"formColSize": 3,
+			"unique": true
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "subscription",
+			"fieldLabel": "Inscrição",
+			"maxlength": "20",
+			"formColSize": 3,
+			"formRow": 2
+		},
+		{
+			"fieldOrder": 4,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "phone",
+			"fieldLabel": "Telefone",
+			"maxlength": "20",
+			"formRow": 2,
+			"formColSize": 4
+		},
+		{
+			"fieldOrder": 5,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "mobile",
+			"fieldLabel": "Celular",
+			"maxlength": "20",
+			"formRow": 2,
+			"formColSize": 4
+		},
+		{
+			"fieldOrder": 6,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "contactName",
+			"fieldLabel": "Nome do contato",
+			"maxlength": "100",
+			"formRow": 4,
+			"formColSize": 4
+		},
+		{
+			"fieldOrder": 7,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "contactEmail",
+			"fieldLabel": "E-mail do contato",
+			"maxlength": "50",
+			"formRow": 4,
+			"formColSize": 4
+		}
+	],
+	"entityTitle": "Company",
+	"entityPluralName": "companies",
+	"entityPluralTitle": "Companies",
+	"entityName": "company"
+}

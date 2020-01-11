@@ -134,21 +134,28 @@ function getMiddlewareRequiredFunctions(config) {
     var required = '';
 
     required += 'module.exports.required = function (req, res, next) {' + os.EOL;
-    required += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
-
-    required += setTabs(1) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+    required += setTabs(1) + 'try {' + os.EOL;
+    required += setTabs(2) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
 
     for (var i = 0; i < config.fields.length; i++) {
         var field = config.fields[i];
 
         if (field.required) {
-            required += setTabs(1) + formatText('if (!req.body || !req.body.{0}) {', field.fieldName) + os.EOL;
-            required += setTabs(2) + formatText('req.validations.push(\'Campo {0} é obrigatório!\');', field.fieldLabel.toLowerCase()) + os.EOL;
-            required += setTabs(1) + '}' + os.EOL + os.EOL;
+            required += setTabs(2) + formatText('if (!req.body || !req.body.{0}) {', field.fieldName) + os.EOL;
+            required += setTabs(3) + formatText('req.validations.push(\'Campo {0} é obrigatório!\');', field.fieldLabel.toLowerCase()) + os.EOL;
+            required += setTabs(2) + '}' + os.EOL + os.EOL;
         }
     }
 
-    required += setTabs(1) + 'next();' + os.EOL;
+    required += setTabs(2) + 'if (req.validations.length > 0) {' + os.EOL;
+    required += setTabs(3) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
+    required += setTabs(2) + '}' + os.EOL + os.EOL;
+
+    required += setTabs(2) + 'next();' + os.EOL;
+    required += setTabs(1) + '}' + os.EOL;
+    required += setTabs(1) + 'catch (error) {' + os.EOL;
+    required += setTabs(2) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+    required += setTabs(1) + '}' + os.EOL;
     required += '};' + os.EOL + os.EOL;
 
     return required;
@@ -162,17 +169,23 @@ function getMiddlewareUniqueFunctions(config) {
 
         if (field.unique) {
             unique += formatText('module.exports.{0}Exists = function (req, res, next) {', field.fieldName) + os.EOL;
-            unique += setTabs(1) + '\'use strict\';' + os.EOL + os.EOL;
+            unique += setTabs(1) + 'try {' + os.EOL;
+            unique += setTabs(2) + formatText('{0}.findOne({{1}: req.body.{2}}, function (err, result) {', config.server.model.name, field.fieldName, field.fieldName) + os.EOL;
+            unique += setTabs(3) + 'if (result && result.id != req.body.id) {' + os.EOL;
+            unique += setTabs(4) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
+            unique += setTabs(4) + formatText('req.validations.push(\'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
+            unique += setTabs(3) + '}' + os.EOL + os.EOL;
 
-            unique += setTabs(1) + formatText('{0}.findOne({{1}: req.body.{2}}, function (err, result) {', config.model.name, field.fieldName, field.fieldName) + os.EOL;
-            unique += setTabs(2) + 'if (result && result.id != req.body.id) {' + os.EOL;
+            unique += setTabs(3) + 'if (req.validations.length > 0) {' + os.EOL;
+            unique += setTabs(4) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
+            unique += setTabs(3) + '}' + os.EOL + os.EOL;
 
-            unique += setTabs(3) + 'req.validations = req.validations || [];' + os.EOL + os.EOL;
-            unique += setTabs(3) + formatText('req.validations.push(\'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
-            unique += setTabs(2) + '}' + os.EOL + os.EOL;
-
-            unique += setTabs(2) + 'next();' + os.EOL;
-            unique += setTabs(1) + '});' + os.EOL;
+            unique += setTabs(3) + 'next();' + os.EOL;
+            unique += setTabs(2) + '});' + os.EOL;
+            unique += setTabs(1) + '}' + os.EOL;
+            unique += setTabs(1) + 'catch (error) {' + os.EOL;
+            unique += setTabs(2) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+            unique += setTabs(1) + '}' + os.EOL;
             unique += '};' + os.EOL + os.EOL;
         }
     }
