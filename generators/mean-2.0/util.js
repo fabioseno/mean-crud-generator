@@ -214,7 +214,7 @@ function getMiddlewareRequiredFunctions(config) {
     required += setTabs(4) + 'next();' + os.EOL;
     required += setTabs(3) + '}' + os.EOL;
     required += setTabs(3) + 'catch (error) {' + os.EOL;
-    required += setTabs(4) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+    required += setTabs(4) + 'return messageHandler.wrapErrorResponse(res, error);' + os.EOL;
     required += setTabs(3) + '}' + os.EOL;
     required += setTabs(2) + '},' + os.EOL + os.EOL;
 
@@ -239,7 +239,7 @@ function getMiddlewareUniqueFunctions(config) {
             unique += setTabs(4) + 'next();' + os.EOL;
             unique += setTabs(3) + '}' + os.EOL;
             unique += setTabs(3) + 'catch (error) {' + os.EOL;
-            unique += setTabs(4) + 'return messageHandler.wrapResponse(res, error);' + os.EOL;
+            unique += setTabs(4) + 'return messageHandler.wrapErrorResponse(res, error);' + os.EOL;
             unique += setTabs(3) + '}' + os.EOL;
             unique += setTabs(2) + '},' + os.EOL + os.EOL;
         }

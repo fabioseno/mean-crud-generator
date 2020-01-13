@@ -31,10 +31,10 @@ module.exports = function (context) {
         };
 
     return {
-        list: list,
-        get: get,
-        add: add,
-        update: update,
-        remove: remove
+        list,
+        get,
+        add,
+        update,
+        remove
     };
 };

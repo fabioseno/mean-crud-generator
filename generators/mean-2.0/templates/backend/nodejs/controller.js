@@ -9,7 +9,7 @@ module.exports = function (context) {
                 return messageHandler.wrapResponse(res, null, {entity_plural_name});
             }
             catch (error) {
-                return messageHandler.wrapResponse(res, error);
+                return messageHandler.wrapErrorResponse(res, error);
             }
         },
 
@@ -20,7 +20,7 @@ module.exports = function (context) {
                 return messageHandler.wrapResponse(res, null, {entity_name});
             }
             catch (error) {
-                return messageHandler.wrapResponse(res, error);
+                return messageHandler.wrapErrorResponse(res, error);
             }
         },
 
@@ -31,7 +31,7 @@ module.exports = function (context) {
                 return messageHandler.wrapResponse(res, '{entity_title} adicionado com sucesso', {entity_name});
             }
             catch (error) {
-                return messageHandler.wrapResponse(res, error);
+                return messageHandler.wrapErrorResponse(res, error);
             }
         },
 
@@ -42,7 +42,7 @@ module.exports = function (context) {
                 return messageHandler.wrapResponse(res, '{entity_title} alterado com sucesso', {entity_name});
             }
             catch (error) {
-                return messageHandler.wrapResponse(res, error);
+                return messageHandler.wrapErrorResponse(res, error);
             }
         },
 
@@ -53,7 +53,7 @@ module.exports = function (context) {
                 return messageHandler.wrapResponse(res, '{entity_title} excluído com sucesso', {entity_name});
             }
             catch (error) {
-                return messageHandler.wrapResponse(res, error);
+                return messageHandler.wrapErrorResponse(res, error);
             }
         };
 

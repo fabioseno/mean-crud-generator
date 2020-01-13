@@ -23,13 +23,7 @@ module.exports = function (context) {
             let query = `SELECT * FROM {table_name} WHERE id = ?`;
 
             return db.query(query, [id]).then(results => {
-                let row;
-
-                if (results.length === 1) {
-                    row = results[0];
-                }
-
-                return row;
+                return results.find(item => item);
             });
         },
 
@@ -58,10 +52,10 @@ module.exports = function (context) {
         };
 
     return {
-        list: list,
-        get: get,
-        add: add,
-        update: update,
-        remove: remove
+        list,
+        get,
+        add,
+        update,
+        remove
     };
 };
