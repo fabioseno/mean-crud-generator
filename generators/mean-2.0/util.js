@@ -208,7 +208,7 @@ function getMiddlewareRequiredFunctions(config) {
     }
 
     required += setTabs(4) + 'if (req.validations.length > 0) {' + os.EOL;
-    required += setTabs(5) + 'return messageHandler.wrapResponse(res, req.validations);' + os.EOL;
+    required += setTabs(5) + 'return messageHandler.wrapErrorResponse(res, req.validations);' + os.EOL;
     required += setTabs(4) + '}' + os.EOL + os.EOL;
 
     required += setTabs(4) + 'next();' + os.EOL;
@@ -233,7 +233,7 @@ function getMiddlewareUniqueFunctions(config) {
             unique += setTabs(4) + formatText('var {0} = await {1}.findOne({ {2}: req.body.{2} }).exec();', config.entityName, config.server.model.name, field.fieldName) + os.EOL + os.EOL;
             unique += setTabs(4) + formatText('if ({0} && {0}.id != req.body.id) {', config.entityName) + os.EOL;
 
-            unique += setTabs(5) + formatText('return messageHandler.wrapResponse(res, \'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
+            unique += setTabs(5) + formatText('return messageHandler.wrapErrorResponse(res, \'{0} com {1} já cadastrado!\');', capitalize(config.entityTitle), field.fieldLabel.toLowerCase()) + os.EOL;
             unique += setTabs(4) + '}' + os.EOL + os.EOL;
 
             unique += setTabs(4) + 'next();' + os.EOL;
@@ -260,7 +260,7 @@ function getMiddlewareExposedFunctions(config) {
     });
 
     if (requiredField) {
-        output += setTabs(2) + 'required: required';
+        output += setTabs(2) + 'required';
 
         if (uniqueFields.length > 0) {
             output += ',' + os.EOL;
@@ -270,7 +270,7 @@ function getMiddlewareExposedFunctions(config) {
     for (var i = 0; i < uniqueFields.length; i++) {
         var field = uniqueFields[i];
 
-        output += setTabs(2) + formatText('{0}Exists: {0}Exists', field.fieldName);
+        output += setTabs(2) + formatText('{0}Exists', field.fieldName);
 
         if (i !== uniqueFields.length - 1) {
             output += ',' + os.EOL;

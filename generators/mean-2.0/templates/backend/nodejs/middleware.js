@@ -1,7 +1,7 @@
 /*global require, module*/
 module.exports = function (context) {
-    var {model_name} = require('./{model_filename}'),
-        messageHandler = context.utils.messageHandler,
+    const {model_name} = require('./{model_filename}');
+    const messageHandler = context.utils.messageHandler;
 
 {field_required}{field_exists}
     return {

@@ -1,8 +1,8 @@
 /*global module, require*/
 module.exports = function (context) {
-    var {controller_name} = require('./{controller_filename}')(context);{validation_require}
-    var auth = context.session;
-    var router = context.router;
+    const {controller_name} = require('./{controller_filename}')(context);{validation_require}
+    const auth = context.session;
+    const router = context.router;
     
     // List
     router.get('/{entity_plural_name}', auth.isLogged, {controller_name}.list);

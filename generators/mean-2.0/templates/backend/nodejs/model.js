@@ -1,6 +1,6 @@
 /*global require, module*/
-var mongoose = require('mongoose'),
-    {entity_model_schema} = new mongoose.Schema({fields});
+const mongoose = require('mongoose');
+const {entity_model_schema} = new mongoose.Schema({fields});
 
 {entity_model_schema}.virtual('id').get(function () {
     return this._id.toHexString();
