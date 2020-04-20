@@ -1,0 +1,29 @@
+<section class="container-fluid with-maxwidth chapter">
+    <article class="article">
+        <h2 class="article-title">{details_view_page_title}</h2>
+        <div class="box box-default">
+            <form #form="ngForm" novalidate autocomplete="off">
+                <div class="box-body">
+                    <div class="subheader">Dados básicos</div>
+{controls}
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button mat-raised-button type="submit" color="primary" class="btn-w-md" (click)="saveItem()"
+                            *ngIf="hasSavePermission()">Salvar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="space"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <button mat-raised-button type="button" color="default" class="btn-w-md"
+                    (click)="goBack()">Voltar</button>
+                <span class="space" *ngIf="canDelete()"></span>
+                <button mat-raised-button type="button" color="warn" class="btn-w-md"
+                    (click)="deleteItem()">Excluir</button>
+            </div>
+        </div>
+    </article>
+</section>

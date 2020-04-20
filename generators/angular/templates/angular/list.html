@@ -1,0 +1,21 @@
+<section class="container-fluid with-maxwidth chapter">
+    <article class="article">
+        <h2 class="article-title">{list_view_page_title}
+            <span class="space"></span>
+            <button mat-mini-fab color="accent" (click)="addEntity()">
+                <i class="mdi mdi-plus"></i>
+            </button>
+        </h2>
+{filter_form}
+        <div class="mat-elevation-z3">
+            <table mat-table [dataSource]="entityList" class="w-100 table-link">
+{grid_rows}
+                <tr mat-header-row *matHeaderRowDef="gridColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: gridColumns;" (click)="viewEntity(row.id)"></tr>
+            </table>
+
+            <mat-paginator [hidePageSize]="true" [length]="pagingOptions.items" [pageSize]="appConfig.pageSize"
+                (page)="list{model_plural_name}()"></mat-paginator>
+        </div>
+    </article>
+</section>

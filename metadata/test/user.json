@@ -1,0 +1,88 @@
+{
+	"server": {
+		"datasource": "mysql",
+		"namingConvention": "underscore",
+		"model": {
+			"pluralName": "Users",
+			"name": "User",
+			"schemaName": "userSchema",
+			"filename": "user.model.js"
+		},
+		"domain": {
+			"name": "userDomain",
+			"filename": "user.domain.js"
+		},
+		"controller": {
+			"name": "userController",
+			"filename": "user.controller.js"
+		},
+		"middleware": {
+			"name": "userMiddleware",
+			"filename": "user.middleware.js"
+		},
+		"route": {
+			"filename": "user.route.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Usuários",
+			"detailsViewPageTitle": "Usuário",
+			"listViewHtmlPageFilename": "users.component.html",
+			"listViewCodePageFilename": "users.component.ts",
+			"listViewCodePageControllerName": "users",
+			"listViewStylePageFilename": "users.component.scss",
+			"detailsViewHtmlPageFilename": "user.component.html",
+			"detailsViewCodePageFilename": "user.component.ts",
+			"detailsViewCodePageControllerName": "user",
+			"detailsViewStylePageFilename": "user.component.scss"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "name",
+			"fieldLabel": "Nome",
+			"formRow": 1,
+			"formColSize": 3,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "email",
+			"fieldLabel": "Email",
+			"formRow": 2,
+			"formColSize": 4,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "phone",
+			"fieldLabel": "Telefone",
+			"formRow": 2,
+			"formColSize": 3
+		}
+	],
+	"entityTitle": "Usuário",
+	"entityPluralName": "users",
+	"entityPluralTitle": "Usuários",
+	"entityName": "user"
+}

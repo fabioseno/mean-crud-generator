@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ListPageBaseComponent, BackofficeService, StatesData } from '../../../../';
+import { ListPageBaseComponent, BackofficeService, {model_name}Service } from '../../../../';
 
 @Component({
     selector: 'page-{entity_plural_name}',
@@ -11,29 +11,32 @@ import { ListPageBaseComponent, BackofficeService, StatesData } from '../../../.
 export class {model_plural_name}Component extends ListPageBaseComponent implements OnInit {
 
     public gridColumns = {grid_columns};
-    public states = StatesData.get();
-    public filter: any = {
-        state: ''
-    };
+    public filter: any = {};
 
-    constructor(private backofficeService: BackofficeService) {
+    constructor(private {entity_name}Service: {model_name}Service) {
         super();
 
         this.setPageConfig({
-            addRoute: '/backoffice/operacao/{entity_plural_title}/novo',
-            editRoute: '/backoffice/operacao/{entity_plural_title}'
+            addRoute: '/backoffice/{entity_plural_title}/novo',
+            editRoute: '/backoffice/{entity_plural_title}'
         });
     }
 
-    list{model_plural_name}(resetPage = false) {
+    buildParams(resetPage = false) {
         if (resetPage) {
             this.resetPage();
         }
 
         var params = this.getGridParams();
-        
+
 {filter_params}
-        this.backofficeService.{entity_plural_name}.list(params)
+        return params;
+    }
+
+    list{model_plural_name}(resetPage = false) {
+        var filter = this.buildParams(resetPage);
+
+        this.{entity_name}Service.{entity_plural_name}.list(filter)
             .subscribe(result => {
                 if (result.success) {
                     this.setDataSource(result);

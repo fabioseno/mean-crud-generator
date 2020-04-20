@@ -1,0 +1,102 @@
+{
+	"server": {
+		"datasource": "mysql",
+		"namingConvention": "underscore",
+		"model": {
+			"pluralName": "Cars",
+			"name": "Car",
+			"schemaName": "carSchema",
+			"filename": "car.model.js"
+		},
+		"domain": {
+			"name": "carDomain",
+			"filename": "car.domain.js"
+		},
+		"controller": {
+			"name": "carController",
+			"filename": "car.controller.js"
+		},
+		"middleware": {
+			"name": "carMiddleware",
+			"filename": "car.middleware.js"
+		},
+		"route": {
+			"filename": "car.route.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Carros",
+			"detailsViewPageTitle": "Carro",
+			"listViewStylePageFilename": "cars.component.scss",
+			"listViewHtmlPageFilename": "cars.component.html",
+			"listViewCodePageFilename": "cars.component.ts",
+			"listViewCodePageControllerName": "cars",
+			"detailsViewHtmlPageFilename": "car.component.html",
+			"detailsViewCodePageFilename": "car.component.ts",
+			"detailsViewCodePageControllerName": "car",
+			"detailsViewStylePageFilename": "car.component.scss"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "name",
+			"fieldLabel": "Nome",
+			"maxlength": "40",
+			"formRow": 1,
+			"formColSize": 3,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"formRow": 1,
+			"formColSize": 3,
+			"fieldName": "title",
+			"fieldLabel": "Titulo"
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "model",
+			"fieldLabel": "Modelo",
+			"formRow": 1,
+			"formColSize": 6,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 4,
+			"dataType": "String",
+			"controlType": "tel",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "price",
+			"fieldLabel": "Preço",
+			"formRow": 2,
+			"formColSize": 3
+		}
+	],
+	"entityTitle": "Carro",
+	"entityPluralName": "cars",
+	"entityPluralTitle": "Carros",
+	"entityName": "car"
+}

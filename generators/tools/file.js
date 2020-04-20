@@ -1,28 +1,32 @@
-var fs = require('fs');
 var path = require('path');
+var fs = require('fs');
 
 function readTemplate(folder, filename) {
     var content = '',
         filePath = path.join(folder, filename);
-    
+
     if (fs.existsSync(filePath)) {
         content = fs.readFileSync(filePath, 'utf8');
     }
-    
+
     return content;
 }
 
-function writeFile(filePath, fileName, content) {
-    var outputPath = path.join(__dirname, '..', 'output', filePath);
+function writeFile(sourceFolder, subFolder, fileName, content) {
+    var outputPath = path.join('output', sourceFolder, subFolder);
 
     if (!fs.existsSync(outputPath)) {
         fs.mkdirSync(outputPath, { recursive: true });
     }
 
-    fs.writeFileSync(outputPath +  fileName, content, 'utf-8');
+    let filePath = path.join(outputPath, fileName);
+
+    fs.writeFileSync(filePath, content, 'utf-8');
+
+    return filePath;
 }
 
 module.exports = {
-    readTemplate: readTemplate,
-    writeFile: writeFile
+    readTemplate,
+    writeFile
 };
