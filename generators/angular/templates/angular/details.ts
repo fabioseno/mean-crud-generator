@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 
-import { PageBaseComponent, ConfirmationMessages, {model_name}Service } from '../../../../../';
+import { PageBaseComponent, Actions, BackofficeService } from '../../../';
 
 @Component({
     selector: 'page-{entity_name}',
@@ -18,52 +18,35 @@ export class {model_name}Component extends PageBaseComponent implements OnInit {
     public {entity_name}: any = {};
 
     constructor(private route: ActivatedRoute,
-        private {entity_name}Service: {model_name}Service) {
+        private backofficeService: BackofficeService) {
         super();
+
+        this.setPageConfig({
+            addPermission: '{entity_name_upper}.ADD',
+            updatePermission: '{entity_name_upper}.UPDATE'
+        });
     }
 
     loadParams() {
         this.route.params.subscribe(params => {
             if (params.{entity_name}Id !== 'novo') {
-                this.{entity_name}.id = params.{entity_name}Id;
-                this.hasId = true;
+                this.setEntityId(params.id);
+                this.{entity_name}.id = params.id;
+
+                this.loadDetails();
             }
         });
     }
 
     loadDetails() {
         if (this.{entity_name}.id) {
-            this.{entity_name}Service.get(this.{entity_name}Id, this.{entity_name}.id)
+            this.backofficeService.{entity_plural_name}.get(this.{entity_name}.id)
                 .subscribe(result => {
                     if (result.success) {
                         this.{entity_name} = result.data;
                     }
                 });
         }
-    }
-
-    createItem() {
-        this.execute(!this.form.invalid, ConfirmationMessages.{entity_name}.create, () => {
-            this.{entity_name}Service.add(this.{entity_name})
-                .subscribe(result => {
-                    if (result.success) {
-                        this.toaster.show(result);
-                        this.goBack();
-                    }
-                });
-        });
-    }
-
-    updateItem() {
-        this.execute(!this.form.invalid, ConfirmationMessages.{entity_name}.update, () => {
-            this.{entity_name}Service.update(this.{entity_name}.id, this.{entity_name})
-                .subscribe(result => {
-                    if (result.success) {
-                        this.toaster.show(result);
-                        this.goBack();
-                    }
-                });
-        });
     }
 
     saveItem() {
@@ -76,9 +59,32 @@ export class {model_name}Component extends PageBaseComponent implements OnInit {
         }
     }
 
+    private createItem() {
+        this.execute(!this.form.invalid, Actions.{entity_name}.create, () => {
+            this.backofficeService.{entity_plural_name}.add(this.{entity_name})
+                .subscribe(result => {
+                    if (result.success) {
+                        this.toaster.show(result);
+                        this.route.navigate([this.getModuleFragment(), '{entity_plural_name}, result.data.id]);
+                    }
+                });
+        });
+    }
+
+    private updateItem() {
+        this.execute(!this.form.invalid, Actions.{entity_name}.update, () => {
+            this.backofficeService.{entity_plural_name}.update(this.{entity_name}.id, this.{entity_name})
+                .subscribe(result => {
+                    if (result.success) {
+                        this.toaster.show(result);
+                    }
+                });
+        });
+    }
+
     deleteItem() {
-        this.execute(!this.isNew(), ConfirmationMessages.{entity_name}.remove, () => {
-            this.{entity_name}Service.remove(this.{entity_name}.id)
+        this.execute(!this.isNew(), Actions.{entity_name}.remove, () => {
+            this.backofficeService.{entity_plural_name}.remove(this.{entity_name}.id)
                 .subscribe(result => {
                     if (result.success) {
                         this.toaster.show(result);
@@ -89,10 +95,7 @@ export class {model_name}Component extends PageBaseComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.saveButtonPermission = this.getSavePermission();
-
         this.loadParams();
-        this.loadDetails();
     }
 
 }

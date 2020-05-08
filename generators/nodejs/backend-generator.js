@@ -3,7 +3,7 @@ var util = require('./util');
 var templateFolder = __dirname + '/templates';
 
 function writeFile(config, filename, fileContent) {
-   return file.writeFile(config.sourcePath, '/backend/' + config.entityName, filename, fileContent);
+    return file.writeFile(config.sourcePath, '/backend/' + config.entityName, filename, fileContent);
 }
 
 function generateModel(config) {
@@ -19,8 +19,23 @@ function generateModel(config) {
     console.log('Model - OK (' + filePath + ')');
 }
 
-function generateController(config) {
-    var template = file.readTemplate(templateFolder, 'controller.js');
+function generateControllerMongo(config) {
+    var template = file.readTemplate(templateFolder, 'controller-mongo.js');
+
+    template = template
+        .replace(/{entity_name}/g, config.entityName)
+        .replace(/{entity_plural_name}/g, config.entityPluralName)
+        .replace(/{domain_name}/g, config.server.domain.name)
+        .replace(/{domain_filename}/g, config.server.domain.filename)
+        .replace(/{entity_title}/g, config.entityTitle);
+
+    let filePath = writeFile(config, config.server.controller.filename, template);
+
+    console.log('Controller - OK (' + filePath + ')');
+}
+
+function generateControllerMySQL(config) {
+    var template = file.readTemplate(templateFolder, 'controller-mysql.js');
 
     template = template
         .replace(/{entity_name}/g, config.entityName)
@@ -39,11 +54,14 @@ function generateDomainMySQL(config) {
 
     template = template
         .replace(/{table_name}/g, config.entityName)
+        .replace(/{entity_title}/g, config.entityTitle)
+        .replace(/{entity_name}/g, config.entityName)
         .replace(/{search_fields}/, util.getDomainSearchCriteriaMySql(config))
         .replace(/{insert_fields}/, util.getDomainInsertFieldsMySql(config))
         .replace(/{insert_values}/, util.getDomainInsertFieldParamsMySql(config))
         .replace(/{update_fields}/, util.getDomainUpdateFieldsMySql(config))
-        .replace(/{update_params}/, util.getDomainUpdateFieldParamsMySql(config));
+        .replace(/{update_params}/, util.getDomainUpdateFieldParamsMySql(config))
+        .replace(/{order_by_fields}/g, util.getDomainOrderByFieldsMySql(config));
 
     let filePath = writeFile(config, config.server.domain.filename, template);
 
@@ -84,6 +102,7 @@ function generateRoute(config) {
     var template = file.readTemplate(templateFolder, 'route.js');
 
     template = template
+        .replace(/{entity_name_upper}/g, config.entityName.toUpperCase())
         .replace(/{entity_plural_name}/g, config.entityPluralName)
         .replace(/{controller_name}/g, config.server.controller.name)
         .replace(/{controller_filename}/g, config.server.controller.filename)
@@ -97,11 +116,24 @@ function generateRoute(config) {
     console.log('Route - OK (' + filePath + ')');
 }
 
+function generateIndex(config) {
+    var template = file.readTemplate(templateFolder, 'index.js');
+
+    template = template
+        .replace(/{entity_name}/g, config.entityName);
+
+    let filePath = writeFile(config, 'index.js', template);
+
+    console.log('Index - OK (' + filePath + ')');
+}
+
 module.exports = {
     generateModel,
-    generateController,
+    generateControllerMongo,
+    generateControllerMySQL,
     generateDomainMySQL,
     generateDomainMongoDB,
     generateMiddleware,
-    generateRoute
+    generateRoute,
+    generateIndex
 };

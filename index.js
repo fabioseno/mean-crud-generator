@@ -26,7 +26,7 @@ var processFile = (file, sourcePath) => {
         config.sourcePath = sourcePath;
 
         let options = {
-            database: generatorFactory.database.MongoDB,
+            database: generatorFactory.database.MySQL,
             frontendTech: generatorFactory.frontEndTech.Angular,
             backendTech: generatorFactory.backendTech.NodeJS
         }

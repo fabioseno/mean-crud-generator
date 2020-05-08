@@ -1,0 +1,79 @@
+{
+	"server": {
+		"datasource": "mysql",
+		"namingConvention": "underscore",
+		"model": {
+			"pluralName": "Tooltips",
+			"name": "Tooltip",
+			"schemaName": "tooltipSchema",
+			"filename": "tooltip.model.js"
+		},
+		"domain": {
+			"name": "tooltipDomain",
+			"filename": "tooltip.domain.js"
+		},
+		"controller": {
+			"name": "tooltipController",
+			"filename": "tooltip.controller.js"
+		},
+		"middleware": {
+			"name": "tooltipMiddleware",
+			"filename": "tooltip.middleware.js"
+		},
+		"route": {
+			"filename": "tooltip.route.js"
+		}
+	},
+	"web": {
+		"pages": {
+			"listViewPageTitle": "Tooltips",
+			"detailsViewPageTitle": "Tooltip",
+			"listViewHtmlPageFilename": "tooltips.component.html",
+			"listViewCodePageFilename": "tooltips.component.ts",
+			"listViewCodePageControllerName": "tooltips",
+			"listViewStylePageFilename": "tooltips.component.scss",
+			"detailsViewHtmlPageFilename": "tooltip.component.html",
+			"detailsViewCodePageFilename": "tooltip.component.ts",
+			"detailsViewCodePageControllerName": "tooltip",
+			"detailsViewStylePageFilename": "tooltip.component.scss"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "title",
+			"fieldLabel": "Título",
+			"maxlength": "40",
+			"formRow": 1,
+			"formColSize": 12,
+			"sortField": true,
+			"unique": false,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"controlType": "text",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "text",
+			"fieldLabel": "Texto",
+			"maxlength": "400",
+			"formRow": 2,
+			"formColSize": 12,
+			"searchField": true
+		}
+	],
+	"entityTitle": "Tooltip",
+	"entityPluralName": "tooltips",
+	"entityPluralTitle": "Tooltips",
+	"entityName": "tooltip"
+}

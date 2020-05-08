@@ -37,7 +37,11 @@ function generateListViewLogic(config) {
         .replace(/{model_name}/g, config.server.model.name)
         .replace(/{model_plural_name}/g, config.server.model.pluralName)
         .replace(/{grid_columns}/g, util.getListViewHTMLGridColumns(config))
-        .replace(/{filter_params}/g, util.getListViewFilterParams(config));
+        .replace(/{filter_params}/g, util.getListViewFilterParams(config))
+        .replace(/{filter_init}/g, util.getListViewFilterInit(config))
+        .replace(/{filter_recover}/g, util.getListViewFilterRecover(config))
+        .replace(/{filter_clear}/g, util.getListViewFilterClear(config))
+        .replace(/{filter_setup}/g, util.getListViewFilterSetup(config));
 
     let filePath = writeFile(config, config.web.pages.listViewCodePageFilename, template);
 
@@ -66,6 +70,8 @@ function generateDetailsViewLogic(config) {
     var template = file.readTemplate(templatesFolder, 'details.ts');
 
     template = template
+        .replace(/{entity_name_upper}/g, config.entityName.toUpperCase())
+        .replace(/{entity_plural_name}/g, config.entityPluralName)
         .replace(/{entity_name}/g, config.entityName)
         .replace(/{model_name}/g, config.server.model.name);
 

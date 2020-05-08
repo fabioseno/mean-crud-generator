@@ -26,11 +26,7 @@ const database = {
 
 function generate(config, options) {
     if (options.backendTech === backendTech.NodeJS) {
-        if (options.database === database.MongoDB) {
-            nodejs.generate(config, 'mongo');
-        } else {
-            nodejs.generate(config, 'mysql');
-        }
+        nodejs.generate(config, options.database);
     }
 
     if (options.frontendTech === frontEndTech.AngularJS) {

@@ -133,8 +133,24 @@ function getDomainUpdateFieldParamsMySql(config) {
     }).join(', ');
 }
 
+function getDomainOrderByFieldsMySql(config) {
+    let result = '';
+
+    let sortFields = config.fields.filter(field => {
+        return field.sortField;
+    });
+
+    if (sortFields.length > 0) {
+        result += '|| ';
+
+        result += sortFields.map(item => '\'' + item.fieldName + '\'').join(', ');
+    }
+
+    return result
+}
+
 function getRouteValidationDeclaration(config) {
-    return os.EOL + format.setTabs(1) + format.formatText('var {0}Validation = require(\'./{1}\')(context);', config.entityName, config.server.middleware.filename);
+    return os.EOL + format.setTabs(1) + format.formatText('const {0}Validation = require(\'./{1}\')(context);', config.entityName, config.server.middleware.filename);
 }
 
 function getRouteRequiredMiddleware(config) {
@@ -266,6 +282,7 @@ module.exports = {
     getDomainUpdateFieldsMongo,
     getDomainUpdateFieldsMySql,
     getDomainUpdateFieldParamsMySql,
+    getDomainOrderByFieldsMySql,
 
     getRouteValidationDeclaration,
     getRouteRequiredMiddleware,

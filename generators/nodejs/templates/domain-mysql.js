@@ -1,61 +1,73 @@
 module.exports = function (context) {
-    const uuidv1 = require('uuid/v1');
-    const db = context.utils.db;
-    const pagination = context.utils.pagination;
+    
+    const createContext = function (connection) {
 
-    const list = function (filter) {
-        let query = `SELECT * FROM {table_name} WHERE 1 = 1 `
-        let params = [];
+        const list = function (filter) {
+            let query = `SELECT * FROM {table_name} WHERE 1 = 1 `
+            let params = [];
 
 {search_fields}
-        //query += ` ORDER BY title`;
 
-        let pagingOptions = {
-            page: filter.page,
-            size: filter.size,
-            sort: filter.sort
-        }
+            let pagingOptions = {
+                page: filter.page,
+                size: filter.size,
+                sort: filter.sort {order_by_fields}
+            }
 
-        return pagination.paginate(query, params, pagingOptions);
-    };
+            return context.paginator.paginate(connection, query, params, pagingOptions);
+        };
 
-    const get = function (id) {
-        let query = `SELECT * FROM {table_name} WHERE id = ?`;
+        const get = function (id) {
+            let query = `SELECT * FROM {table_name} WHERE id = ?`;
 
-        return db.query(query, [id]).then(results => {
-            return results.find(item => item);
-        });
-    };
+            return connection.query(query, [id])
+                .then(results => results.find(item => item))
+                .then({entity_name} => {
+                    if (!{entity_name}) {
+                        throw '{entity_title} não encontrado'
+                    }
 
-    const add = function (data) {
-        let query = `INSERT INTO {table_name} (id, {insert_fields}) VALUES (?)`;
-            
-        let params = [uuidv1(), {insert_values}];
+                    return {entity_name};
+                });
+        };
 
-        return db.query(query, [params]);
-    };
+        const add = function (data) {
+            let query = `INSERT INTO {table_name} ({insert_fields}) VALUES (?)`;
 
-    const update = function (id, data) {
-        let query = `UPDATE {table_name}
-            SET {update_fields} 
-            WHERE id = ?`;
+            let params = [{ insert_values }];
 
-        let params = [{update_params}, id];
+            return connection.query(query, [params])
+                .then(results => {entity_name} = get(results.insertId))
+        };
 
-        return db.query(query, params);
-    };
+        const update = function (id, data) {
+            let query = `UPDATE {table_name}
+                SET {update_fields} 
+                WHERE id = ?`;
 
-    const remove = function (id) {
-        let query = `DELETE FROM {table_name} WHERE id = ?`;
+            let params = [{update_params}, id];
 
-        return db.query(query, [id]);
+            return connection.query(query, params)
+                .then(() => get(id));
+        };
+
+        const remove = function (id) {
+            let query = `DELETE FROM {table_name} WHERE id = ?`;
+
+            return connection.query(query, [id])
+                .then(() => true);
+        };
+
+        return {
+            list,
+            get,
+            add,
+            update,
+            remove
+        };
     };
 
     return {
-        list,
-        get,
-        add,
-        update,
-        remove
+        createContext
     };
 };

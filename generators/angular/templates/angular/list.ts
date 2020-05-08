@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ListPageBaseComponent, BackofficeService, {model_name}Service } from '../../../../';
+import { ListPageBaseComponent, PageID, BackofficeService } from '../../../';
 
 @Component({
     selector: 'page-{entity_plural_name}',
@@ -13,15 +13,16 @@ export class {model_plural_name}Component extends ListPageBaseComponent implemen
     public gridColumns = {grid_columns};
     public filter: any = {};
 
-    constructor(private {entity_name}Service: {model_name}Service) {
+    constructor(private backofficeService: BackofficeService) {
         super();
 
         this.setPageConfig({
-            addRoute: '/backoffice/{entity_plural_title}/novo',
-            editRoute: '/backoffice/{entity_plural_title}'
+            addRoute: [this.getModuleFragment(), '{entity_plural_name}', 'novo'],
+            editRoute: [this.getModuleFragment(), '{entity_plural_name}']
         });
     }
 
+{filter_init}
     buildParams(resetPage = false) {
         if (resetPage) {
             this.resetPage();
@@ -33,10 +34,12 @@ export class {model_plural_name}Component extends ListPageBaseComponent implemen
         return params;
     }
 
+{filter_recover}
+{filter_clear}
     list{model_plural_name}(resetPage = false) {
         var filter = this.buildParams(resetPage);
 
-        this.{entity_name}Service.{entity_plural_name}.list(filter)
+        this.backofficeService.{entity_plural_name}.list(filter)
             .subscribe(result => {
                 if (result.success) {
                     this.setDataSource(result);
@@ -45,6 +48,7 @@ export class {model_plural_name}Component extends ListPageBaseComponent implemen
     }
 
     ngOnInit(): void {
+{filter_setup}
         this.list{model_plural_name}();
     }
 

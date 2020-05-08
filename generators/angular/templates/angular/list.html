@@ -2,7 +2,7 @@
     <article class="article">
         <h2 class="article-title">{list_view_page_title}
             <span class="space"></span>
-            <button mat-mini-fab color="accent" (click)="addEntity()">
+            <button mat-mini-fab color="primary" (click)="addEntity()">
                 <i class="mdi mdi-plus"></i>
             </button>
         </h2>
@@ -14,8 +14,11 @@
                 <tr mat-row *matRowDef="let row; columns: gridColumns;" (click)="viewEntity(row.id)"></tr>
             </table>
 
-            <mat-paginator [hidePageSize]="true" [length]="pagingOptions.items" [pageSize]="appConfig.pageSize"
-                (page)="list{model_plural_name}()"></mat-paginator>
+            <div class="pager-container">
+                <page-selector [paginator]="paginator" [totalItems]="pagingOptions.totalItems"></page-selector>
+                <mat-paginator #paginator [hidePageSize]="true" [length]="pagingOptions.totalItems"
+                        [pageSize]="appConfig.pageSize" (page)="list{model_plural_name}()"></mat-paginator>
+            </div>
         </div>
     </article>
 </section>
