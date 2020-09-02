@@ -34,7 +34,7 @@ module.exports = function (context) {
         const add = function (data) {
             let query = `INSERT INTO {table_name} ({insert_fields}) VALUES (?)`;
 
-            let params = [{ insert_values }];
+            let params = [{insert_values}];
 
             return connection.query(query, [params])
                 .then(results => {entity_name} = get(results.insertId))

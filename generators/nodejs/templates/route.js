@@ -4,18 +4,18 @@ module.exports = function (router, context) {
     const auth = context.auth;
     
     // List
-    router.get('/{entity_plural_name}', auth.hasPermission('{entity_name_upper}.LIST'), {controller_name}.list);
+    router.get('/backoffice/{entity_plural_name}', auth.hasPermission('{entity_name_upper}.LIST'), {controller_name}.list);
     
     // Get
-    router.get('/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.GET'), {controller_name}.get);
+    router.get('/backoffice/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.GET'), {controller_name}.get);
     
     // Add
-    router.post('/{entity_plural_name}', auth.hasPermission('{entity_name_upper}.ADD'), {required_middleware}{unique_middleware}{controller_name}.add);
+    router.post('/backoffice/{entity_plural_name}', auth.hasPermission('{entity_name_upper}.ADD'), {required_middleware}{unique_middleware}{controller_name}.add);
     
     // Update
-    router.put('/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.UPDATE'), {required_middleware}{unique_middleware}{controller_name}.update);
+    router.put('/backoffice/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.UPDATE'), {required_middleware}{unique_middleware}{controller_name}.update);
     
     // Remove
-    router['delete']('/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.DELETE'), {controller_name}.remove);
+    router['delete']('/backoffice/{entity_plural_name}/:id', auth.hasPermission('{entity_name_upper}.DELETE'), {controller_name}.remove);
     
 };

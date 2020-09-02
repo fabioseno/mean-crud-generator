@@ -87,6 +87,7 @@ function generateMiddleware(config) {
     var template = file.readTemplate(templateFolder, 'middleware.js');
 
     template = template
+        .replace(/{model_import}/g, '')
         .replace(/{model_name}/g, config.server.model.name)
         .replace(/{model_filename}/g, config.server.model.filename)
         .replace(/{field_required}/g, util.getMiddlewareRequiredFunctions(config))

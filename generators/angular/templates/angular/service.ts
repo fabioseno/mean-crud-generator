@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
 
-import { ModuleService } from '../../../';
+import { BackofficeEndpointsConfig } from '../../../';
+import { HttpInvoker } from '../../../core/';
 
 @Injectable()
 export class {model_name}Service {
 
-    constructor(public moduleService: ModuleService) {}
+    private httpInvoker;
+
+    constructor(private httpInvokerFactory: HttpInvoker) {
+        this.httpInvoker = this.httpInvokerFactory.loadConfig(BackofficeEndpointsConfig);
+    }
 
     list(filter: any = {}) {
         var params = {
             query: filter
         };
 
-        return this.moduleService.moduleHttpInvoker.invoke('{entity_name}', 'list', params);
-    }
+        return this.httpInvoker.invoke('{entity_name}', 'list', params);
+    } x
 
     get({entity_name}Id) {
         var params = {
             query: {
                 {entity_name}Id: {entity_name}Id
-            },
+            }
         };
 
-        return this.moduleService.moduleHttpInvoker.invoke('{entity_name}', 'get', params);
+        return this.httpInvoker.invoke('{entity_name}', 'get', params);
     }
 
     add(data) {
@@ -30,7 +35,7 @@ export class {model_name}Service {
             data: data
         };
 
-        return this.moduleService.moduleHttpInvoker.invoke('{entity_name}', 'add', params);
+        return this.httpInvoker.invoke('{entity_name}', 'add', params);
     }
 
     update({entity_name}Id, data) {
@@ -41,7 +46,7 @@ export class {model_name}Service {
             data: data
         };
 
-        return this.moduleService.moduleHttpInvoker.invoke('{entity_name}', 'update', params);
+        return this.httpInvoker.invoke('{entity_name}', 'update', params);
     }
 
     remove({entity_name}Id) {
@@ -51,7 +56,7 @@ export class {model_name}Service {
             }
         };
 
-        return this.moduleService.moduleHttpInvoker.invoke('{entity_name}', 'remove', params);
+        return this.httpInvoker.invoke('{entity_name}', 'remove', params);
     }
 
 }

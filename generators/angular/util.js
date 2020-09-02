@@ -99,15 +99,15 @@ function getListViewHTMLGridRow(config) {
 }
 
 function getListViewFilterParams(config) {
-    var listingFieldsOutput = '';
+    var listingFieldsOutput = format.setTabs(2) + format.formatText('return this.saveFilter(this.filter, params, PageID.{0});', config.server.model.pluralName) + os.EOL;
 
-    config.fields.filter(item => item.searchField).forEach(field => {
-        listingFieldsOutput += format.setTabs(2) + format.formatText('this.addFilterParam(params, \'{0}\', this.filter.{0});', field.fieldName) + os.EOL;
-    });
+    // config.fields.filter(item => item.searchField).forEach(field => {
+    //     listingFieldsOutput += format.setTabs(2) + format.formatText('this.addFilterParam(params, \'{0}\', this.filter.{0});', field.fieldName) + os.EOL;
+    // });
 
-    listingFieldsOutput += os.EOL;
+    // listingFieldsOutput += os.EOL;
 
-    listingFieldsOutput += format.setTabs(2) + format.formatText('this.saveFilterPreferences(PageID.{0}, params);', config.server.model.pluralName) + os.EOL;
+    // listingFieldsOutput += format.setTabs(2) + format.formatText('this.saveFilterPreferences(PageID.{0}, params);', config.server.model.pluralName) + os.EOL;
 
     return listingFieldsOutput;
 }
@@ -130,14 +130,15 @@ function getListViewFilterRecover(config) {
 
     if (filters.length > 0) {
         ouput += format.setTabs(1) + 'recoverParams() {' + os.EOL;
-        ouput += format.setTabs(2) + format.formatText('let params = this.recoverFilterPreferences(PageID.{0});', config.server.model.pluralName) + os.EOL + os.EOL;
-        ouput += format.setTabs(2) + 'this.getPagingParams(this.filter, params);' + os.EOL + os.EOL;
+        ouput += format.setTabs(2) + format.formatText('let params: any = this.recoverFilter(this.filter, PageID.Tooltips);', config.server.model.pluralName) + os.EOL;
+    //     ouput += format.setTabs(2) + format.formatText('let params = this.recoverFilterPreferences(PageID.{0});', config.server.model.pluralName) + os.EOL + os.EOL;
+    //     ouput += format.setTabs(2) + 'this.getPagingParams(this.filter, params);' + os.EOL + os.EOL;
 
-        for (let i = 0; i < filters.length; i++) {
-            let field = filters[i];
+    //     for (let i = 0; i < filters.length; i++) {
+    //         let field = filters[i];
 
-            ouput += format.setTabs(2) + format.formatText('this.getFilterParam(this.filter, \'{0}\', params.{0});', field.fieldName) + os.EOL;
-        }
+    //         ouput += format.setTabs(2) + format.formatText('this.getFilterParam(this.filter, \'{0}\', params.{0});', field.fieldName) + os.EOL;
+    //     }
 
         ouput += format.setTabs(1) + '}' + os.EOL;
     }
@@ -218,6 +219,13 @@ function getDetailsViewHTMLFields(config) {
             case 'textarea':
                 controls += format.setTabs(8) + format.formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
                 controls += format.setTabs(8) + format.formatText('<textarea matInput name="{0}" rows="4" {2}{3}[(ngModel)]="{1}.{0}"></textarea>', field.fieldName, config.entityName, required, maxlength) + os.EOL;
+                break;
+            case 'dropdown':
+                controls += format.setTabs(8) + format.formatText('<mat-label>{0}</mat-label>', field.fieldLabel) + os.EOL;
+                controls += format.setTabs(8) + format.formatText('<mat-select name="{0}" {2}[(ngModel)]="{1}.{0}">', field.fieldName, config.entityName, required) + os.EOL;
+                controls += format.setTabs(9) + format.formatText('<mat-option value="">Todos</mat-option>') + os.EOL;
+                controls += format.setTabs(9) + format.formatText('<mat-option [value]="{0}.id" *ngFor="let {0} of {0}s">{{ {0}.label }}</mat-option>', field.fieldName) + os.EOL;
+                controls += format.setTabs(8) + format.formatText('</mat-select>') + os.EOL;
                 break;
         }
 

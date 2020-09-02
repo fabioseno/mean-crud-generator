@@ -1,0 +1,148 @@
+{
+	"server": {
+		"datasource": "mysql",
+		"namingConvention": "underscore",
+		"model": {
+			"pluralName": "Parameters",
+			"name": "Parameter",
+			"schemaName": "parameterSchema",
+			"filename": "parameter.model.js"
+		},
+		"domain": {
+			"name": "parameterDomain",
+			"filename": "parameter.domain.js"
+		},
+		"controller": {
+			"name": "parameterController",
+			"filename": "parameter.controller.js"
+		},
+		"middleware": {
+			"name": "parameterMiddleware",
+			"filename": "parameter.middleware.js"
+		},
+		"route": {
+			"filename": "parameter.route.js"
+		}
+	},
+	"fields": [
+		{
+			"fieldOrder": 1,
+			"dataType": "String",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "id",
+			"fieldLabel": "id",
+			"maxlength": 50,
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "text"
+		},
+		{
+			"fieldOrder": 2,
+			"dataType": "String",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "group",
+			"fieldLabel": "Grupo",
+			"maxlength": 30,
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "dropdown",
+			"searchField": true
+		},
+		{
+			"fieldOrder": 3,
+			"dataType": "String",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "Label",
+			"fieldLabel": "label",
+			"maxlength": 30,
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "text",
+			"unique": false,
+			"searchField": true
+		},
+		{
+			"fieldOrder": 4,
+			"dataType": "String",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "description",
+			"fieldLabel": "Descrição",
+			"maxlength": 100,
+			"formRow": 2,
+			"formColSize": 12,
+			"controlType": "text"
+		},
+		{
+			"fieldOrder": 5,
+			"dataType": "String",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "value",
+			"fieldLabel": "value",
+			"maxlength": 50,
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "text"
+		},
+		{
+			"fieldOrder": 6,
+			"dataType": "String",
+			"listView": false,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "Tipo de dado",
+			"fieldLabel": "type",
+			"maxlength": 20,
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "dropdown"
+		},
+		{
+			"fieldOrder": 7,
+			"dataType": "Integer",
+			"listView": true,
+			"detailsView": true,
+			"updateField": true,
+			"required": true,
+			"fieldName": "order",
+			"fieldLabel": "Ordem",
+			"formRow": 1,
+			"formColSize": 3,
+			"controlType": "tel",
+			"sortField": true
+		}
+	],
+	"entityName": "parameter",
+	"entityTitle": "Parâmetro",
+	"entityPluralName": "parameters",
+	"web": {
+		"pages": {
+			"listViewHtmlPageFilename": "parameters.component.html",
+			"listViewCodePageFilename": "parameters.component.ts",
+			"listViewCodePageControllerName": "parameters",
+			"listViewStylePageFilename": "parameters.component.scss",
+			"detailsViewHtmlPageFilename": "parameter.component.html",
+			"detailsViewCodePageFilename": "parameter.component.ts",
+			"detailsViewCodePageControllerName": "parameter",
+			"detailsViewStylePageFilename": "parameter.component.scss",
+			"listViewPageTitle": "Parâmetros",
+			"detailsViewPageTitle": "Parâmetro"
+		}
+	},
+	"entityPluralTitle": "Parâmetros"
+}
